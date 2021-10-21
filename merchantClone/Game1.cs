@@ -7,6 +7,8 @@ using Microsoft.Xna.Framework.Input.Touch;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO.IsolatedStorage;
+using System.Text;
 
 namespace merchantClone
 {
@@ -14,12 +16,10 @@ namespace merchantClone
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-
         private State _currentState;
         private State _nextState;
         private int _count;
         private List<Component> _components;
-
 
         public void ChangeState(State state)
         {
