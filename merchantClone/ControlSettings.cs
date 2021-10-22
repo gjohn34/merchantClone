@@ -1,16 +1,7 @@
-﻿using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input.Touch;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using static merchantClone.SaveFile;
 
 namespace merchantClone
 {
@@ -21,6 +12,8 @@ namespace merchantClone
 
         ControlSettings()
         {
+            // TODO Move save from control settings to save file and make singleton
+            _saveGame = Load();
         }
 
         public static ControlSettings Instance
@@ -40,6 +33,7 @@ namespace merchantClone
         private static Rectangle _touchRectangle;
         private static TouchLocation _currentTouch;
         private static TouchLocation _lastTouch;
+        private static SaveGame _saveGame;
         public static void UpdateTouch(Rectangle touchRectangle, TouchLocation currentTouch)
         {
             _touchRectangle = touchRectangle;
@@ -59,5 +53,8 @@ namespace merchantClone
         {
             return _lastTouch;
         }
+
+
+
     }
 }

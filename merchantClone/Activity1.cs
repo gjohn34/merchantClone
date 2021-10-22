@@ -3,6 +3,7 @@ using Android.Content.PM;
 using Android.OS;
 using Android.Views;
 using Microsoft.Xna.Framework;
+using static merchantClone.SaveFile;
 
 namespace merchantClone
 {
@@ -26,7 +27,6 @@ namespace merchantClone
 
             _game = new Game1();
             _view = _game.Services.GetService(typeof(View)) as View;
-
             SetContentView(_view);
             _game.Run();
         }

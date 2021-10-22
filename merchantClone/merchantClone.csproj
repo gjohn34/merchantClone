@@ -61,9 +61,11 @@
     <Compile Include="Component.cs" />
     <Compile Include="ControlSettings.cs" />
     <Compile Include="Controls\Button.cs" />
+    <Compile Include="Controls\DynamicLabel.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SaveFile.cs" />
     <Compile Include="States\CraftingMenuState.cs" />
     <Compile Include="States\HeroesMenuState.cs" />
     <Compile Include="States\MainMenuState.cs" />

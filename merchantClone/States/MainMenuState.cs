@@ -8,33 +8,21 @@ using System.Diagnostics;
 using System.IO.IsolatedStorage;
 using System.Xml.Serialization;
 using System.IO;
+using static merchantClone.SaveFile;
 
 namespace merchantClone.States
 {
-    /// <summary>
-    /// int gold
-    /// string playerName
-    /// List<string> heroNames
-    /// </summary>
-    [Serializable]
-    public struct SaveGame
-    {
-        public int gold;
-        public string playerName;
-        public List<string> heroNames;
-    }
-
     public class MainMenuState : State
     {
         private List<Component> _components;
-        private Button _goldLabel;
-        SaveGame SaveData = new SaveGame()
-        {
-            gold = 1,
-            playerName = "john",
-        };
+        private List<DynamicLabel> _labels;
+        private SaveGame _saveData;
+        // TODO - Move load into game1, pass gold around
+
+
         public MainMenuState(Game1 game, GraphicsDevice graphicsDevice, ContentManager content) : base(game, graphicsDevice, content)
         {
+            _saveData = Instance.GetSave();
             Texture2D buttonTexture = content.Load<Texture2D>("controls/button_background");
             SpriteFont buttonFont = content.Load<SpriteFont>("Fonts/font");
             Button craftingButton = new Button(buttonTexture, buttonFont)
@@ -53,91 +41,47 @@ namespace merchantClone.States
                 Position = new Vector2(viewport.Width - buttonTexture.Width, viewport.Height - buttonTexture.Height),
                 Text = "SAVE"
             };
-            Button loadButton = new Button(buttonTexture, buttonFont)
-            {
-                Position = new Vector2(viewport.Width - (buttonTexture.Width * 2), viewport.Height - buttonTexture.Height),
-                Text = "LOAD"
-            };
-            Button deleteButton = new Button(buttonTexture, buttonFont)
+            Button goldButton = new Button(buttonTexture, buttonFont)
             {
                 Position = new Vector2(viewport.Width - (buttonTexture.Width * 3), viewport.Height - buttonTexture.Height),
-                Text = "DELETE"
+                Text = "Add Gold"
             };
-            _goldLabel = new Button(buttonTexture, buttonFont)
+            DynamicLabel goldLabel = new DynamicLabel(buttonTexture, buttonFont, _saveData.gold.ToString(), DataValue.Gold)
             {
-                Position = new Vector2(0, 0),
-                Text = 0.ToString()
+                Position = new Vector2((viewport.Width / 2) - (buttonTexture.Width / 2)),
+                Text = _saveData.gold.ToString()
             };
 
             craftingButton.Touch += CraftingButton_Click;
             heroesButton.Touch += HeroesButton_Click;
             saveButton.Touch += SaveButton_Click;
-            loadButton.Touch += LoadButton_Click;
-            deleteButton.Touch += DeleteButton_Click;
+            goldButton.Touch += GoldButton_Click;
 
             _components = new List<Component>
             {
                 craftingButton,
                 heroesButton,
                 saveButton,
-                loadButton,
-                deleteButton,
-                _goldLabel,
+                goldButton,
+            };
+            _labels = new List<DynamicLabel>
+            {
+                goldLabel
             };
         }
 
-        private void DeleteButton_Click(object sender, EventArgs e)
+        private void GoldButton_Click(object sender, EventArgs e)
         {
-            var dataFile = IsolatedStorageFile.GetStore(IsolatedStorageScope.User, null, null);
-            if (dataFile.FileExists("file.sav"))
+            _saveData.gold += 1;
+            foreach (DynamicLabel label in _labels)
             {
-                dataFile.DeleteFile("file.sav");
+                label.Changed = true;
             }
-            dataFile.Close();
-            dataFile.Dispose();
-        }
-        private void LoadButton_Click(object sender, EventArgs e)
-        {
-            var dataFile = IsolatedStorageFile.GetStore(IsolatedStorageScope.User, null, null);
-            XmlSerializer serializer = new XmlSerializer(typeof(SaveGame));
-            IsolatedStorageFileStream isolatedFileStream;
-            if (!dataFile.FileExists("file.sav"))
-            {
-                Debug.WriteLine("File not found - start new game");
-                return;
-            }
-            using (isolatedFileStream = dataFile.OpenFile("file.sav", FileMode.Open, FileAccess.ReadWrite))
-            {
-                // Store the deserialized data object.
-                SaveGame SaveData = (SaveGame)serializer.Deserialize(isolatedFileStream);
-
-                //Extract the save data
-                _goldLabel.Text = SaveData.gold.ToString();
-                //Loop through SaveData.ownedSoccerBalls and use the wrapper data to recreate the player's ownedSoccerBalls
-            }
-            dataFile.Close();
-            isolatedFileStream.Close();
+            SaveFile.UpdateSaveData(_saveData);
         }
         private void SaveButton_Click(object sender, EventArgs e)
         {
-            var dataFile = IsolatedStorageFile.GetStore(IsolatedStorageScope.User, null, null);
-            XmlSerializer serializer = new XmlSerializer(typeof(SaveGame));
-            IsolatedStorageFileStream isolatedFileStream;
-            if (dataFile.FileExists("file.sav"))
-            {
-                Debug.WriteLine("File found - deleting it");
-                dataFile.DeleteFile("file.sav");
-            }
-            using (isolatedFileStream = dataFile.CreateFile("file.sav"))
-            {
-                isolatedFileStream.Seek(0, SeekOrigin.Begin);
-
-                serializer.Serialize(isolatedFileStream, SaveData);
-
-                isolatedFileStream.SetLength(isolatedFileStream.Position);
-            }
-            dataFile.Close();
-            isolatedFileStream.Dispose();
+            SaveFile.Save();
         }
         private void CraftingButton_Click(object sender, EventArgs e)
         {
@@ -149,6 +93,9 @@ namespace merchantClone.States
         }
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
+            //_goldLabel.Draw(gameTime, spriteBatch);
+            foreach (DynamicLabel label in _labels)
+                label.Draw(gameTime, spriteBatch);
             foreach (Component component in _components)
                 component.Draw(gameTime, spriteBatch);
         }
@@ -160,6 +107,9 @@ namespace merchantClone.States
 
         public override void Update(GameTime gameTime)
         {
+            //_goldLabel.Text = _saveData.gold.ToString();
+            foreach (DynamicLabel label in _labels)
+                label.Update(gameTime);
             foreach (Component component in _components)
                 component.Update(gameTime);
         }

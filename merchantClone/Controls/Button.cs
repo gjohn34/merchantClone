@@ -13,18 +13,16 @@ namespace merchantClone.Controls
     public class Button : Component
     {
         #region Fields
-        public int Id { get; set; }
-        public Rectangle TouchArea { get; set; }
-
         private TouchLocation _currentTouch;
         private TouchLocation _previousTouch;
         private bool _isPressed;
-        
         private SpriteFont _font;
         private Texture2D _texture;
         #endregion
 
         #region Properties
+        public int Id { get; set; }
+        public Rectangle TouchArea { get; set; }
         public event EventHandler Touch;
 
         public bool Clicked { get; private set; }

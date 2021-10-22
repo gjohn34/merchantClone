@@ -41,7 +41,6 @@ namespace merchantClone.States
         }
 
         public abstract void Update(GameTime gameTime);
-
         #endregion
     }
 }

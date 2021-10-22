@@ -9,17 +9,17 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO.IsolatedStorage;
 using System.Text;
+using static merchantClone.SaveFile;
 
 namespace merchantClone
 {
     public class Game1 : Game
     {
+        private SaveGame _saveFile = SaveFile.Instance.GetSave();
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private State _currentState;
         private State _nextState;
-        private int _count;
-        private List<Component> _components;
 
         public void ChangeState(State state)
         {
@@ -28,8 +28,7 @@ namespace merchantClone
 
         public Game1()
         {
-
-        _graphics = new GraphicsDeviceManager(this);
+            _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
         }
@@ -37,19 +36,16 @@ namespace merchantClone
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
+            //ControlSettings.UpdateSave(SaveFile.Load());
             _currentState = new MainMenuState(this, GraphicsDevice, Content);
-
             // TODO: use this.Content to load your game content here
         }
-
-
 
         protected override void Update(GameTime gameTime)
         {
@@ -73,7 +69,6 @@ namespace merchantClone
             _currentState.Update(gameTime);
             //_currentState.PostUpdate(gameTime);
             // TODO: Add your update logic here
-
             base.Update(gameTime);
         }
 
