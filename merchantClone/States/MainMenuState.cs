@@ -23,7 +23,7 @@ namespace merchantClone.States
         public MainMenuState(Game1 game, GraphicsDevice graphicsDevice, ContentManager content) : base(game, graphicsDevice, content)
         {
             _saveData = Instance.GetSave();
-            Texture2D buttonTexture = content.Load<Texture2D>("controls/button_background");
+            Texture2D buttonTexture = content.Load<Texture2D>("controls/button_background2");
             SpriteFont buttonFont = content.Load<SpriteFont>("Fonts/font");
             Button craftingButton = new Button(buttonTexture, buttonFont)
             {

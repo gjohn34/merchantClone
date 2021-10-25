@@ -1,44 +1,43 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System.ComponentModel;
-using static merchantClone.SaveFile;
 
 namespace merchantClone.Controls
 {
-    public enum DataValue
-    {
-        Gold,
-        Hero
-    }
-    public class DynamicLabel : Component, ILabel
+    public class StaticLabel : Component, ILabel
     {
         #region Fields
         private SpriteFont _font;
         private Texture2D _texture;
         private Color _penColour = Color.Black;
-        private DataValue _type;
+        private Rectangle _rectangle;
         #endregion
 
         #region Properties
         public string Text { get; set; }
-        public bool Changed { get; set; } = false;
         public Vector2 Position { get; set; }
         public Rectangle Rectangle
         {
             get
             {
+                if (_rectangle != null)
+                {
+                    return _rectangle;
+                }
                 return new Rectangle((int)Position.X, (int)Position.Y, _texture.Width, _texture.Height);
+            }
+            set
+            {
+                _rectangle = value;
             }
         }
         #endregion
 
         #region Methods
-        public DynamicLabel(Texture2D texture, SpriteFont font, string text, DataValue type)
+        public StaticLabel(Texture2D texture, SpriteFont font, string text)
         {
             _texture = texture;
             _font = font;
             Text = text;
-            _type = type;
         }
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
@@ -54,26 +53,7 @@ namespace merchantClone.Controls
 
         public override void Update(GameTime gameTime)
         {
-            if (Changed == true)
-            {
-                Changed = false; 
-                SaveGame saveGame = SaveFile.Instance.GetSave();
-                switch (_type)
-                {
-                    case DataValue.Gold:
-                        Text = saveGame.gold.ToString();
-                        break;
-                    case DataValue.Hero:
-                        Text = "not implemented";
-                        break;
-                    default:
-                        break;
-                }
-
-            }
         }
-
-
         #endregion
     }
 }

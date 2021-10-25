@@ -34,7 +34,7 @@ namespace merchantClone.States
 
             var backButton = new Button(buttonTexture, buttonFont)
             {
-                Position = new Vector2(300, 300),
+                Position = new Vector2(0, graphics.Viewport.Y),
                 Text = "Back"
             };
 

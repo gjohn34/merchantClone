@@ -43,7 +43,7 @@ namespace merchantClone
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             //ControlSettings.UpdateSave(SaveFile.Load());
-            _currentState = new MainMenuState(this, GraphicsDevice, Content);
+            _currentState = new CraftingMenuState(this, GraphicsDevice, Content);
             // TODO: use this.Content to load your game content here
         }
 

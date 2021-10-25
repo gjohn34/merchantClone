@@ -1,16 +1,12 @@
-﻿using Android.App;
-using Android.Content;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
 using System;
-using System.Diagnostics;
 
 
 namespace merchantClone.Controls
 {
-    public class Button : Component
+    public class Button : Component, ILabel
     {
         #region Fields
         private TouchLocation _currentTouch;
