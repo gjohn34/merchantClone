@@ -68,13 +68,20 @@ namespace merchantClone
             {
                 Debug.WriteLine("File not found - start new game");
             }
-            using (_isolatedFileStream = _dataFile.OpenFile("file.sav", FileMode.Open, FileAccess.ReadWrite))
+            try
             {
-                saveData = (SaveGame)serializer.Deserialize(_isolatedFileStream);
-                // Loop through nested Lists
+                using (_isolatedFileStream = _dataFile.OpenFile("file.sav", FileMode.Open, FileAccess.ReadWrite))
+                {
+                    saveData = (SaveGame)serializer.Deserialize(_isolatedFileStream);
+                    // Loop through nested Lists
+                    _dataFile.Close();
+                    _isolatedFileStream.Close();
+                }
+            } catch
+            {
+                saveData.gold = 100;
+                saveData.playerName = "new player";
             }
-            _dataFile.Close();
-            _isolatedFileStream.Close();
             return saveData;
         }
 

@@ -52,10 +52,6 @@ namespace merchantClone.Models
 
             }
         }
-        public static int GeneratePosition(List<Person> list, int margin, int rowHeight)
-        {
-            return list.Count * (rowHeight + margin) + margin; 
-        }
         #endregion
     }
 }

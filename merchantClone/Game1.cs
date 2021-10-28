@@ -26,11 +26,13 @@ namespace merchantClone
             _nextState = state;
         }
 
-        public Game1()
+        public Game1(int height, int width)
         {
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
+            _graphics.PreferredBackBufferHeight = height;
+            _graphics.PreferredBackBufferWidth = width;
         }
 
         protected override void Initialize()
@@ -76,11 +78,9 @@ namespace merchantClone
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            _spriteBatch.Begin();
             // TODO: Add your drawing code here
 
             _currentState.Draw(gameTime, _spriteBatch);
-            _spriteBatch.End();
             //_currentState.Draw(gameTime, _spriteBatch);
 
             base.Draw(gameTime);

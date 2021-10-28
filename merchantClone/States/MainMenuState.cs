@@ -17,6 +17,7 @@ namespace merchantClone.States
         private List<Component> _components;
         private List<DynamicLabel> _labels;
         private SaveGame _saveData;
+        private Texture2D _texture;
         // TODO - Move load into game1, pass gold around
 
 
@@ -24,10 +25,11 @@ namespace merchantClone.States
         {
             _saveData = Instance.GetSave();
             Texture2D buttonTexture = content.Load<Texture2D>("controls/button_background2");
+            _texture = content.Load<Texture2D>("controls/button_background2");
             SpriteFont buttonFont = content.Load<SpriteFont>("Fonts/font");
             Button craftingButton = new Button(buttonTexture, buttonFont)
             {
-                Position = new Vector2(300, 300),
+                Position = new Vector2(0, graphicsDevice.Viewport.Height-buttonTexture.Height),
                 Text = "crafting"
             };
             Button heroesButton = new Button(buttonTexture, buttonFont)
@@ -57,13 +59,20 @@ namespace merchantClone.States
             saveButton.Touch += SaveButton_Click;
             goldButton.Touch += GoldButton_Click;
 
+            StaticLabel title = new StaticLabel(buttonTexture, buttonFont, "Main")
+            {
+                Position = new Vector2(0, 0),
+                Rectangle = new Rectangle(0, 0, graphicsDevice.Viewport.Width, buttonTexture.Height)
+            };
             _components = new List<Component>
             {
                 craftingButton,
                 heroesButton,
                 saveButton,
                 goldButton,
+                title
             };
+
             _labels = new List<DynamicLabel>
             {
                 goldLabel
@@ -93,11 +102,21 @@ namespace merchantClone.States
         }
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            //_goldLabel.Draw(gameTime, spriteBatch);
+
+
+            ////_goldLabel.Draw(gameTime, spriteBatch);
+            //_graphicsDevice.SetRenderTarget(_renderTarget);
+            //_graphicsDevice.Clear(Color.Transparent);
+            //spriteBatch.Draw(_texture, new Rectangle(0,0, _graphicsDevice.Viewport.Width, _texture.Height), Color.White);
+            // render the result to the backbuffer
+
             foreach (DynamicLabel label in _labels)
                 label.Draw(gameTime, spriteBatch);
             foreach (Component component in _components)
                 component.Draw(gameTime, spriteBatch);
+
+            //_graphicsDevice.SetRenderTarget(null);
+            //_graphicsDevice.Clear(Color.CornflowerBlue);
         }
 
         public override void PostUpdate(GameTime gameTime)

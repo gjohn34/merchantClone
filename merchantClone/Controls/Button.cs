@@ -18,7 +18,6 @@ namespace merchantClone.Controls
 
         #region Properties
         public int Id { get; set; }
-        public Rectangle TouchArea { get; set; }
         public event EventHandler Touch;
 
         public bool Clicked { get; private set; }
@@ -26,6 +25,14 @@ namespace merchantClone.Controls
         public Color PenColour { get; set; }
 
         public Vector2 Position { get; set; }
+
+        private Rectangle _touchRectangle;
+
+        public Rectangle TouchRectangle
+        {
+            get { return _touchRectangle; }
+            set { _touchRectangle = value; }
+        }
 
         public Rectangle Rectangle
         {
@@ -48,7 +55,6 @@ namespace merchantClone.Controls
 
         public override void Draw(GameTime gametime, SpriteBatch spriteBatch)
         {
-
             var colour = Color.White;
             if (_isPressed)
             {
@@ -71,7 +77,8 @@ namespace merchantClone.Controls
             _previousTouch = _currentTouch;
             _isPressed = false;
             _currentTouch = ControlSettings.GetTouchLocation();
-            if (ControlSettings.GetTouchRectangle().Intersects(Rectangle))
+            Rectangle rect = ControlSettings.GetTouchRectangle();
+            if (rect.Intersects(TouchRectangle))
             {
                 _isPressed = true;
                 if (

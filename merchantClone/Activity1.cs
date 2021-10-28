@@ -25,7 +25,11 @@ namespace merchantClone
         {
             base.OnCreate(bundle);
 
-            _game = new Game1();
+            var rectSize = new Android.Graphics.Rect();
+            WindowManager.DefaultDisplay.GetRectSize(rectSize);
+
+
+            _game = new Game1(rectSize.Height(), rectSize.Width());
             _view = _game.Services.GetService(typeof(View)) as View;
             SetContentView(_view);
             _game.Run();
