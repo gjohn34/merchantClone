@@ -25,22 +25,32 @@ namespace merchantClone.Controls
         public Color PenColour { get; set; }
 
         public Vector2 Position { get; set; }
-
         private Rectangle _touchRectangle;
 
         public Rectangle TouchRectangle
         {
-            get { return _touchRectangle; }
-            set { _touchRectangle = value; }
-        }
+            get 
+            { 
+                if (_touchRectangle.IsEmpty)
+                {
+                    _touchRectangle = Rectangle;
+                }
+                return _touchRectangle; 
+            }
+            set
+            {
+                _touchRectangle = value;
+                //_touchRectangle = new Rectangle(value.X, value.Y + _texture.Height, value.Width, value.Height);
+            }
 
+        }
         public Rectangle Rectangle
         {
             get
             {
                 return new Rectangle((int)Position.X, (int)Position.Y, _texture.Width, _texture.Height);
             }
-        }
+        }   
 
         public string Text { get; set; }
         #endregion
@@ -88,6 +98,11 @@ namespace merchantClone.Controls
                     Touch?.Invoke(this, new EventArgs());
                 }
             }
+        }
+
+        public override void UpdatePosition(GameTime gametime, Vector2 position)
+        {
+            Position = position;
         }
         #endregion
 

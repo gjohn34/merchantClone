@@ -17,7 +17,6 @@ namespace merchantClone.States
         private List<Component> _components;
         private List<DynamicLabel> _labels;
         private SaveGame _saveData;
-        private Texture2D _texture;
         // TODO - Move load into game1, pass gold around
 
 
@@ -25,7 +24,6 @@ namespace merchantClone.States
         {
             _saveData = Instance.GetSave();
             Texture2D buttonTexture = content.Load<Texture2D>("controls/button_background2");
-            _texture = content.Load<Texture2D>("controls/button_background2");
             SpriteFont buttonFont = content.Load<SpriteFont>("Fonts/font");
             Button craftingButton = new Button(buttonTexture, buttonFont)
             {
@@ -109,11 +107,12 @@ namespace merchantClone.States
             //_graphicsDevice.Clear(Color.Transparent);
             //spriteBatch.Draw(_texture, new Rectangle(0,0, _graphicsDevice.Viewport.Width, _texture.Height), Color.White);
             // render the result to the backbuffer
-
+            spriteBatch.Begin();
             foreach (DynamicLabel label in _labels)
                 label.Draw(gameTime, spriteBatch);
             foreach (Component component in _components)
                 component.Draw(gameTime, spriteBatch);
+            spriteBatch.End();
 
             //_graphicsDevice.SetRenderTarget(null);
             //_graphicsDevice.Clear(Color.CornflowerBlue);

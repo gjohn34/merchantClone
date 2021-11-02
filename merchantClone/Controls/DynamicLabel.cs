@@ -72,7 +72,10 @@ namespace merchantClone.Controls
 
             }
         }
-
+        public override void UpdatePosition(GameTime gametime, Vector2 position)
+        {
+            Position = position;
+        }
 
         #endregion
     }

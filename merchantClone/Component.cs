@@ -17,5 +17,6 @@ namespace merchantClone
     {
         public abstract void Draw(GameTime gameTime, SpriteBatch spriteBatch);
         public abstract void Update(GameTime gameTime);
+        public abstract void UpdatePosition(GameTime gametime, Vector2 position);
     }
 }
