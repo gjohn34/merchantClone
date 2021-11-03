@@ -103,6 +103,7 @@ namespace merchantClone.Controls
         public override void UpdatePosition(GameTime gametime, Vector2 position)
         {
             Position = position;
+            TouchRectangle = new Rectangle((int)position.X, (int)position.Y + _texture.Height, _texture.Height, _texture.Width);
         }
         #endregion
 

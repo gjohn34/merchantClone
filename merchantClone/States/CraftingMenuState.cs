@@ -12,6 +12,12 @@ namespace merchantClone.States
 {
     public class ScrollPane : Component
     {
+        enum SnapTo
+        {
+            Top,
+            None,
+            Bottom
+        };
         #region Fields
         private GraphicsDevice _graphics;
         private Vector2 _position;
@@ -21,17 +27,16 @@ namespace merchantClone.States
         private TouchLocation _currentTouch;
         private Matrix _transform;
         private Texture2D _rect;
-        private int _compHeight;
+        private int _rowHeight;
         private Texture2D _comp;
         private Button _button;
-        private int _count;
+        private SnapTo _snapTo = SnapTo.Top;
         #endregion
         #region Properties
         public List<ComponentGroup> ComponentGroups;
         #endregion
         public ScrollPane(Game game, List<ComponentGroup> components, Button button, Rectangle rectangle, Texture2D texture)
         {
-            _count = 0;
             _graphics = game.GraphicsDevice;
             ComponentGroups = components;
             _rectangle = rectangle;
@@ -51,9 +56,9 @@ namespace merchantClone.States
             // TODO - Move this to ComponentGroup construfctor
 
 
-            _compHeight = 200;
-            _comp = new Texture2D(_graphics, _rectangle.Width, _compHeight);
-            Color[] compData = new Color[_rectangle.Width * _compHeight];
+            _rowHeight = 200;
+            _comp = new Texture2D(_graphics, _rectangle.Width, _rowHeight);
+            Color[] compData = new Color[_rectangle.Width * _rowHeight];
             for (int i = 0; i < compData.Length; ++i)
             {
                 compData[i] = Color.Red;
@@ -82,14 +87,10 @@ namespace merchantClone.States
             foreach (ComponentGroup componentGroup in ComponentGroups)
             {
                 // TODO - Move into compGroup#draw
-                spriteBatch.Draw(_comp, new Rectangle((int)_position.X, (int)_position.Y + (ComponentGroups.IndexOf(componentGroup) * (_compHeight + margin)), _rectangle.Width, _compHeight), Color.White);
+                spriteBatch.Draw(_comp, componentGroup.Rectangle, Color.White);
                 componentGroup.Draw(gameTime, spriteBatch);
             }
             _button.Draw(gameTime, spriteBatch);
-            //foreach (Texture2D square in _squares)
-            //{
-            //    spriteBatch.Draw(square, new Rectangle((int)_position.X, (int)_position.Y + (_squares.IndexOf(square) * (height + margin)), _graphics.Viewport.Width, height), Color.White);
-            //}
 
 
             spriteBatch.End();
@@ -98,21 +99,56 @@ namespace merchantClone.States
 
         public override void Update(GameTime gameTime)
         {
-            _count += 1;
             _previousTouch = _currentTouch;
+            int margin = 50;
             _currentTouch = ControlSettings.GetTouchLocation();
             if (ControlSettings.GetTouchRectangle().Intersects(_rectangle)) {
                 if (_currentTouch.State == TouchLocationState.Released && (_previousTouch.State == TouchLocationState.Moved))
                 {
-                } else if (_currentTouch.State == TouchLocationState.Moved)
+                    int containerSize = _rectangle.Height;
+                    int rowsSize = (ComponentGroups.Count * (_rowHeight + margin));
+                    int y = 0;
+
+                    //if (containerSize > rowsSize)
+                    //{
+                    //    y = 0;
+                    //} else 
+                    if (containerSize < rowsSize)
+                    {
+                        int difference = rowsSize - containerSize;
+                        int scrollBy = (int)_position.Y + difference;
+                        if (scrollBy < 0) 
+                        {
+                            // scroll buffer passing the bottom
+                            _snapTo = SnapTo.Bottom;
+                            y = -difference - _rowHeight;
+                        } else
+                        {
+                            if (scrollBy < difference)
+                            {
+                                // scroll buffer between range
+                                _snapTo = SnapTo.None;
+                                y = (int)_position.Y;
+                            } else
+                            {
+                                // scroll buffer passing the top
+                                _snapTo = SnapTo.Top;
+                                y = 0;
+                            }
+                        }
+                    }
+                    _position.Y = y;
+                }
+                else if (_currentTouch.State == TouchLocationState.Moved)
                 {
                     // Updating the position of the _components based on how far the change in axis
-                    _position.Y += (int)_currentTouch.Position.Y - (int)_previousTouch.Position.Y; ;
+                    _position.Y += (int)_currentTouch.Position.Y - (int)_previousTouch.Position.Y;
+                    //if (_currentTouch.Position.Y > _previousTouch.Position.Y && )
                 }
             }
 
-            int newRowY = ComponentGroups.Count * (_compHeight + 50);
-            int margin = 50;
+
+            int newRowY = ComponentGroups.Count * (_rowHeight + 50);
 
             _button.Position = new Vector2(0, _position.Y + newRowY);
             _button.TouchRectangle = new Rectangle(0, (int)_position.Y + newRowY + _texture.Height, _texture.Width, _texture.Height);
@@ -122,10 +158,11 @@ namespace merchantClone.States
 
             foreach (ComponentGroup component in ComponentGroups)
             {
-                //component.Rectangle = new Rectangle((int)_position.X, (int)_position.Y + (ComponentGroups.IndexOf(component)), _rectangle.Width, _compHeight);
-                component.UpdatePosition(gameTime, new Vector2(0, (int)_position.Y + (ComponentGroups.IndexOf(component) * (_compHeight + margin))));
+                component.Rectangle = new Rectangle((int)_position.X, (int)_position.Y + (ComponentGroups.IndexOf(component) * (_rowHeight + margin)), _rectangle.Width, _rowHeight);
+                component.UpdatePosition(gameTime, new Vector2(component.Rectangle.X, component.Rectangle.Y));
                 component.Update(gameTime);
             }
+
         }
 
         public void AddToList(ComponentGroup component)
@@ -138,7 +175,11 @@ namespace merchantClone.States
             t.Add(component);
             ComponentGroups = t;
         }
-
+        private void FitToPane()
+        {
+            //int margin = 50;
+            //_position = new Vector2(0, (ComponentGroups.Count * (_compHeight + margin)) - (_scrollIndex * _position.Y));
+        }
         public override void UpdatePosition(GameTime gametime, Vector2 position)
         {
         }
