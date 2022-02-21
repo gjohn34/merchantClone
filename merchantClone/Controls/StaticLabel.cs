@@ -19,7 +19,7 @@ namespace merchantClone.Controls
         {
             get
             {
-                if (_rectangle != null)
+                if (!_rectangle.IsEmpty)
                 {
                     return _rectangle;
                 }

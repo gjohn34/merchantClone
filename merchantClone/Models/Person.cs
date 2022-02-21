@@ -4,6 +4,8 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using merchantClone.Controls;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,47 +13,50 @@ using System.Text;
 
 namespace merchantClone.Models
 {
-    public enum PersonType
-    {
-        Crafter,
-        Hero
-    }
-    public class Person
+    public abstract class Person : Role, IPerson
     {
         #region Fields
-        private PersonType _personType;
-        private string _name;
-        private int _currentExperience = 0;
-        private int _currentLevel;
-        
+        protected int _currentExperience = 0;
+        protected int _currentLevel = 1;
+        protected Job _currentJob;
+
         #nullable enable
         Job? _task = null;
         #nullable disable
-
-        const int maxLevel = 10;
         #endregion
 
         #region Properties
+        public int CurrentXp { get; set; } = 1;
+        public int TotalXp { get; set; } = 100;
+        public string Name { get; protected set; }
+        public Roles Job { get; protected set; }
+        public Role Role { get; set; }
+
         #endregion
 
         #region Methods
-        public Person(PersonType type, string name)
+        public int GetLevel()
         {
-            _personType = type;
-            _name = name;
+            return _currentLevel;
         }
-        public void FinishJob()
+        public void FinishTask()
         {
-            try
+            CurrentXp += 10;
+            if (CurrentXp >= TotalXp)
             {
-                _currentExperience += _task.ExperienceGain;
-                _task = null;
+                _currentLevel += 1;
+                CurrentXp -= TotalXp;
+                TotalXp = NextTotal();
+                UpdateJobsList();
+                SaveFile.Save();
             }
-            catch
-            {
+        }
 
-            }
+        private int NextTotal()
+        {
+            return 100;
         }
+        public abstract void UpdateJobsList();
         #endregion
     }
 }

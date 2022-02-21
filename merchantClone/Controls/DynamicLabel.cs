@@ -8,7 +8,8 @@ namespace merchantClone.Controls
     public enum DataValue
     {
         Gold,
-        Hero
+        Hero,
+        Exp
     }
     public class DynamicLabel : Component, ILabel
     {
@@ -65,6 +66,9 @@ namespace merchantClone.Controls
                         break;
                     case DataValue.Hero:
                         Text = "not implemented";
+                        break;
+                    case DataValue.Exp:
+                        Text = "0/100";
                         break;
                     default:
                         break;

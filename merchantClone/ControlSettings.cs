@@ -54,7 +54,5 @@ namespace merchantClone
             return _lastTouch;
         }
 
-
-
     }
 }

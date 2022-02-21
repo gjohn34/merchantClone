@@ -14,6 +14,7 @@ namespace merchantClone.Controls
         private bool _isPressed;
         private SpriteFont _font;
         private Texture2D _texture;
+        private int _tick;
         #endregion
 
         #region Properties
@@ -88,6 +89,7 @@ namespace merchantClone.Controls
             _isPressed = false;
             _currentTouch = ControlSettings.GetTouchLocation();
             Rectangle rect = ControlSettings.GetTouchRectangle();
+            
             if (rect.Intersects(TouchRectangle))
             {
                 _isPressed = true;

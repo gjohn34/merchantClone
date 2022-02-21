@@ -39,6 +39,7 @@
     <EnableLLVM>false</EnableLLVM>
     <AndroidEnableProfiledAot>false</AndroidEnableProfiledAot>
     <BundleAssemblies>false</BundleAssemblies>
+    <MandroidI18n />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -64,15 +65,21 @@
     <Compile Include="Controls\ComponentGroup.cs" />
     <Compile Include="Controls\DynamicLabel.cs" />
     <Compile Include="Controls\ILabel.cs" />
+    <Compile Include="Controls\ProgressBar.cs" />
     <Compile Include="Controls\StaticLabel.cs" />
     <Compile Include="Game1.cs" />
+    <Compile Include="Models\Crafter.cs" />
+    <Compile Include="Models\IPerson.cs" />
     <Compile Include="Models\Person.cs" />
     <Compile Include="Models\Job.cs" />
+    <Compile Include="Models\Recipe.cs" />
+    <Compile Include="Models\Role.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SaveFile.cs" />
     <Compile Include="States\CraftingMenuState.cs" />
     <Compile Include="States\HeroesMenuState.cs" />
+    <Compile Include="States\JobsState.cs" />
     <Compile Include="States\MainMenuState.cs" />
     <Compile Include="States\State.cs" />
   </ItemGroup>

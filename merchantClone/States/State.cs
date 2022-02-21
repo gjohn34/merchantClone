@@ -14,6 +14,12 @@ using System.Text;
 
 namespace merchantClone.States
 {
+    //public class StateManager
+    //{
+    //    public State _previous;
+    //    public State _current;
+    //    public State _next;
+    //}
     public abstract class State
     {
         #region Fields
@@ -22,6 +28,7 @@ namespace merchantClone.States
         protected GraphicsDevice _graphicsDevice;
 
         protected Game1 _game;
+        protected List<Component> _components;
 
         #endregion
 
@@ -39,6 +46,7 @@ namespace merchantClone.States
 
             _content = content;
         }
+
 
         public abstract void Update(GameTime gameTime);
         #endregion

@@ -11,11 +11,17 @@ using System.Text;
 
 namespace merchantClone.Models
 {
-    public abstract class Job
+    public class Recipe
     {
         public string Name { get; set; }
-        public DateTime FinishTime { get; set; }
-        public int ExperienceGain { get; set; }
-        public Person BelongsTo { get; }
+
+        public int RequiredLevel { get; set; }
+        public Roles BelongsTo { get; }
+        public Recipe(string name, int level, Roles belongsTo)
+        {
+            Name = name;
+            RequiredLevel = level;
+            BelongsTo = belongsTo;
+        }
     }
 }

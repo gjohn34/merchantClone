@@ -15,8 +15,19 @@ namespace merchantClone
 {
     public abstract class Component
     {
+        public Rectangle Rectangle;
         public abstract void Draw(GameTime gameTime, SpriteBatch spriteBatch);
         public abstract void Update(GameTime gameTime);
         public abstract void UpdatePosition(GameTime gametime, Vector2 position);
     }
+
+    public abstract class ComponentRow
+    {
+        public Rectangle Rectangle;
+        public abstract void Draw(GameTime gameTime, SpriteBatch spriteBatch);
+        public abstract void Update(GameTime gameTime);
+        public abstract void UpdatePosition(GameTime gametime, Vector2 position);
+
+    }
+
 }

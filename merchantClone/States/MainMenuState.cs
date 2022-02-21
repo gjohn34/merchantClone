@@ -14,7 +14,6 @@ namespace merchantClone.States
 {
     public class MainMenuState : State
     {
-        private List<Component> _components;
         private List<DynamicLabel> _labels;
         private SaveGame _saveData;
         // TODO - Move load into game1, pass gold around
