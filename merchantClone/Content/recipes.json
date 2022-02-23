@@ -1,0 +1,158 @@
+﻿[
+	{
+		"Id": 1,
+		"ItemId": 3,
+		"Name": "Iron Bar",
+		"RequiredLevel": 1,
+		"BelongsTo": "Blacksmith",
+		"RecipeItems": [
+			{
+				"Id": 1,
+				"Quantity": 2
+			}
+		]
+	},
+	{
+		"Id": 1,
+		"ItemId": 4,
+		"Name": "Iron Sheet",
+		"RequiredLevel": 1,
+		"BelongsTo": "Armorer",
+		"RecipeItems": [
+			{
+				"Id": 1,
+				"Quantity": 2
+			}
+		]
+	},
+	{
+		"Id": 3,
+		"ItemId": 5,
+		"Name": "Oak Lumber",
+		"RequiredLevel": 1,
+		"BelongsTo": "Carpenter",
+		"RecipeItems": [
+			{
+				"Id": 2,
+				"Quantity": 2
+			}
+		]
+	},
+	{
+		"Id": 4,
+		"ItemId": 6,
+		"Name": "Iron Dagger",
+		"RequiredLevel": 1,
+		"BelongsTo": "Blacksmith",
+		"RecipeItems": [
+			{
+				"Id": 3,
+				"Quantity": 2
+			}
+		]
+	},
+	{
+		"Id": 5,
+		"ItemId": 7,
+		"Name": "Iron Short Sword",
+		"RequiredLevel": 1,
+		"BelongsTo": "Blacksmith",
+		"RecipeItems": [
+			{
+				"Id": 3,
+				"Quantity": 2
+			}
+		]
+	},
+	{
+		"Id": 6,
+		"ItemId": 8,
+		"Name": "Iron Long Sword",
+		"RequiredLevel": 2,
+		"BelongsTo": "Blacksmith",
+		"RecipeItems": [
+			{
+				"Id": 3,
+				"Quantity": 3
+			}
+		]
+	},
+	{
+		"Id": 7,
+		"ItemId": 9,
+		"Name": "Iron Boots",
+		"RequiredLevel": 1,
+		"BelongsTo": "Armorer",
+		"RecipeItems": [
+			{
+				"Id": 4,
+				"Quantity": 2
+			}
+		]
+	},
+	{
+		"Id": 8,
+		"ItemId": 10,
+		"Name": "Iron Gloves",
+		"RequiredLevel": 1,
+		"BelongsTo": "Armorer",
+		"RecipeItems": [
+			{
+				"Id": 4,
+				"Quantity": 2
+			}
+		]
+	},
+	{
+		"Id": 9,
+		"ItemId": 11,
+		"Name": "Iron Helmet",
+		"RequiredLevel": 2,
+		"BelongsTo": "Armorer",
+		"RecipeItems": [
+			{
+				"Id": 4,
+				"Quantity": 3
+			}
+		]
+	},
+	{
+		"Id": 10,
+		"ItemId": 12,
+		"Name": "Oak Wand",
+		"RequiredLevel": 1,
+		"BelongsTo": "Carpenter",
+		"RecipeItems": [
+			{
+				"Id": 5,
+				"Quantity": 2
+			}
+		]
+	},
+	{
+		"Id": 11,
+		"ItemId": 13,
+		"Name": "Oak Staff",
+		"RequiredLevel": 1,
+		"BelongsTo": "Carpenter",
+		"RecipeItems": [
+			{
+				"Id": 5,
+				"Quantity": 2
+			}
+		]
+	},
+	{
+		"Id": 10,
+		"ItemId": 14,
+		"Name": "Oak Club",
+		"RequiredLevel": 3,
+		"BelongsTo": "Carpenter",
+		"RecipeItems": [
+			{
+				"Id": 5,
+				"Quantity": 3
+			}
+		]
+	}
+]

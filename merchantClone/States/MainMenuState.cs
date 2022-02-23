@@ -9,13 +9,14 @@ using System.IO.IsolatedStorage;
 using System.Xml.Serialization;
 using System.IO;
 using static merchantClone.SaveFile;
+using merchantClone.Models;
+using merchantClone.Data;
 
 namespace merchantClone.States
 {
     public class MainMenuState : State
     {
         private List<DynamicLabel> _labels;
-        private SaveGame _saveData;
         // TODO - Move load into game1, pass gold around
 
 
@@ -45,6 +46,11 @@ namespace merchantClone.States
                 Position = new Vector2(viewport.Width - (buttonTexture.Width * 3), viewport.Height - buttonTexture.Height),
                 Text = "Add Gold"
             };
+            Button resetButton = new Button(buttonTexture, buttonFont)
+            {
+                Position = new Vector2(viewport.Width - (buttonTexture.Width * 2), viewport.Height - buttonTexture.Height),
+                Text = "reset"
+            };
             DynamicLabel goldLabel = new DynamicLabel(buttonTexture, buttonFont, _saveData.gold.ToString(), DataValue.Gold)
             {
                 Position = new Vector2((viewport.Width / 2) - (buttonTexture.Width / 2)),
@@ -55,6 +61,7 @@ namespace merchantClone.States
             heroesButton.Touch += HeroesButton_Click;
             saveButton.Touch += SaveButton_Click;
             goldButton.Touch += GoldButton_Click;
+            resetButton.Touch += ResetButton_Click;
 
             StaticLabel title = new StaticLabel(buttonTexture, buttonFont, "Main")
             {
@@ -67,6 +74,7 @@ namespace merchantClone.States
                 heroesButton,
                 saveButton,
                 goldButton,
+                resetButton,
                 title
             };
 
@@ -74,6 +82,8 @@ namespace merchantClone.States
             {
                 goldLabel
             };
+
+
         }
 
         private void GoldButton_Click(object sender, EventArgs e)
@@ -88,6 +98,10 @@ namespace merchantClone.States
         private void SaveButton_Click(object sender, EventArgs e)
         {
             SaveFile.Save();
+        }
+        private void ResetButton_Click(object sender, EventArgs e)
+        {
+            SaveFile.Reset();
         }
         private void CraftingButton_Click(object sender, EventArgs e)
         {

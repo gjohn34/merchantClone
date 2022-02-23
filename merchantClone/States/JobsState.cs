@@ -28,7 +28,7 @@ namespace merchantClone.States
             _deviceWidth = graphics.Viewport.Width;
             _person = person;
 
-            StaticLabel title = new StaticLabel(_texture, _font, person.Name + " the " + person.Job + person.GetLevel().ToString())
+            StaticLabel title = new StaticLabel(_texture, _font, person.Name + " the " + person.Job + person.Level.ToString())
             {
                 Position = new Vector2(0, 0),
                 Rectangle = new Rectangle(0, 0, graphics.Viewport.Width, _texture.Height)
@@ -92,12 +92,9 @@ namespace merchantClone.States
             
             spriteBatch.End();
         }
-
-
         public override void PostUpdate(GameTime gameTime)
         {
         }
-
         public override void Update(GameTime gameTime)
         {
             foreach (ComponentRow componentGroup in _scrollComponents)

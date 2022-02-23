@@ -10,6 +10,7 @@
 
 #-------------------------------- References --------------------------------#
 
+/reference:..\..\..\..\..\.nuget\packages\monogame.extended.content.pipeline\3.8.0\tools\MonoGame.Extended.Content.Pipeline.dll
 
 #---------------------------------- Content ---------------------------------#
 
@@ -43,4 +44,16 @@
 /processorParam:PremultiplyAlpha=True
 /processorParam:TextureFormat=Compressed
 /build:Fonts/font.spritefont
+
+#begin items.json
+/importer:JsonContentImporter
+/processor:JsonContentProcessor
+/processorParam:ContentType=merchantClone.Data.ItemReader, merchantClone
+/build:items.json
+
+#begin recipes.json
+/importer:JsonContentImporter
+/processor:JsonContentProcessor
+/processorParam:ContentType=merchantClone.Data.RecipeReader, merchantClone
+/build:recipes.json
 

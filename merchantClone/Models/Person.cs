@@ -13,11 +13,11 @@ using System.Text;
 
 namespace merchantClone.Models
 {
-    public abstract class Person : Role, IPerson
+    [Serializable]
+    public abstract class Person : IPerson
     {
         #region Fields
         protected int _currentExperience = 0;
-        protected int _currentLevel = 1;
         protected Job _currentJob;
 
         #nullable enable
@@ -30,21 +30,17 @@ namespace merchantClone.Models
         public int TotalXp { get; set; } = 100;
         public string Name { get; protected set; }
         public Roles Job { get; protected set; }
-        public Role Role { get; set; }
+        public int Level { get; set; } = 1;
 
         #endregion
 
         #region Methods
-        public int GetLevel()
-        {
-            return _currentLevel;
-        }
         public void FinishTask()
         {
             CurrentXp += 10;
             if (CurrentXp >= TotalXp)
             {
-                _currentLevel += 1;
+                Level += 1;
                 CurrentXp -= TotalXp;
                 TotalXp = NextTotal();
                 UpdateJobsList();

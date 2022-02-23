@@ -1,0 +1,58 @@
+﻿[
+	{
+		"Id": 1,
+		"Name": "Iron Ore"
+	},
+	{
+		"Id": 2,
+		"Name": "Oak Log"
+	},
+	{
+		"Id": 3,
+		"Name": "Iron Bar"
+	},
+	{
+		"Id": 4,
+		"Name": "Iron Sheet"
+	},
+	{
+		"Id": 5,
+		"Name": "Oak Lumber"
+	},
+	{
+		"Id": 6,
+		"Name": "Iron Dagger"
+	},
+	{
+		"Id": 7,
+		"Name": "Iron Short Sword"
+	},
+	{
+		"Id": 8,
+		"Name": "Iron Long Sword"
+	},
+	{
+		"Id": 9,
+		"Name": "Iron Boots"
+	},
+	{
+		"Id": 10,
+		"Name": "Iron Gloves"
+	},
+	{
+		"Id": 11,
+		"Name": "Iron Helmet"
+	},
+	{
+		"Id": 12,
+		"Name": "Oak Wand"
+	},
+	{
+		"Id": 12,
+		"Name": "Oak Staff"
+	},
+	{
+		"Id": 12,
+		"Name": "Oak Club"
+	}
+]

@@ -1,21 +1,22 @@
 ﻿using merchantClone.Controls;
+using merchantClone.Models;
 using merchantClone.States;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.IO.IsolatedStorage;
 using System.Text;
-using static merchantClone.SaveFile;
 
 namespace merchantClone
 {
     public class Game1 : Game
     {
-        private SaveGame _saveFile = SaveFile.Instance.GetSave();
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private State _currentState;
@@ -44,8 +45,13 @@ namespace merchantClone
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
+
+            List<Item> items = Content.Load<List<Item>>("items");
+            List<Recipe> recipes = Content.Load<List<Recipe>>("recipes");
+            ItemDetails.Instance.LoadContent(items, recipes);
+            //SaveFile.Instance.GetSave();
             //ControlSettings.UpdateSave(SaveFile.Load());
-            _currentState = new CraftingMenuState(this, GraphicsDevice, Content);
+            _currentState = new MainMenuState(this, GraphicsDevice, Content);
             // TODO: use this.Content to load your game content here
         }
 

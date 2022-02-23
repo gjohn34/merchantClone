@@ -1,4 +1,5 @@
-﻿using System;
+﻿using merchantClone.Models;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -18,6 +19,7 @@ namespace merchantClone
         {
             public int gold;
             public string playerName;
+            public List<Crafter> crafters;
         }
 
         SaveFile()
@@ -77,12 +79,31 @@ namespace merchantClone
                     _dataFile.Close();
                     _isolatedFileStream.Close();
                 }
+                    foreach (Crafter crafter in saveData.crafters)
+                {
+                    crafter.StartJobsList();
+
+                }
             } catch
             {
                 saveData.gold = 100;
                 saveData.playerName = "new player";
+                saveData.crafters = new List<Crafter>();
             }
             return saveData;
+        }
+
+        public static void Reset()
+        {
+            _dataFile = IsolatedStorageFile.GetStore(IsolatedStorageScope.User, null, null);
+            XmlSerializer serializer = new XmlSerializer(typeof(SaveGame));
+            if (_dataFile.FileExists("file.sav"))
+            {
+                Debug.WriteLine("File found - deleting it");
+                _dataFile.DeleteFile("file.sav");
+            }
+            _dataFile.Close();
+            _isolatedFileStream.Dispose();
         }
 
         public static void Save()

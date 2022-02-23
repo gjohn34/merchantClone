@@ -13,7 +13,7 @@ namespace merchantClone
         ControlSettings()
         {
             // TODO Move save from control settings to save file and make singleton
-            _saveGame = Load();
+            //_saveGame = Load();
         }
 
         public static ControlSettings Instance

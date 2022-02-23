@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using static merchantClone.SaveFile;
 
 namespace merchantClone.States
 {
@@ -29,6 +30,8 @@ namespace merchantClone.States
 
         protected Game1 _game;
         protected List<Component> _components;
+        protected SaveGame _saveData;
+
 
         #endregion
 
@@ -41,10 +44,9 @@ namespace merchantClone.States
         public State(Game1 game, GraphicsDevice graphicsDevice, ContentManager content)
         {
             _game = game;
-
             _graphicsDevice = graphicsDevice;
-
             _content = content;
+            _saveData = SaveFile.Instance.GetSave();
         }
 
 
