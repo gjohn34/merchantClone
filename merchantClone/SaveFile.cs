@@ -20,6 +20,7 @@ namespace merchantClone
             public int gold;
             public string playerName;
             public List<Crafter> crafters;
+            public List<InventoryItem> items;
         }
 
         SaveFile()
@@ -80,10 +81,9 @@ namespace merchantClone
                     _isolatedFileStream.Close();
                 }
                     foreach (Crafter crafter in saveData.crafters)
-                {
-                    crafter.StartJobsList();
+                       crafter.StartJobsList();
 
-                }
+                GameInfo.InitializeInventory(saveData.items);
             } catch
             {
                 saveData.gold = 100;

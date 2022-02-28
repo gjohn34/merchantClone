@@ -25,12 +25,12 @@ namespace merchantClone.States
     {
         #region Fields
         protected ContentManager _content;
-
         protected GraphicsDevice _graphicsDevice;
-
         protected Game1 _game;
         protected List<Component> _components;
         protected SaveGame _saveData;
+        protected Texture2D _buttonTexture;
+        protected SpriteFont _buttonFont;
 
 
         #endregion
@@ -47,6 +47,9 @@ namespace merchantClone.States
             _graphicsDevice = graphicsDevice;
             _content = content;
             _saveData = SaveFile.Instance.GetSave();
+
+            _buttonTexture = content.Load<Texture2D>("controls/button_background2");
+            _buttonFont = content.Load<SpriteFont>("Fonts/font");
         }
 
 

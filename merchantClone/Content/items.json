@@ -1,58 +1,72 @@
 ﻿[
 	{
 		"Id": 1,
-		"Name": "Iron Ore"
+		"Name": "Iron Ore",
+		"Stacks": true
 	},
 	{
 		"Id": 2,
-		"Name": "Oak Log"
+		"Name": "Oak Log",
+		"Stacks": true
 	},
 	{
 		"Id": 3,
-		"Name": "Iron Bar"
+		"Name": "Iron Bar",
+		"Stacks": true
 	},
 	{
 		"Id": 4,
-		"Name": "Iron Sheet"
+		"Name": "Iron Sheet",
+		"Stacks": true
 	},
 	{
 		"Id": 5,
-		"Name": "Oak Lumber"
+		"Name": "Oak Lumber",
+		"Stacks": true
 	},
 	{
 		"Id": 6,
-		"Name": "Iron Dagger"
+		"Name": "Iron Dagger",
+		"Stacks": false
 	},
 	{
 		"Id": 7,
-		"Name": "Iron Short Sword"
+		"Name": "Iron Short Sword",
+		"Stacks": false
 	},
 	{
 		"Id": 8,
-		"Name": "Iron Long Sword"
+		"Name": "Iron Long Sword",
+		"Stacks": false
 	},
 	{
 		"Id": 9,
-		"Name": "Iron Boots"
+		"Name": "Iron Boots",
+		"Stacks": false
 	},
 	{
 		"Id": 10,
-		"Name": "Iron Gloves"
+		"Name": "Iron Gloves",
+		"Stacks": false
 	},
 	{
 		"Id": 11,
-		"Name": "Iron Helmet"
+		"Name": "Iron Helmet",
+		"Stacks": false
 	},
 	{
 		"Id": 12,
-		"Name": "Oak Wand"
+		"Name": "Oak Wand",
+		"Stacks": false
 	},
 	{
 		"Id": 12,
-		"Name": "Oak Staff"
+		"Name": "Oak Staff",
+		"Stacks": false
 	},
 	{
 		"Id": 12,
-		"Name": "Oak Club"
+		"Name": "Oak Club",
+		"Stacks": false
 	}
 ]

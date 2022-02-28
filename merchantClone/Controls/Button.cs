@@ -20,11 +20,9 @@ namespace merchantClone.Controls
         #region Properties
         public int Id { get; set; }
         public event EventHandler Touch;
-
+        public bool Disabled;
         public bool Clicked { get; private set; }
-
         public Color PenColour { get; set; }
-
         public Vector2 Position { get; set; }
         private Rectangle _touchRectangle;
 
@@ -62,6 +60,7 @@ namespace merchantClone.Controls
             _texture = texture;
             _font = font;
             PenColour = Color.Black;
+            Disabled = false;
         }
 
         public override void Draw(GameTime gametime, SpriteBatch spriteBatch)
@@ -70,6 +69,10 @@ namespace merchantClone.Controls
             if (_isPressed)
             {
                 colour = Color.Gray;
+            }
+            if (Disabled)
+            {
+                colour = Color.Black;
             }
 
             spriteBatch.Draw(_texture, Rectangle, colour);
@@ -85,6 +88,7 @@ namespace merchantClone.Controls
 
         public override void Update(GameTime gameTime)
         {
+            if (Disabled) return;
             _previousTouch = _currentTouch;
             _isPressed = false;
             _currentTouch = ControlSettings.GetTouchLocation();

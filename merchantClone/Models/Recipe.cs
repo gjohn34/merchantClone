@@ -14,16 +14,52 @@ using System.Xml.Serialization;
 
 namespace merchantClone.Models
 {
-    public enum Items { 
-    }
     public class Item
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public bool Stacks { get; set; }
+    }
+
+    public class InventoryItem
+    {
+        private Item item;
+        public int Id { get; set; }
+        public Item Item
+        {
+            get
+            {
+                if (item != null)
+                {
+                    return item;
+                }
+                else
+                {
+                    item = ItemDetails.GetItem(Id);
+                    return item;
+                }
+            }
+        }
+        public int Quantity { get; set; }
     }
     public class RecipeItem
     {
+        private Item item;
         public int Id { get; set; }
+        public Item Item
+        {
+            get
+            {
+                if (item != null)
+                {
+                    return item;
+                } else
+                {
+                    item = ItemDetails.GetItem(Id);
+                    return item;
+                }
+            }
+        }
         public int Quantity { get; set; }
     }
     public class Recipe

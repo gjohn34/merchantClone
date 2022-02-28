@@ -51,7 +51,8 @@ namespace merchantClone
             ItemDetails.Instance.LoadContent(items, recipes);
             //SaveFile.Instance.GetSave();
             //ControlSettings.UpdateSave(SaveFile.Load());
-            _currentState = new MainMenuState(this, GraphicsDevice, Content);
+            _currentState = new CraftingMenuState(this, GraphicsDevice, Content);
+            //_currentState = new CraftingMenuState(this, GraphicsDevice, Content, recipes[0]);
             // TODO: use this.Content to load your game content here
         }
 
