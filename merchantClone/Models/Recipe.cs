@@ -19,6 +19,7 @@ namespace merchantClone.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public bool Stacks { get; set; }
+        public string Sprite { get; set; } = "scrap";
     }
 
     public class InventoryItem

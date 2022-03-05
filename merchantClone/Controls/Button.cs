@@ -25,6 +25,7 @@ namespace merchantClone.Controls
         public Color PenColour { get; set; }
         public Vector2 Position { get; set; }
         private Rectangle _touchRectangle;
+        private Rectangle _rectangle;
 
         public Rectangle TouchRectangle
         {
@@ -43,11 +44,19 @@ namespace merchantClone.Controls
             }
 
         }
-        public Rectangle Rectangle
+        public new Rectangle Rectangle
         {
             get
             {
-                return new Rectangle((int)Position.X, (int)Position.Y, _texture.Width, _texture.Height);
+                if (_rectangle.IsEmpty)
+                {
+                    return new Rectangle((int)Position.X, (int)Position.Y, _texture.Width, _texture.Height);
+                }
+                return _rectangle;
+            }
+            set
+            {
+                _rectangle = value;
             }
         }   
 

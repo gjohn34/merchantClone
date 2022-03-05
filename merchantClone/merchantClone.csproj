@@ -82,6 +82,7 @@
     <Compile Include="SaveFile.cs" />
     <Compile Include="States\CraftingMenuState.cs" />
     <Compile Include="States\HeroesMenuState.cs" />
+    <Compile Include="States\InventoryState.cs" />
     <Compile Include="States\JobsState.cs" />
     <Compile Include="States\MainMenuState.cs" />
     <Compile Include="States\ShowRecipeState.cs" />
@@ -117,6 +118,11 @@
   <ItemGroup>
     <Content Include="Content\controls\button_background.png" />
     <Content Include="Content\controls\button_background2.png" />
+    <Content Include="Content\sprites\iron-bar.png" />
+    <Content Include="Content\sprites\iron-ore.png" />
+    <Content Include="Content\sprites\oak-log.png" />
+    <Content Include="Content\sprites\oak-lumber.png" />
+    <Content Include="Content\sprites\scrap.png" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />

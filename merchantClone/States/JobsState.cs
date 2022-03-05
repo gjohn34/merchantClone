@@ -67,11 +67,15 @@ namespace merchantClone.States
             foreach (Recipe recipe in recipes)
             {
                 Button startJob = new Button(_texture, _font) { Position = new Vector2(400, 200), Text = "Start Job" };
-                startJob.Touch += (object sender, EventArgs e) => StartJob_Click(sender, e, recipe);
+                Button showRecipe = new Button(_texture, _font) { Position = new Vector2(10, 10), Text = recipe.Name };
+                showRecipe.Touch += (object sender, EventArgs e) => ShowRecipe_Click(sender, e, recipe);
+                startJob.Touch += (object sender, EventArgs e) => ShowRecipe_Click(sender, e, recipe);
+                startJob.Disabled = !GameInfo.Instance.CanMake(recipe);
+                
                 // ADDING EACH JOB TO THE LIST OF THE COMPONENTS
                 _scrollComponents.Add(new RecipeGroup(
                     new Component[2] {
-                        new Button(_texture, _font) { Position = new Vector2(10, 10), Text = recipe.Name},
+                        showRecipe,
                         startJob
                     },
                     new Rectangle(0, 0, _graphicsDevice.Viewport.Height - ((_texture.Height + _margin) * 2), rowHeight)));
@@ -81,6 +85,10 @@ namespace merchantClone.States
         private void BackButton_Click(object sender, EventArgs e)
         {
             _game.ChangeState(new CraftingMenuState(_game, _graphicsDevice, _content));
+        }
+        private void ShowRecipe_Click(object sender, EventArgs e, Recipe recipe)
+        {
+            _game.ChangeState(new ShowRecipeState(_game, _graphicsDevice, _content, recipe, this));
         }
         private void StartJob_Click(object sender, EventArgs e, Recipe recipe)
         {

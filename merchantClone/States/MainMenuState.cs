@@ -51,6 +51,12 @@ namespace merchantClone.States
                 Position = new Vector2(viewport.Width - (buttonTexture.Width * 2), viewport.Height - buttonTexture.Height),
                 Text = "reset"
             };
+
+            Button inventoryButton = new Button(buttonTexture, buttonFont)
+            {
+                Position = new Vector2(buttonTexture.Width * 3, viewport.Height - buttonTexture.Height),
+                Text = "inventory"
+            };
             DynamicLabel goldLabel = new DynamicLabel(buttonTexture, buttonFont, _saveData.gold.ToString(), DataValue.Gold)
             {
                 Position = new Vector2((viewport.Width / 2) - (buttonTexture.Width / 2)),
@@ -62,6 +68,7 @@ namespace merchantClone.States
             saveButton.Touch += SaveButton_Click;
             goldButton.Touch += GoldButton_Click;
             resetButton.Touch += ResetButton_Click;
+            inventoryButton.Touch += InventoryButton_Click;
 
             StaticLabel title = new StaticLabel(buttonTexture, buttonFont, "Main")
             {
@@ -75,6 +82,7 @@ namespace merchantClone.States
                 saveButton,
                 goldButton,
                 resetButton,
+                inventoryButton,
                 title
             };
 
@@ -102,6 +110,10 @@ namespace merchantClone.States
         private void ResetButton_Click(object sender, EventArgs e)
         {
             SaveFile.Reset();
+        }
+        private void InventoryButton_Click(object sender, EventArgs e)
+        {
+            _game.ChangeState(new InventoryState(_game, _graphicsDevice, _content));
         }
         private void CraftingButton_Click(object sender, EventArgs e)
         {

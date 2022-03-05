@@ -13,6 +13,7 @@ namespace merchantClone
         private static GameInfo instance = null;
         private static readonly object padlock = new object();
         private static List<InventoryItem> _items;
+        private static int _gold;
 
         GameInfo()
         {
@@ -36,10 +37,18 @@ namespace merchantClone
         {
             //_items = items;
             _items = new List<InventoryItem>{
+                new InventoryItem() { Id = 1, Quantity = 10},
                 new InventoryItem() { Id = 2, Quantity = 2},
                 new InventoryItem() { Id = 3, Quantity = 3},
-                new InventoryItem() { Id = 1, Quantity = 10}
+                new InventoryItem() { Id = 4, Quantity = 1},
+                new InventoryItem() { Id = 5, Quantity = 3},
+                new InventoryItem() { Id = 6, Quantity = 1},
             };
+        }
+
+        public static List<InventoryItem> GetInventory()
+        {
+            return _items;
         }
 
         internal bool CanMake(Recipe recipe)
@@ -63,6 +72,16 @@ namespace merchantClone
                 }
             }
             return canBeMade;
+        }
+
+        internal static void InitializeGold(int gold)
+        {
+            _gold = gold;
+        }
+
+        internal static int GetGold()
+        {
+            return _gold;
         }
     }
 }

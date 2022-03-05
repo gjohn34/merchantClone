@@ -84,6 +84,7 @@ namespace merchantClone
                        crafter.StartJobsList();
 
                 GameInfo.InitializeInventory(saveData.items);
+                GameInfo.InitializeGold(saveData.gold);
             } catch
             {
                 saveData.gold = 100;

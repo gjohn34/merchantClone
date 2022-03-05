@@ -2,17 +2,20 @@
 	{
 		"Id": 1,
 		"Name": "Iron Ore",
-		"Stacks": true
+		"Stacks": true,
+		"Sprite": "iron-ore"
 	},
 	{
 		"Id": 2,
 		"Name": "Oak Log",
-		"Stacks": true
+		"Stacks": true,
+		"Sprite": "oak-log"
 	},
 	{
 		"Id": 3,
 		"Name": "Iron Bar",
-		"Stacks": true
+		"Stacks": true,
+		"Sprite": "iron-bar"
 	},
 	{
 		"Id": 4,
@@ -22,7 +25,8 @@
 	{
 		"Id": 5,
 		"Name": "Oak Lumber",
-		"Stacks": true
+		"Stacks": true,
+		"Sprite": "oak-lumber"
 	},
 	{
 		"Id": 6,
