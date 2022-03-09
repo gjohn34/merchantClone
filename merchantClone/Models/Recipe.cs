@@ -67,11 +67,14 @@ namespace merchantClone.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public int Cost { get; set; }
         public Item Item { get; set; }
         public int RequiredLevel { get; set; }
         [JsonConverter(typeof(StringEnumConverter))] 
         public Roles BelongsTo { get; set; }
         public List<RecipeItem> RecipeItems { get; set; } = new List<RecipeItem>();
+        public int Time { get; set; }
+
         public Recipe() { }
         public Recipe(Item item, int level, Roles belongsTo, List<RecipeItem> recipeItems)
         {

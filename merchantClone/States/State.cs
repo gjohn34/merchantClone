@@ -29,6 +29,7 @@ namespace merchantClone.States
         protected Game1 _game;
         protected List<Component> _components;
         protected SaveGame _saveData;
+        protected GameInfo _gameInfo;
         protected Texture2D _buttonTexture;
         protected SpriteFont _buttonFont;
         protected int _vW;
@@ -46,7 +47,7 @@ namespace merchantClone.States
             _game = game;
             _graphicsDevice = graphicsDevice;
             _content = content;
-            _saveData = SaveFile.Instance.GetSave();
+            _saveData = GameInfo.Instance.GetGameData();
             _buttonTexture = content.Load<Texture2D>("controls/button_background2");
             _buttonFont = content.Load<SpriteFont>("Fonts/font");
             _vH = graphicsDevice.Viewport.Height;

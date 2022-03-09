@@ -50,9 +50,8 @@ namespace merchantClone
             return _saveData;
         }
 
-        public static void UpdateSaveData(SaveGame saveData)
+        public static void UpdateSaveData()
         {
-            _saveData = saveData;
             Save();
         }
 
@@ -82,15 +81,15 @@ namespace merchantClone
                 }
                     foreach (Crafter crafter in saveData.crafters)
                        crafter.StartJobsList();
-
-                GameInfo.InitializeInventory(saveData.items);
-                GameInfo.InitializeGold(saveData.gold);
             } catch
             {
                 saveData.gold = 100;
                 saveData.playerName = "new player";
                 saveData.crafters = new List<Crafter>();
             }
+            GameInfo.InitializeInventory(saveData.items);
+            GameInfo.InitializeGold(saveData.gold);
+            GameInfo.InitializeTimers(saveData.crafters);
             return saveData;
         }
 
@@ -120,7 +119,7 @@ namespace merchantClone
             {
                 _isolatedFileStream.Seek(0, SeekOrigin.Begin);
 
-                serializer.Serialize(_isolatedFileStream, _saveData);
+                serializer.Serialize(_isolatedFileStream, GameInfo.Instance.GetGameData());
 
                 _isolatedFileStream.SetLength(_isolatedFileStream.Position);
             }

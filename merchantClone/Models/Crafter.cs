@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 
 namespace merchantClone.Models
 {
@@ -11,10 +12,11 @@ namespace merchantClone.Models
         private List<Recipe> _availableJobs = new List<Recipe>();
         private List<Recipe> _learnedJobs = new List<Recipe>();
         public Crafter() { }
-        public Crafter(string name, Roles job) {
+        public Crafter(string name, Roles role, [Optional] Job job) {
             Name = name;
-            Job = job;
-            _availableJobs = ItemDetails.GetRecipes().FindAll(recipe => recipe.BelongsTo == job);
+            Role = role;
+            Task = job;
+            _availableJobs = ItemDetails.GetRecipes().FindAll(recipe => recipe.BelongsTo == role);
             UpdateJobsList();
         }
 
@@ -30,8 +32,15 @@ namespace merchantClone.Models
 
         public void StartJobsList()
         {
-            _availableJobs = ItemDetails.GetRecipes().FindAll(recipe => recipe.BelongsTo == Job);
+            _availableJobs = ItemDetails.GetRecipes().FindAll(recipe => recipe.BelongsTo == Role);
             _learnedJobs = _availableJobs.FindAll(recipe => recipe.RequiredLevel <= Level);
+        }
+
+        internal void AssignTask(Recipe recipe)
+        {
+            DateTime now = DateTime.Now;
+            DateTime finish = now.AddSeconds(recipe.Time);
+            Task = new Job(recipe.Name, finish, recipe);
         }
 
 

@@ -19,17 +19,16 @@ namespace merchantClone.Models
         #region Fields
         protected int _currentExperience = 0;
         protected Job _currentJob;
-
         #nullable enable
-        Job? _task = null;
         #nullable disable
         #endregion
 
         #region Properties
+        public Job Task { get; set; }
         public int CurrentXp { get; set; } = 1;
         public int TotalXp { get; set; } = 100;
         public string Name { get; protected set; }
-        public Roles Job { get; protected set; }
+        public Roles Role { get; protected set; }
         public int Level { get; set; } = 1;
 
         #endregion
@@ -37,15 +36,16 @@ namespace merchantClone.Models
         #region Methods
         public void FinishTask()
         {
-            CurrentXp += 10;
-            if (CurrentXp >= TotalXp)
-            {
-                Level += 1;
-                CurrentXp -= TotalXp;
-                TotalXp = NextTotal();
-                UpdateJobsList();
-                SaveFile.Save();
-            }
+            Console.WriteLine("Finished Task");
+            //CurrentXp += 10;
+            //if (CurrentXp >= TotalXp)
+            //{
+            //    Level += 1;
+            //    CurrentXp -= TotalXp;
+            //    TotalXp = NextTotal();
+            //    UpdateJobsList();
+            //    SaveFile.Save();
+            //}
         }
 
         private int NextTotal()

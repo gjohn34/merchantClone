@@ -21,7 +21,6 @@ namespace merchantClone.Controls
         #endregion
 
         #region Properties
-        public string Text { get; set; }
         public bool Changed { get; set; } = false;
         public Vector2 Position { get; set; }
         public Rectangle Rectangle
@@ -31,6 +30,8 @@ namespace merchantClone.Controls
                 return new Rectangle((int)Position.X, (int)Position.Y, _texture.Width, _texture.Height);
             }
         }
+
+        string ILabel.Text { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
         #endregion
 
         #region Methods
@@ -79,6 +80,11 @@ namespace merchantClone.Controls
         public override void UpdatePosition(GameTime gametime, Vector2 position)
         {
             Position = position;
+        }
+
+        public void UpdateText(string text)
+        {
+            throw new System.NotImplementedException();
         }
 
         #endregion

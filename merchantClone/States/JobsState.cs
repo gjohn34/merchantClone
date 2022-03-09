@@ -28,7 +28,7 @@ namespace merchantClone.States
             _deviceWidth = graphics.Viewport.Width;
             _person = person;
 
-            StaticLabel title = new StaticLabel(_texture, _font, person.Name + " the " + person.Job + person.Level.ToString())
+            StaticLabel title = new StaticLabel(_texture, _font, person.Name + " the " + person.Role + person.Level.ToString())
             {
                 Position = new Vector2(0, 0),
                 Rectangle = new Rectangle(0, 0, graphics.Viewport.Width, _texture.Height)
@@ -88,11 +88,11 @@ namespace merchantClone.States
         }
         private void ShowRecipe_Click(object sender, EventArgs e, Recipe recipe)
         {
-            _game.ChangeState(new ShowRecipeState(_game, _graphicsDevice, _content, recipe, this));
+            _game.ChangeState(new ShowRecipeState(_game, _graphicsDevice, _content, recipe, this, _person));
         }
         private void StartJob_Click(object sender, EventArgs e, Recipe recipe)
         {
-            _game.ChangeState(new ShowRecipeState(_game, _graphicsDevice, _content, recipe, this));
+            _game.ChangeState(new ShowRecipeState(_game, _graphicsDevice, _content, recipe, this, _person));
         }
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {

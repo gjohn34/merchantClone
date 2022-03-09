@@ -13,9 +13,17 @@ using System.Text;
 
 namespace merchantClone
 {
+    public enum SwapWith
+    {
+        person,
+        bar,
+        label,
+        button
+    }
     public abstract class Component
     {
         public Rectangle Rectangle;
+        public string Text;
         public abstract void Draw(GameTime gameTime, SpriteBatch spriteBatch);
         public abstract void Update(GameTime gameTime);
         public abstract void UpdatePosition(GameTime gametime, Vector2 position);
@@ -27,7 +35,7 @@ namespace merchantClone
         public abstract void Draw(GameTime gameTime, SpriteBatch spriteBatch);
         public abstract void Update(GameTime gameTime);
         public abstract void UpdatePosition(GameTime gametime, Vector2 position);
-
+        //public abstract void SwapWith(SwapWith swapWith, Component component);
     }
 
 }

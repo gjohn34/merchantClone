@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.IO;
 using System.IO.IsolatedStorage;
 using System.Xml.Serialization;
+using static merchantClone.SaveFile;
 
 namespace merchantClone
 {
@@ -12,11 +13,12 @@ namespace merchantClone
     {
         private static GameInfo instance = null;
         private static readonly object padlock = new object();
+        private static SaveGame _saveFile;
         private static List<InventoryItem> _items;
-        private static int _gold;
 
         GameInfo()
         {
+            _saveFile = SaveFile.Instance.GetSave();
         }
 
         public static GameInfo Instance
@@ -76,12 +78,33 @@ namespace merchantClone
 
         internal static void InitializeGold(int gold)
         {
-            _gold = gold;
+            _saveFile.gold = gold;
         }
 
         internal static int GetGold()
         {
-            return _gold;
+            return _saveFile.gold;
+        }
+
+        internal void ReduceGold(int cost)
+        {
+            _saveFile.gold -= cost;
+        }
+        public SaveGame GetGameData()
+        {
+            return _saveFile;
+        }
+
+        internal static void InitializeTimers(List<Crafter> crafters)
+        {
+            DateTime now = DateTime.Now;
+            foreach (Crafter crafter in crafters)
+            {
+                if (crafter.Task != null)
+                {
+                    crafter.Task.Seconds = (int)crafter.Task.FinishTime.Subtract(now).TotalSeconds;
+                }
+            }
         }
     }
 }
