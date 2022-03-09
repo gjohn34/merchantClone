@@ -183,22 +183,17 @@ namespace merchantClone.States
     }
     public class CraftingMenuState : State
     {
-        private List<ComponentRow> _scrollComponents;
-        private int _margin;
-        private int _deviceWidth;
+        private List<ComponentRow> _scrollComponents = new List<ComponentRow>();
+        private int _margin = 25;
         private Button _newPerson;
         private ScrollPane _scrollPane;
 
         public CraftingMenuState(Game1 game, GraphicsDevice graphics, ContentManager content) : base(game, graphics, content)
         {
-            _margin = 25;
-            _scrollComponents = new List<ComponentRow>();
-            //_margin = (int)(0.05 * graphics.Viewport.Height);
-            _deviceWidth = graphics.Viewport.Width;
-
+            // Buttons
             Button backButton = new Button(_buttonTexture, _buttonFont)
             {
-                Position = new Vector2(0, graphics.Viewport.Height - _buttonTexture.Height),
+                Position = new Vector2(0, _vH - _buttonTexture.Height),
                 Text = "Back",
             };
             _newPerson = new Button(_buttonTexture, _buttonFont)
@@ -206,39 +201,31 @@ namespace merchantClone.States
                 Position = new Vector2(0, GeneratePosition()),
                 Text = "New"
             };
+            backButton.Touch += BackButton_Click;
+            _newPerson.Touch += NewPerson_Click;
+
+            // Labels
+            StaticLabel goldLabel = new StaticLabel(_buttonTexture, _buttonFont, GameInfo.GetGold().ToString())
+            { Position = new Vector2((int)(_vW * 0.5 - _buttonTexture.Width * 0.5), _vH - _buttonTexture.Height) };
+
 
             StaticLabel title = new StaticLabel(_buttonTexture, _buttonFont, "Crafters")
             {
                 Position = new Vector2(0, 0),
-                Rectangle = new Rectangle(0, 0, graphics.Viewport.Width, _buttonTexture.Height)
+                Rectangle = new Rectangle(0, 0, _vW, _buttonTexture.Height)
             };
 
-
-            // TODO - Taking each crafter from save file and making new component
-            //_scrollComponents.Add(new PersonGroup(
-            //    new Component[3] { recipes, bar, job }, 
-            //    new Rectangle(0,0, _graphicsDevice.Viewport.Height - ((_texture.Height + _margin) * 2), rowHeight))
-            //);
-
-
-            backButton.Touch += BackButton_Click;
-            _newPerson.Touch += NewPerson_Click;
-            List<Crafter> crafters = _saveData.crafters;
-
-            if (crafters.Count > 0)
-            {
-                foreach (Crafter crafter in crafters)
-                {
-                    CrafterComponent(crafter);
-                }
-            }
-            _scrollPane = new ScrollPane(game, _scrollComponents, _newPerson, new Rectangle(0, _buttonTexture.Height, _deviceWidth, graphics.Viewport.Height - ((_buttonTexture.Height + _margin) * 2)), _buttonTexture);
             _components = new List<Component>
             {
                 backButton,
-                //_newPerson,
-                title
+                title,
+                goldLabel
             };
+            foreach (Crafter crafter in _saveData.crafters)
+                CrafterComponent(crafter);
+
+            _scrollPane = new ScrollPane(game, _scrollComponents, _newPerson, new Rectangle(0, _buttonTexture.Height, _vW, _vH - ((_buttonTexture.Height + _margin) * 2)), _buttonTexture);
+
         }
         private void BackButton_Click(object sender, EventArgs e)
         {
@@ -306,7 +293,7 @@ namespace merchantClone.States
         private void CrafterComponent(Crafter crafter)
         {
             Button recipes = new Button(_buttonTexture, _buttonFont) { Position = new Vector2(10, 10), Text = crafter.Role.ToString() + " " + crafter.Level };
-            ProgressBar bar = new ProgressBar(_graphicsDevice, _buttonFont, crafter.Task) { Position = new Vector2(200, 0) };
+            ProgressBar bar = new ProgressBar(_graphicsDevice, _buttonFont, crafter.Task);
 
             Button job = new Button(_buttonTexture, _buttonFont);
             //Button job = new Button(_buttonTexture, _buttonFont) { Position = new Vector2(400, 200), Text = "+10 exp" };
@@ -316,10 +303,11 @@ namespace merchantClone.States
                 {
                     job.Text = "Done";
                     job.Position = new Vector2(400, 200);
-                    job.Touch += (object sender, EventArgs e) => Job_Touch(sender, e, crafter);
-
+                } else
+                {
+                    job.Text = crafter.Task.SecondsLeft().ToString();
                 }
-                job.Text = crafter.Task.SecondsLeft().ToString();
+                job.Touch += (object sender, EventArgs e) => Job_Touch(sender, e, crafter);
             }
             int rowHeight = 200;
 
@@ -331,14 +319,17 @@ namespace merchantClone.States
 
             _scrollComponents.Add(new PersonGroup(
                 new Component[3] { recipes, bar, job },
-                new Rectangle(0, 0, _graphicsDevice.Viewport.Height - ((_buttonTexture.Height + _margin) * 2), rowHeight),
+                new Rectangle(0, 0, _vH - ((_buttonTexture.Height + _margin) * 2), rowHeight),
                 crafter)
             );
         }
 
         private void Job_Touch(object sender, EventArgs e, Person crafter)
         {
-            crafter.FinishTask();
+            if (crafter.Task.IsDone())
+            {
+                crafter.FinishTask();
+            }
         }
 
         private int GeneratePosition()

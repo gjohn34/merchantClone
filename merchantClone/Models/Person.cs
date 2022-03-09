@@ -37,15 +37,15 @@ namespace merchantClone.Models
         public void FinishTask()
         {
             Console.WriteLine("Finished Task");
-            //CurrentXp += 10;
-            //if (CurrentXp >= TotalXp)
-            //{
-            //    Level += 1;
-            //    CurrentXp -= TotalXp;
-            //    TotalXp = NextTotal();
-            //    UpdateJobsList();
-            //    SaveFile.Save();
-            //}
+            CurrentXp += Task.ExperienceGain;
+            if (CurrentXp >= TotalXp)
+            {
+                Level += 1;
+                CurrentXp -= TotalXp;
+                TotalXp = NextTotal();
+                UpdateJobsList();
+                SaveFile.Save();
+            }
         }
 
         private int NextTotal()

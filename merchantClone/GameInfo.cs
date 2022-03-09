@@ -95,6 +95,11 @@ namespace merchantClone
             return _saveFile;
         }
 
+        public void ResetData(SaveGame saveData)
+        {
+            _saveFile = saveData;
+        }
+
         internal static void InitializeTimers(List<Crafter> crafters)
         {
             DateTime now = DateTime.Now;

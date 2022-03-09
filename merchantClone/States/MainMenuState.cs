@@ -110,6 +110,8 @@ namespace merchantClone.States
         private void ResetButton_Click(object sender, EventArgs e)
         {
             SaveFile.Reset();
+            GameInfo.Instance.ResetData(SaveFile.Load());
+
         }
         private void InventoryButton_Click(object sender, EventArgs e)
         {

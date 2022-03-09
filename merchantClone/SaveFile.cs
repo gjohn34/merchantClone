@@ -50,11 +50,6 @@ namespace merchantClone
             return _saveData;
         }
 
-        public static void UpdateSaveData()
-        {
-            Save();
-        }
-
         //internal static void UpdateSave(SaveGame saveGame)
         //{
         //    _saveGame = saveGame;

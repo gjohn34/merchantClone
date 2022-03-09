@@ -97,8 +97,7 @@ namespace merchantClone.Controls
             {
                 if (_person.Task.IsDone())
                 {
-                    _label.Text = "done";
-                    _label.Touch += (object sender, EventArgs e) => { _person.FinishTask(); };
+                    _label.Text = "Done";
                 } else
                 {
                     _label.Text = _person.Task.SecondsLeft().ToString();

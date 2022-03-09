@@ -17,16 +17,11 @@ namespace merchantClone.States
         public ShowRecipeState(Game1 game, GraphicsDevice graphicsDevice, ContentManager content, Recipe recipe, State state, Crafter crafter) : base(game, graphicsDevice, content)
         {
             int baseHeight = 50 + (int)(0.5 * _vH);
-            _game = game;
-            _graphicsDevice = graphicsDevice;
-            _content = content;
             _recipe = recipe;
-            _vW = _graphicsDevice.Viewport.Width;
-            _vH = _graphicsDevice.Viewport.Height;
-            _backState = state;
             _crafter = crafter;
 
             // Components
+            // Buttons
             Button backButton = new Button(_buttonTexture, _buttonFont)
             {
                 Position = new Vector2(0, _vH - _buttonTexture.Height),
@@ -43,10 +38,16 @@ namespace merchantClone.States
             createButton.Disabled = !GameInfo.Instance.CanMake(recipe) || crafter.Task != null;
             createButton.Touch += CreateButton_Click;
 
+            // Labels
+            StaticLabel goldLabel = new StaticLabel(_buttonTexture, _buttonFont, GameInfo.GetGold().ToString())
+            { Position = new Vector2((int)(_vW * 0.5 - _buttonTexture.Width * 0.5), _vH - _buttonTexture.Height) };
+
+
             _components = new List<Component>
             {
                 backButton,
-                createButton
+                createButton,
+                goldLabel
             };
             int i = 0;
 
@@ -92,7 +93,7 @@ namespace merchantClone.States
 
         private void BackButton_Click(object sender, EventArgs e)
         {
-            _game.ChangeState(_backState);
+            _game.ChangeState(new JobsState(_game, _graphicsDevice, _content, _crafter));
         }
 
         private void CreateButton_Click(object sender, EventArgs e)
