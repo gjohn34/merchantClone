@@ -24,24 +24,31 @@ namespace merchantClone.Models
 
     public class InventoryItem
     {
-        private Item item;
+        private Item _item;
         public int Id { get; set; }
         public Item Item
         {
             get
             {
-                if (item != null)
+                if (_item != null)
                 {
-                    return item;
+                    return _item;
                 }
                 else
                 {
-                    item = ItemDetails.GetItem(Id);
-                    return item;
+                    _item = ItemDetails.GetItem(Id);
+                    return _item;
                 }
             }
         }
         public int Quantity { get; set; }
+        public InventoryItem(int id, int qty)
+        {
+            Id = id;
+            Quantity = qty;
+            _item = ItemDetails.GetItem(id);
+        }
+        public InventoryItem() { }
     }
     public class RecipeItem
     {
@@ -68,7 +75,7 @@ namespace merchantClone.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public int Cost { get; set; }
-        public Item Item { get; set; }
+        public int ItemId { get; set; }
         public int RequiredLevel { get; set; }
         [JsonConverter(typeof(StringEnumConverter))] 
         public Roles BelongsTo { get; set; }
@@ -78,7 +85,7 @@ namespace merchantClone.Models
         public Recipe() { }
         public Recipe(Item item, int level, Roles belongsTo, List<RecipeItem> recipeItems)
         {
-            Item = item;
+            ItemId = item.Id;
             RequiredLevel = level;
             BelongsTo = belongsTo;
             RecipeItems = recipeItems;

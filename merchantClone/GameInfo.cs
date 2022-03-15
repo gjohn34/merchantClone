@@ -39,13 +39,42 @@ namespace merchantClone
         {
             //_items = items;
             _items = new List<InventoryItem>{
-                new InventoryItem() { Id = 1, Quantity = 10},
-                new InventoryItem() { Id = 2, Quantity = 2},
-                new InventoryItem() { Id = 3, Quantity = 3},
-                new InventoryItem() { Id = 4, Quantity = 1},
-                new InventoryItem() { Id = 5, Quantity = 3},
+                new InventoryItem() { Id = 1, Quantity = 100},
+                new InventoryItem() { Id = 2, Quantity = 100},
+                new InventoryItem() { Id = 3, Quantity = 100},
+                new InventoryItem() { Id = 4, Quantity = 100},
+                new InventoryItem() { Id = 5, Quantity = 100},
                 new InventoryItem() { Id = 6, Quantity = 1},
             };
+        }
+
+        internal void IncreaseInventory(int recipeId, int count = 1)
+        {
+            Recipe recipe = ItemDetails.GetRecipe(recipeId);
+            foreach (InventoryItem inventoryItem in _items)
+            {
+                if (inventoryItem.Item.Id == recipe.ItemId)
+                {
+                    inventoryItem.Quantity += count;
+                    return;
+                }
+            }
+            _items.Add(new InventoryItem(recipe.ItemId, count));
+        }
+
+        internal void ReduceInventory(List<RecipeItem> recipeItems)
+        {
+            foreach (RecipeItem recipeItem in recipeItems)
+            {
+                foreach (InventoryItem inventoryItem in _items)
+                {
+                    if (inventoryItem.Item == recipeItem.Item)
+                    {
+                        inventoryItem.Quantity -= recipeItem.Quantity;
+                        break;
+                    }
+                }
+            }
         }
 
         public static List<InventoryItem> GetInventory()
@@ -111,5 +140,6 @@ namespace merchantClone
                 }
             }
         }
+
     }
 }

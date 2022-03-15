@@ -15,7 +15,7 @@ namespace merchantClone.Controls
         private const int _barHeight = 40;
         private int _oldCurrent = 0;
         private SpriteFont _font;
-        #nullable enable
+#nullable enable
         private Job? _task = null;
 #nullable disable
         private bool _done = false;
@@ -81,7 +81,7 @@ namespace merchantClone.Controls
                         compData[i] = Color.Black;
                     }
                     _fillBar.SetData(compData);
-                } 
+                }
             }
         }
 
@@ -94,7 +94,7 @@ namespace merchantClone.Controls
                     spriteBatch.Draw(_backgroundBar, new Rectangle((int)Position.X, (int)Position.Y, _barWidth, _barHeight), Color.White);
                     if (_fillBar != null)
                     {
-                        spriteBatch.Draw(_fillBar, new Rectangle((int)Position.X, (int)Position.Y, _fillBar.Width, _barHeight), Color.White); 
+                        spriteBatch.Draw(_fillBar, new Rectangle((int)Position.X, (int)Position.Y, _fillBar.Width, _barHeight), Color.White);
                     }
                 } else
                 {
@@ -105,6 +105,11 @@ namespace merchantClone.Controls
         public override void UpdatePosition(GameTime gametime, Vector2 position)
         {
             Position = position;
+        }
+
+        public void ResetTask() {
+            _task = null;
+            _done = false;
         }
     }
 }

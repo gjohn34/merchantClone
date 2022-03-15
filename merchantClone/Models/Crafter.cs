@@ -38,9 +38,12 @@ namespace merchantClone.Models
 
         internal void AssignTask(Recipe recipe)
         {
+            GameInfo.Instance.ReduceGold(recipe.Cost);
+            GameInfo.Instance.ReduceInventory(recipe.RecipeItems);
             DateTime now = DateTime.Now;
             DateTime finish = now.AddSeconds(recipe.Time);
             Task = new Job(recipe.Name, finish, recipe);
+            SaveFile.Save();
         }
 
 

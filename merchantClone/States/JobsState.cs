@@ -12,66 +12,95 @@ namespace merchantClone.States
     public class JobsState : State
     {
         private Crafter _person;
-        private Texture2D _texture;
-        private SpriteFont _font;
         private ScrollPane _scrollPane;
         private int _margin = 25;
         private List<ComponentRow> _scrollComponents = new List<ComponentRow>();
 
         public JobsState(Game1 game, GraphicsDevice graphics, ContentManager content, Crafter person) : base(game, graphics, content)
         {
-            //_person = person;
-            _texture = _content.Load<Texture2D>("controls/button_background2");
-            _font = _content.Load<SpriteFont>("Fonts/font");
             _person = person;
 
             // Buttons
-            Button backButton = new Button(_texture, _font)
+            Button backButton = new Button(_buttonTexture, _buttonFont)
             {
-                Position = new Vector2(0, graphics.Viewport.Height - _texture.Height),
+                Position = new Vector2(0, _vH - _buttonTexture.Height),
                 Text = "Back Button",
             };
             backButton.Touch += BackButton_Click;
 
+            Button allRecipes = new Button(_buttonTexture, _buttonFont)
+            {
+                Position = new Vector2(_vW - _buttonTexture.Width, _vH - _buttonTexture.Height),
+                Text = "All"
+            };
+            allRecipes.Touch += AllRecipes_Click;
+
             // Labels
-            StaticLabel title = new StaticLabel(_texture, _font, person.Name + " the " + person.Role + person.Level.ToString())
+            StaticLabel title = new StaticLabel(_buttonTexture, _buttonFont, person.Name + " the " + person.Role + person.Level.ToString())
             {
                 Position = new Vector2(0, 0),
-                Rectangle = new Rectangle(0, 0, graphics.Viewport.Width, _texture.Height)
+                Rectangle = new Rectangle(0, 0, graphics.Viewport.Width, _buttonTexture.Height)
             };
 
             _components = new List<Component>
             {
                 backButton,
+                allRecipes,
                 title
             };
 
             _scrollPane = new ScrollPane(
                 game: game,
                 components: _scrollComponents,
-                rectangle: new Rectangle(0, _texture.Height, _vW, graphics.Viewport.Height - ((_texture.Height + _margin) * 2)),
-                texture: _texture);
+                rectangle: new Rectangle(0, _buttonTexture.Height, _vW, graphics.Viewport.Height - ((_buttonTexture.Height + _margin) * 2)),
+                texture: _buttonTexture);
 
-            int rowHeight = 200;
-
-            foreach (Recipe recipe in person.GetJobs())
+            foreach (Recipe recipe in _person.GetJobs())
             {
-                Button startJob = new Button(_texture, _font) { Position = new Vector2(400, 200), Text = "Start Job" };
-                Button showRecipe = new Button(_texture, _font) { Position = new Vector2(10, 10), Text = recipe.Name };
-                showRecipe.Touch += (object sender, EventArgs e) => ShowRecipe_Click(sender, e, recipe);
-                startJob.Touch += (object sender, EventArgs e) => ShowRecipe_Click(sender, e, recipe);
-                startJob.Disabled = !GameInfo.Instance.CanMake(recipe);
-                
-                // ADDING EACH JOB TO THE LIST OF THE COMPONENTS
-                _scrollComponents.Add(new RecipeGroup(
+                if (person.Level >= recipe.RequiredLevel)
+                {
+                    LoadRecipeComponents(recipe);
+
+                }
+            }
+
+        }
+
+        private void AllRecipes_Click(object sender, EventArgs e)
+        {
+            _scrollComponents = new List<ComponentRow>();
+
+            foreach (Recipe recipe in _person.GetJobs())
+               LoadRecipeComponents(recipe, true);
+
+
+        }
+
+        private void LoadRecipeComponents(Recipe recipe, bool all = false )
+        {
+            bool canMake = GameInfo.Instance.CanMake(recipe);
+            if (!all && !canMake) return;
+            int rowHeight = 200;
+            Button startJob = new Button(_buttonTexture, _buttonFont) { Position = new Vector2(400, 200), Text = "Start Job" };
+            Button showRecipe = new Button(_buttonTexture, _buttonFont) { Position = new Vector2(10, 10), Text = recipe.Name };
+            showRecipe.Touch += (object sender, EventArgs e) => ShowRecipe_Click(sender, e, recipe);
+
+            startJob.Touch += (object sender, EventArgs e) => StartJob_Click(sender, e, recipe);
+            startJob.Disabled = !canMake;
+            _scrollComponents.Add(new RecipeGroup(
                     new Component[2] {
                         showRecipe,
                         startJob
                     },
-                    new Rectangle(0, 0, _vH - ((_texture.Height + _margin) * 2), rowHeight)));
-            }
-
+                    new Rectangle(0, 0, _vH - ((_buttonTexture.Height + _margin) * 2), rowHeight)));
         }
+
+        private void StartJob_Click(object sender, EventArgs e, Recipe recipe)
+        {
+            _person.AssignTask(recipe);
+            _game.ChangeState(new CraftingMenuState(_game, _graphicsDevice, _content));
+        }
+
         private void BackButton_Click(object sender, EventArgs e)
         {
             _game.ChangeState(new CraftingMenuState(_game, _graphicsDevice, _content));

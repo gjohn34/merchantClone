@@ -52,6 +52,16 @@ namespace merchantClone.Controls
             foreach (Component component in _components)
                 component.Update(gameTime);
         }
+
+        public override Component[] Components()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void Refresh()
+        {
+            throw new NotImplementedException();
+        }
     }
     public class PersonGroup : ComponentRow
     {
@@ -119,6 +129,17 @@ namespace merchantClone.Controls
             _bar.UpdatePosition(gametime, new Vector2((int)(Rectangle.Width / 2 - (0.5 * _components[1].Rectangle.Width)), (int)((textureWidth - (0.5 * barHeight)) / 2) + position.Y));
             // button right
             _label.UpdatePosition(gametime, new Vector2(Rectangle.Width - textureWidth - hMargin, position.Y));
+        }
+
+        public override Component[] Components()
+        {
+            return _components;
+        }
+
+        public override void Refresh()
+        {
+            _label.Text = "";
+            _bar.ResetTask();
         }
 
         #endregion

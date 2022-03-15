@@ -75,7 +75,11 @@ namespace merchantClone
                     _isolatedFileStream.Close();
                 }
                     foreach (Crafter crafter in saveData.crafters)
-                       crafter.StartJobsList();
+                {
+                    if (crafter.Task != null)
+                        crafter.Task.Recipe = ItemDetails.GetRecipe(crafter.Task.RecipeId);
+                    crafter.StartJobsList();
+                }
             } catch
             {
                 saveData.gold = 100;
@@ -114,7 +118,9 @@ namespace merchantClone
             {
                 _isolatedFileStream.Seek(0, SeekOrigin.Begin);
 
-                serializer.Serialize(_isolatedFileStream, GameInfo.Instance.GetGameData());
+                SaveGame gameData = GameInfo.Instance.GetGameData();
+
+                serializer.Serialize(_isolatedFileStream, gameData);
 
                 _isolatedFileStream.SetLength(_isolatedFileStream.Position);
             }

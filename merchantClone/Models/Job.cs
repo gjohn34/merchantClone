@@ -11,20 +11,22 @@ using System.Text;
 
 namespace merchantClone.Models
 {
+    [Serializable]
     public class Job
     {
         public string Name { get; set; }
         public DateTime FinishTime { get; set; }
         public DateTime StartTime { get; set; } = DateTime.Now;
         public int Seconds { get; set; }
-
         public int ExperienceGain { get; set; }
         public Person BelongsTo { get; }
-
+        public int RecipeId { get; set; }
+        public Recipe Recipe { get; set; }
         public Job() { }
         public Job(string name, DateTime finishTime, Recipe recipe) {
             Name = name;
             FinishTime = finishTime;
+            RecipeId = recipe.Id;
             Seconds = recipe.Time;
             //Seconds = (int)finishTime.Subtract(StartTime).TotalSeconds;
         }

@@ -44,8 +44,9 @@ namespace merchantClone.Models
                 CurrentXp -= TotalXp;
                 TotalXp = NextTotal();
                 UpdateJobsList();
-                SaveFile.Save();
             }
+            Task = null;
+            SaveFile.Save();
         }
 
         private int NextTotal()

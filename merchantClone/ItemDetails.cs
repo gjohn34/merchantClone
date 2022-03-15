@@ -41,7 +41,6 @@ namespace merchantClone
         {
             return _itemList;
         }
-
         public static List<Recipe> GetRecipes()
         {
             return _recipeList;

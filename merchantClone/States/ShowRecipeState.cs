@@ -11,7 +11,6 @@ namespace merchantClone.States
     public class ShowRecipeState : State
     {
         private Recipe _recipe;
-        private State _backState;
         private List<StaticLabel> _recipeComponents = new List<StaticLabel>();
         private Crafter _crafter;
         public ShowRecipeState(Game1 game, GraphicsDevice graphicsDevice, ContentManager content, Recipe recipe, State state, Crafter crafter) : base(game, graphicsDevice, content)
@@ -98,9 +97,7 @@ namespace merchantClone.States
 
         private void CreateButton_Click(object sender, EventArgs e)
         {
-            GameInfo.Instance.ReduceGold(_recipe.Cost);
             _crafter.AssignTask(_recipe);
-            SaveFile.Save();
             _game.ChangeState(new CraftingMenuState(_game, _graphicsDevice, _content));
         }
 

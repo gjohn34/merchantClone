@@ -221,6 +221,7 @@ namespace merchantClone.States
                 title,
                 goldLabel
             };
+
             foreach (Crafter crafter in _saveData.crafters)
                 CrafterComponent(crafter);
 
@@ -326,9 +327,11 @@ namespace merchantClone.States
 
         private void Job_Touch(object sender, EventArgs e, Person crafter)
         {
-            if (crafter.Task.IsDone())
+            if (crafter.Task != null && crafter.Task.IsDone())
             {
+                GameInfo.Instance.IncreaseInventory(crafter.Task.RecipeId);
                 crafter.FinishTask();
+                _scrollComponents.Find(x => x.Components()[2] == sender).Refresh();
             }
         }
 
