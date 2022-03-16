@@ -3,6 +3,7 @@ using merchantClone.Models;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input.Touch;
 using System;
 using System.Collections.Generic;
 
@@ -14,11 +15,36 @@ namespace merchantClone.States
         private Texture2D _sprite;
         private SpriteFont _font;
         private Texture2D _borderTexture;
+        private Texture2D _fontBackground;
         private int _vPadding;
+        private TouchLocation _currentTouch;
+        private TouchLocation _previousTouch;
+        private bool _isPressed;
+        private Rectangle _touchRectangle;
+        private Rectangle _rectangle;
+
+
         #endregion
         #region Properties
         public string Text { get; set; }
         public Color PenColour { get; set; }
+        public Rectangle TouchRectangle
+        {
+            get
+            {
+                if (_touchRectangle.IsEmpty)
+                {
+                    _touchRectangle = Rectangle;
+                }
+                return _touchRectangle;
+            }
+            set
+            {
+                _touchRectangle = value;
+                //_touchRectangle = new Rectangle(value.X, value.Y + _texture.Height, value.Width, value.Height);
+            }
+
+        }
         #endregion
         public ItemBox(Texture2D sprite, SpriteFont font, int vPadding)
         {
@@ -36,6 +62,15 @@ namespace merchantClone.States
                 _borderTexture = new Texture2D(spriteBatch.GraphicsDevice, 1, 1);
                 _borderTexture.SetData<Color>(new Color[] { Color.White });
             }
+            int width = (int)Math.Ceiling(_font.MeasureString("qty").Length());
+            int height = 100;
+            _fontBackground = new Texture2D(spriteBatch.GraphicsDevice, width, height);
+            Color[] data = new Color[width * height];
+            for (int i = 0; i < data.Length; ++i)
+            {
+                data[i] = Color.White;
+            }
+            _fontBackground.SetData(data);
             spriteBatch.Draw(_sprite, Rectangle, colour);
 
 
@@ -58,10 +93,30 @@ namespace merchantClone.States
 
                 spriteBatch.DrawString(_font, Text, new Vector2(x, y), PenColour);
             }
+            if (_isPressed)
+            {
+                // TODO hardcoding 5, replace this with a qty var
+                //var x = (Rectangle.X + Rectangle.Width / 2) - (_font.MeasureString("5").X / 2);
+                //var y = (Rectangle.Y + Rectangle.Height + 25) - (_font.MeasureString("5").Y / 2);
+                //spriteBatch.DrawString()
+                var x = (Rectangle.X + Rectangle.Width / 2) - (_font.MeasureString("grade").X / 2);
+                var y = (Rectangle.Y + Rectangle.Height / 2);
+                spriteBatch.Draw(_fontBackground, new Rectangle((int)Rectangle.X,(int)y,200, 100), Color.White);
+                spriteBatch.DrawString(_font, "grade", new Vector2(x, y), PenColour);
+            }
         }
 
         public override void Update(GameTime gameTime)
         {
+            _previousTouch = _currentTouch;
+            _isPressed = false;
+            _currentTouch = ControlSettings.GetTouchLocation();
+            Rectangle rect = ControlSettings.GetTouchRectangle();
+
+            if (rect.Intersects(TouchRectangle))
+            {
+                _isPressed = true;
+            }
         }
 
         public override void UpdatePosition(GameTime gametime, Vector2 position)
@@ -145,6 +200,8 @@ namespace merchantClone.States
 
         public override void Update(GameTime gameTime)
         {
+            foreach (ItemBox itemBox in _inventoryComponents)
+                itemBox.Update(gameTime);
             foreach (Component component in _components)
                 component.Update(gameTime);
         }

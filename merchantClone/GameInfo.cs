@@ -40,11 +40,11 @@ namespace merchantClone
             //_items = items;
             _items = new List<InventoryItem>{
                 new InventoryItem() { Id = 1, Quantity = 100},
-                new InventoryItem() { Id = 2, Quantity = 100},
-                new InventoryItem() { Id = 3, Quantity = 100},
-                new InventoryItem() { Id = 4, Quantity = 100},
-                new InventoryItem() { Id = 5, Quantity = 100},
-                new InventoryItem() { Id = 6, Quantity = 1},
+                //new InventoryItem() { Id = 2, Quantity = 100},
+                //new InventoryItem() { Id = 3, Quantity = 100},
+                //new InventoryItem() { Id = 4, Quantity = 100},
+                //new InventoryItem() { Id = 5, Quantity = 100},
+                //new InventoryItem() { Id = 6, Quantity = 1},
             };
         }
 
