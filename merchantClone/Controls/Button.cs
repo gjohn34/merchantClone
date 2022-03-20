@@ -83,7 +83,6 @@ namespace merchantClone.Controls
             {
                 colour = Color.Black;
             }
-
             spriteBatch.Draw(_texture, Rectangle, colour);
 
             if (!string.IsNullOrEmpty(Text))

@@ -60,6 +60,7 @@
   <ItemGroup>
     <Compile Include="Activity1.cs" />
     <Compile Include="Component.cs" />
+    <Compile Include="Controls\ScrollPane.cs" />
     <Compile Include="GameInfo.cs" />
     <Compile Include="ItemDetails.cs" />
     <Compile Include="ControlSettings.cs" />
@@ -72,19 +73,21 @@
     <Compile Include="Data\RecipeReader.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="Models\Crafter.cs" />
+    <Compile Include="Models\Hero.cs" />
     <Compile Include="Models\IPerson.cs" />
     <Compile Include="Models\Person.cs" />
     <Compile Include="Models\Job.cs" />
     <Compile Include="Models\Recipe.cs" />
-    <Compile Include="Models\Role.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SaveFile.cs" />
     <Compile Include="States\CraftingMenuState.cs" />
+    <Compile Include="States\HeroDetailsState.cs" />
     <Compile Include="States\HeroesMenuState.cs" />
     <Compile Include="States\InventoryState.cs" />
     <Compile Include="States\JobsState.cs" />
     <Compile Include="States\MainMenuState.cs" />
+    <Compile Include="States\MapState.cs" />
     <Compile Include="States\ShowRecipeState.cs" />
     <Compile Include="States\State.cs" />
   </ItemGroup>
@@ -120,6 +123,9 @@
     <Content Include="Content\controls\button_background2.png" />
     <Content Include="Content\sprites\iron-bar.png" />
     <Content Include="Content\sprites\iron-ore.png" />
+    <Content Include="Content\sprites\maps\map1.jpg" />
+    <Content Include="Content\sprites\maps\map2.jpg" />
+    <Content Include="Content\sprites\maps\map3.jpg" />
     <Content Include="Content\sprites\oak-log.png" />
     <Content Include="Content\sprites\oak-lumber.png" />
     <Content Include="Content\sprites\scrap.png" />

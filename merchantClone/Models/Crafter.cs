@@ -7,12 +7,20 @@ using System.Runtime.InteropServices;
 
 namespace merchantClone.Models
 {
+    [Serializable]
+    public enum CrafterRole
+    {
+        Armorer,
+        Blacksmith,
+        Carpenter
+    }
     public class Crafter : Person
     {
         private List<Recipe> _availableJobs = new List<Recipe>();
         private List<Recipe> _learnedJobs = new List<Recipe>();
+        public CrafterRole Role { get; set; }
         public Crafter() { }
-        public Crafter(string name, Roles role, [Optional] Job job) {
+        public Crafter(string name, CrafterRole role, [Optional] Job job) {
             Name = name;
             Role = role;
             Task = job;
@@ -25,7 +33,13 @@ namespace merchantClone.Models
             return _learnedJobs;
         }
 
-        public override void UpdateJobsList()
+        public override void HandleLevelUp()
+        {
+            base.HandleLevelUp();
+            UpdateJobsList();
+        }
+
+        private void UpdateJobsList()
         {
             _learnedJobs = _availableJobs.FindAll(recipe => recipe.RequiredLevel <= Level);
         }
@@ -33,7 +47,7 @@ namespace merchantClone.Models
         public void StartJobsList()
         {
             _availableJobs = ItemDetails.GetRecipes().FindAll(recipe => recipe.BelongsTo == Role);
-            _learnedJobs = _availableJobs.FindAll(recipe => recipe.RequiredLevel <= Level);
+            UpdateJobsList();
         }
 
         internal void AssignTask(Recipe recipe)
@@ -45,7 +59,6 @@ namespace merchantClone.Models
             Task = new Job(recipe.Name, finish, recipe);
             SaveFile.Save();
         }
-
 
         //public List<ComponentRow> ShowRecipes(Texture2D _texture, SpriteFont _font)
         //{

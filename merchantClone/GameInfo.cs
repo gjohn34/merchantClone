@@ -128,8 +128,8 @@ namespace merchantClone
         {
             _saveFile = saveData;
         }
-
-        internal static void InitializeTimers(List<Crafter> crafters)
+        // TODO - Add Person
+         internal static void InitializeTimers(List<Crafter> crafters)
         {
             DateTime now = DateTime.Now;
             foreach (Crafter crafter in crafters)

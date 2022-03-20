@@ -20,6 +20,7 @@ namespace merchantClone
             public int gold;
             public string playerName;
             public List<Crafter> crafters;
+            public List<Hero> heroes;
             public List<InventoryItem> items;
         }
 
@@ -85,6 +86,7 @@ namespace merchantClone
                 saveData.gold = 100;
                 saveData.playerName = "new player";
                 saveData.crafters = new List<Crafter>();
+                saveData.heroes = new List<Hero>();
             }
             GameInfo.InitializeInventory(saveData.items);
             GameInfo.InitializeGold(saveData.gold);

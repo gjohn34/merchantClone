@@ -128,19 +128,10 @@ namespace merchantClone.States
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
 
-
-            ////_goldLabel.Draw(gameTime, spriteBatch);
-            //_graphicsDevice.SetRenderTarget(_renderTarget);
-            //_graphicsDevice.Clear(Color.Transparent);
-            //spriteBatch.Draw(_texture, new Rectangle(0,0, _graphicsDevice.Viewport.Width, _texture.Height), Color.White);
-            // render the result to the backbuffer
             spriteBatch.Begin();
             foreach (Component component in _components)
                 component.Draw(gameTime, spriteBatch);
             spriteBatch.End();
-
-            //_graphicsDevice.SetRenderTarget(null);
-            //_graphicsDevice.Clear(Color.CornflowerBlue);
         }
 
         public override void PostUpdate(GameTime gameTime)

@@ -65,7 +65,6 @@ namespace merchantClone.Controls
     }
     public class PersonGroup : ComponentRow
     {
-
         #region Fields
         // TODO - Change this to private
         private Component[] _components;
@@ -144,4 +143,40 @@ namespace merchantClone.Controls
 
         #endregion
     }
+    public class MapGroup : ComponentRow
+    {
+
+        private Texture2D _background;
+        private Rectangle _rectangle;
+        private Component[] _components;
+
+        public MapGroup(Texture2D background, Rectangle rectangle)
+        {
+        }
+        public override Component[] Components()
+        {
+            return _components;
+        }
+
+        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        {
+        }
+
+        public override void Refresh()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void UpdatePosition(GameTime gametime, Vector2 position)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+
 }

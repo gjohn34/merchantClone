@@ -28,32 +28,35 @@ namespace merchantClone.Models
         public int CurrentXp { get; set; } = 1;
         public int TotalXp { get; set; } = 100;
         public string Name { get; protected set; }
-        public Roles Role { get; protected set; }
         public int Level { get; set; } = 1;
 
         #endregion
 
         #region Methods
-        public void FinishTask()
+        public virtual void FinishTask()
         {
             Console.WriteLine("Finished Task");
             CurrentXp += Task.ExperienceGain;
             if (CurrentXp >= TotalXp)
             {
-                Level += 1;
-                CurrentXp -= TotalXp;
-                TotalXp = NextTotal();
-                UpdateJobsList();
+
+                HandleLevelUp();
             }
             Task = null;
             SaveFile.Save();
+        }
+
+        public virtual void HandleLevelUp()
+        {
+            Level += 1;
+            CurrentXp -= TotalXp;
+            TotalXp = NextTotal();
         }
 
         private int NextTotal()
         {
             return 100;
         }
-        public abstract void UpdateJobsList();
         #endregion
     }
 }
