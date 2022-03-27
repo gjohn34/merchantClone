@@ -31,12 +31,19 @@ namespace merchantClone
 
     public abstract class ComponentRow
     {
+        public static List<ComponentRow> ParentList = new List<ComponentRow>();
         public Rectangle Rectangle;
+        public int RowHeight;
         public abstract Component[] Components();
         public abstract void Draw(GameTime gameTime, SpriteBatch spriteBatch);
         public abstract void Update(GameTime gameTime);
         public abstract void UpdatePosition(GameTime gametime, Vector2 position);
         public abstract void Refresh();
+        public abstract int GetYOffset();
+        internal static void ResetList()
+        {
+            ParentList = new List<ComponentRow>();
+        }
         //public abstract void SwapWith(SwapWith swapWith, Component component);
     }
 

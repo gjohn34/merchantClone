@@ -44,7 +44,7 @@ namespace merchantClone.Controls
             _transform = Matrix.CreateTranslation(new Vector3(new Vector2(_rectangle.X, _rectangle.Y), 0));
             if (_button != null)
             {
-                _button.TouchRectangle = new Rectangle((int)_button.Position.X, (int)(_button.Position.Y + _transform.Translation.Y + _texture.Height), _texture.Width, _texture.Height);
+                _button.TouchRectangle= new Rectangle((int)_button.Position.X, (int)(_button.Position.Y + _transform.Translation.Y + _texture.Height), _texture.Width, _texture.Height);
             }
 
             if (!transparent)
@@ -164,7 +164,9 @@ namespace merchantClone.Controls
 
             foreach (ComponentRow component in ComponentGroups)
             {
-                component.Rectangle = new Rectangle((int)_position.X, (int)_position.Y + (ComponentGroups.IndexOf(component) * (_rowHeight + margin)), _rectangle.Width, _rowHeight);
+                // Put this in yoffset
+                int yOffset = component.GetYOffset();
+                component.Rectangle = new Rectangle((int)_position.X, (int)_position.Y + yOffset, _rectangle.Width, _rowHeight);
                 int newPos = component.Rectangle.Y + (_comp.Height - _texture.Height) / 2;
                 component.UpdatePosition(gameTime, new Vector2(component.Rectangle.X, newPos));
                 component.Update(gameTime);

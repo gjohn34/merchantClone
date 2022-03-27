@@ -75,8 +75,11 @@
     <Compile Include="Models\Crafter.cs" />
     <Compile Include="Models\Hero.cs" />
     <Compile Include="Models\IPerson.cs" />
+    <Compile Include="Models\ITask.cs" />
+    <Compile Include="Models\Item.cs" />
     <Compile Include="Models\Person.cs" />
     <Compile Include="Models\Job.cs" />
+    <Compile Include="Models\Quest.cs" />
     <Compile Include="Models\Recipe.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -88,6 +91,7 @@
     <Compile Include="States\JobsState.cs" />
     <Compile Include="States\MainMenuState.cs" />
     <Compile Include="States\MapState.cs" />
+    <Compile Include="States\QuestState.cs" />
     <Compile Include="States\ShowRecipeState.cs" />
     <Compile Include="States\State.cs" />
   </ItemGroup>

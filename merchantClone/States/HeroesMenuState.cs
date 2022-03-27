@@ -17,6 +17,7 @@ namespace merchantClone.States
 
         public HeroesMenuState(Game1 game, GraphicsDevice graphics, ContentManager content) : base(game, graphics, content)
         {
+            ComponentRow.ResetList();
             #region Buttons
             var backButton = new Button(_buttonTexture, _buttonFont)
             {

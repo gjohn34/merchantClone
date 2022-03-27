@@ -14,10 +14,13 @@ namespace merchantClone.States
         private Crafter _person;
         private ScrollPane _scrollPane;
         private int _margin = 25;
+        private bool _showAll = false;
         private List<ComponentRow> _scrollComponents = new List<ComponentRow>();
+        private Button _allRecipes;
 
         public JobsState(Game1 game, GraphicsDevice graphics, ContentManager content, Crafter person) : base(game, graphics, content)
         {
+            ComponentRow.ResetList();
             _person = person;
 
             // Buttons
@@ -28,12 +31,12 @@ namespace merchantClone.States
             };
             backButton.Touch += BackButton_Click;
 
-            Button allRecipes = new Button(_buttonTexture, _buttonFont)
+            _allRecipes = new Button(_buttonTexture, _buttonFont)
             {
                 Position = new Vector2(_vW - _buttonTexture.Width, _vH - _buttonTexture.Height),
                 Text = "All"
             };
-            allRecipes.Touch += AllRecipes_Click;
+            _allRecipes.Touch += AllRecipes_Click;
 
             // Labels
             StaticLabel title = new StaticLabel(_buttonTexture, _buttonFont, person.Name + " the " + person.Role + person.Level.ToString())
@@ -45,7 +48,7 @@ namespace merchantClone.States
             _components = new List<Component>
             {
                 backButton,
-                allRecipes,
+                _allRecipes,
                 title
             };
 
@@ -68,11 +71,16 @@ namespace merchantClone.States
 
         private void AllRecipes_Click(object sender, EventArgs e)
         {
+            // TODO - Make this better
             _scrollComponents = new List<ComponentRow>();
+            ComponentRow.ResetList();
 
             foreach (Recipe recipe in _person.GetJobs())
-               LoadRecipeComponents(recipe, true);
+               LoadRecipeComponents(recipe, !_showAll ? true : false);
 
+            _allRecipes.Text = "Some";
+            //_components[1].Text = !_showAll ? "All" : "Some";
+            _showAll = !_showAll;
 
         }
 
@@ -92,7 +100,7 @@ namespace merchantClone.States
                         showRecipe,
                         startJob
                     },
-                    new Rectangle(0, 0, _vH - ((_buttonTexture.Height + _margin) * 2), rowHeight)));
+                    new Rectangle(0, 0, _vW - ((_buttonTexture.Height + _margin) * 2), rowHeight)));
         }
 
         private void StartJob_Click(object sender, EventArgs e, Recipe recipe)

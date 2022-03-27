@@ -14,9 +14,11 @@ namespace merchantClone.States
         private int _margin = 25;
         private Button _newPerson;
         private ScrollPane _scrollPane;
+        private Texture2D _comp;
 
         public CraftingMenuState(Game1 game, GraphicsDevice graphics, ContentManager content) : base(game, graphics, content)
         {
+            ComponentRow.ResetList();
             #region Buttons
             Button backButton = new Button(_buttonTexture, _buttonFont)
             {
@@ -126,7 +128,7 @@ namespace merchantClone.States
             Button recipes = new Button(_buttonTexture, _buttonFont) { Position = new Vector2(10, 10), Text = crafter.Role.ToString() + " " + crafter.Level };
             ProgressBar bar = new ProgressBar(_graphicsDevice, _buttonFont, crafter.Task);
 
-            Button job = new Button(_buttonTexture, _buttonFont);
+            Button job = new Button(_buttonTexture, _buttonFont) { Position = new Vector2(_vW - _buttonTexture.Width, 100) };
             //Button job = new Button(_buttonTexture, _buttonFont) { Position = new Vector2(400, 200), Text = "+10 exp" };
             if (crafter.Task != null)
             {
@@ -149,11 +151,22 @@ namespace merchantClone.States
             recipes.Touch += (object sender, EventArgs e) =>
                 _game.ChangeState(new JobsState(_game, _graphicsDevice, _content, crafter));
 
+            // Hardcoded values for now, check scroll pane for originals
+            int _rectanglewidth = 200;
+            int _rowHeight = 200;
+            _comp = new Texture2D(_graphicsDevice, _rectanglewidth, _rowHeight);
+            Color[] compData = new Color[_rectanglewidth * _rowHeight];
+            for (int i = 0; i < compData.Length; ++i)
+            {
+                compData[i] = Color.Red;
+            }
+            _comp.SetData(compData);
             _scrollComponents.Add(new PersonGroup(
                 new Component[3] { recipes, bar, job },
-                new Rectangle(0, 0, _vH - ((_buttonTexture.Height + _margin) * 2), rowHeight),
-                crafter)
-            );
+                new Rectangle(0, 0, _vW - ((_buttonTexture.Height + _margin) * 2), rowHeight),
+                crafter
+                //_comp
+            ));
         }
 
         private void Job_Touch(object sender, EventArgs e, Person crafter)

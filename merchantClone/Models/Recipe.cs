@@ -14,13 +14,7 @@ using System.Xml.Serialization;
 
 namespace merchantClone.Models
 {
-    public class Item
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public bool Stacks { get; set; }
-        public string Sprite { get; set; } = "scrap";
-    }
+
 
     public class InventoryItem
     {
@@ -70,7 +64,7 @@ namespace merchantClone.Models
         }
         public int Quantity { get; set; }
     }
-    public class Recipe
+    public class Recipe : ITask
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -81,6 +75,7 @@ namespace merchantClone.Models
         public CrafterRole BelongsTo { get; set; }
         public List<RecipeItem> RecipeItems { get; set; } = new List<RecipeItem>();
         public int Time { get; set; }
+        public List<Item> Reward { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public Recipe() { }
         public Recipe(Item item, int level, CrafterRole belongsTo, List<RecipeItem> recipeItems)

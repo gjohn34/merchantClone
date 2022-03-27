@@ -28,6 +28,7 @@ namespace merchantClone.Controls
             }
             _components = components;
             Rectangle = rectangle;
+            ParentList.Add(this);
         }
 
         public override void UpdatePosition(GameTime gametime, Vector2 position)
@@ -62,6 +63,14 @@ namespace merchantClone.Controls
         {
             throw new NotImplementedException();
         }
+
+        public override int GetYOffset()
+        {
+
+            int rowHeight = 200;
+            int margin = 50;
+            return (ParentList.IndexOf(this) * (rowHeight + margin));
+        }
     }
     public class PersonGroup : ComponentRow
     {
@@ -93,6 +102,7 @@ namespace merchantClone.Controls
             _label = components[2] == null ? null : (Button)components[2];
             _components = components;
             _person = person;
+            ParentList.Add(this);
         }
 
         public override void Draw(GameTime gametime, SpriteBatch spriteBatch)
@@ -141,17 +151,30 @@ namespace merchantClone.Controls
             _bar.ResetTask();
         }
 
+        public override int GetYOffset()
+        {
+            int rowHeight = 200;
+            int margin = 50;
+            return (ParentList.IndexOf(this) * (rowHeight + margin));
+        }
+
         #endregion
     }
     public class MapGroup : ComponentRow
     {
 
         private Texture2D _background;
-        private Rectangle _rectangle;
         private Component[] _components;
+        private Button _button;
+        private int _y;
 
-        public MapGroup(Texture2D background, Rectangle rectangle)
+        public MapGroup(Button button, Rectangle rectangle, Texture2D background)
         {
+            _button = button;
+            Rectangle = rectangle;
+            _y = rectangle.Y;
+            ParentList.Add(this);
+
         }
         public override Component[] Components()
         {
@@ -160,21 +183,32 @@ namespace merchantClone.Controls
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
+            _button.Draw(gameTime, spriteBatch);
+        }
+
+        public override int GetYOffset()
+        {
+            int rowHeight = 200;
+            int margin = 50;
+            Console.WriteLine(Rectangle);
+            return _y - ParentList.IndexOf(this);
         }
 
         public override void Refresh()
         {
-            throw new NotImplementedException();
         }
 
         public override void Update(GameTime gameTime)
         {
-            throw new NotImplementedException();
+            _button.Update(gameTime);
         }
 
         public override void UpdatePosition(GameTime gametime, Vector2 position)
         {
-            throw new NotImplementedException();
+
+            int vHeight = 1731;
+            _button.Rectangle = new Rectangle((int)position.X, (int)position.Y, 143, 143);
+            _button.UpdatePosition(gametime, new Vector2(position.X, position.Y - vHeight - 143 - 143));
         }
     }
 
