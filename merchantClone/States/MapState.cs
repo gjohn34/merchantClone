@@ -27,15 +27,26 @@ namespace merchantClone.States
             };
             backButton.Touch += BackButton_Click;
 
+            StaticLabel mapName = new StaticLabel(_buttonTexture, _buttonFont, "Deep Jungle")
+            {
+                Position = new Vector2(_vW - (_vW - _buttonTexture.Width), _vH - _buttonTexture.Height),
+                Rectangle = new Rectangle(_vW - (_vW - _buttonTexture.Width), _vH - _buttonTexture.Height, _vW - _buttonTexture.Width, _buttonTexture.Height),
+            };
+
             _components = new List<Component>
             {
                 backButton,
+                mapName
             };
             #endregion
             _mapBackground = content.Load<Texture2D>("sprites/maps/map1");
             //_r = new Rectangle(0, 0, _vW, _vH -_buttonTexture.Height);
             //_r = new Rectangle(0, 0 - _vH - _buttonTexture.Height, _vW, _vH * 2);
-            _r = new Rectangle(0, 0 - _vH  - 143, _vW, _vH * 2 - _buttonTexture.Height);
+            _r = new Rectangle(0, 0 - (_mapBackground.Height - _vH)  - 143, _vW, _mapBackground.Height);
+            //_r = new Rectangle(0, 0 - (_mapBackground.Height - _vH) - 143, _vW, _mapBackground.Height);
+
+            Rectangle r2 = new Rectangle(0, 0 - _mapBackground.Height - 143, _vW, _mapBackground.Height);
+
             int yOffset = _r.Height - _buttonTexture.Height;
             // Hardcoded values for now, check scroll pane for originals
             int _rectanglewidth = 200;

@@ -13,7 +13,7 @@ namespace merchantClone.Controls
         {
             Top,
             None,
-            Bottom
+            Bottom  
         };
         #region Fields
         private GraphicsDevice _graphics;
@@ -137,8 +137,28 @@ namespace merchantClone.Controls
                                 y = 0;
                             }
                         }
+                    } else if (_background != null)
+                    {
+                        if ((int)_position.Y < 0)
+                        {
+                            y = 0;
+                        }
+                        else if ((int)_position.Y > -_rectangle.Y)
+                        {
+                            y = -_rectangle.Y;
+                        }
+                        else
+                        {
+                            y = (int)_position.Y;
+                        }
                     }
+                    //else
+
                     _position.Y = y;
+                    //if (reversed)
+                    //{
+                    //    _position.Y = rowsSize;
+                    //}
                 }
                 else if (_currentTouch.State == TouchLocationState.Moved)
                 {
