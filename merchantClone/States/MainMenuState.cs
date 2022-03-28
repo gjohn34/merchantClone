@@ -26,7 +26,7 @@ namespace merchantClone.States
             SpriteFont buttonFont = content.Load<SpriteFont>("Fonts/font");
             Button craftingButton = new Button(buttonTexture, buttonFont)
             {
-                Position = new Vector2(0, graphicsDevice.Viewport.Height-buttonTexture.Height),
+                Position = new Vector2(0, _vH - buttonTexture.Height),
                 Text = "crafting"
             };
             Button heroesButton = new Button(buttonTexture, buttonFont)
@@ -34,31 +34,30 @@ namespace merchantClone.States
                 Position = new Vector2(600, 600),
                 Text = "heroes"
             };
-            Viewport viewport = graphicsDevice.Viewport;
             Button saveButton = new Button(buttonTexture, buttonFont)
             {
-                Position = new Vector2(viewport.Width - buttonTexture.Width, viewport.Height - buttonTexture.Height),
+                Position = new Vector2(_vW - buttonTexture.Width, _vH - buttonTexture.Height),
                 Text = "SAVE"
             };
             Button goldButton = new Button(buttonTexture, buttonFont)
             {
-                Position = new Vector2(viewport.Width - (buttonTexture.Width * 3), viewport.Height - buttonTexture.Height),
+                Position = new Vector2(_vW - (buttonTexture.Width * 3), _vH - buttonTexture.Height),
                 Text = "Add Gold"
             };
             Button resetButton = new Button(buttonTexture, buttonFont)
             {
-                Position = new Vector2(viewport.Width - (buttonTexture.Width * 2), viewport.Height - buttonTexture.Height),
+                Position = new Vector2(_vW - (buttonTexture.Width * 2), _vH - buttonTexture.Height),
                 Text = "reset"
             };
 
             Button inventoryButton = new Button(buttonTexture, buttonFont)
             {
-                Position = new Vector2(buttonTexture.Width * 3, viewport.Height - buttonTexture.Height),
+                Position = new Vector2(buttonTexture.Width * 3, _vH - buttonTexture.Height),
                 Text = "inventory"
             };
             StaticLabel goldLabel = new StaticLabel(buttonTexture, buttonFont, _saveData.gold.ToString())
             {
-                Position = new Vector2((viewport.Width / 2) - (buttonTexture.Width / 2)),
+                Position = new Vector2((_vW / 2) - (buttonTexture.Width / 2)),
                 Text = _saveData.gold.ToString()
             };
 
@@ -72,7 +71,7 @@ namespace merchantClone.States
             StaticLabel title = new StaticLabel(buttonTexture, buttonFont, "Main")
             {
                 Position = new Vector2(0, 0),
-                Rectangle = new Rectangle(0, 0, graphicsDevice.Viewport.Width, buttonTexture.Height)
+                Rectangle = new Rectangle(0, 0, _vW, buttonTexture.Height)
             };
             _components = new List<Component>
             {

@@ -148,7 +148,7 @@ namespace merchantClone.States
                 _inventoryComponents.Add(
                     new ItemBox(sprite, _buttonFont, vPadding) { Rectangle = new Rectangle(x, y, objWidth, objHeight), Text = item.Quantity.ToString() }
                 );
-                if (x < graphicsDevice.Viewport.Width - (objWidth + hPadding))
+                if (x < _vW - (objWidth + hPadding))
                 {
                     x += objWidth + hPadding;
                 } else

@@ -33,6 +33,8 @@ namespace merchantClone.States
         protected Texture2D _buttonTexture;
         protected SpriteFont _buttonFont;
         protected int _vW;
+        protected int _heightAfterButtons;
+        protected Texture2D _background;
         protected int _vH;
         #endregion
 
@@ -52,6 +54,14 @@ namespace merchantClone.States
             _buttonFont = content.Load<SpriteFont>("Fonts/font");
             _vH = graphicsDevice.Viewport.Height;
             _vW = graphicsDevice.Viewport.Width;
+            _heightAfterButtons = _vH - (_buttonTexture.Height * 2);
+            _background = new Texture2D(_graphicsDevice, _vW, _vH);
+            Color[] data = new Color[_vW * _vH];
+            for (int i = 0; i < data.Length; ++i)
+            {
+                data[i] = Color.Green;
+            }
+            _background.SetData(data);
         }
 
 

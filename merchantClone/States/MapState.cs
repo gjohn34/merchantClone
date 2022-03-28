@@ -128,8 +128,8 @@ namespace merchantClone.States
                 game: game,
                 components: _scrollComponents,
                 rectangle: _r,
-                texture: _buttonTexture
-                //transparent: true
+                texture: _buttonTexture,
+                background: _mapBackground
                 );
         }
 

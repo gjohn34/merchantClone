@@ -22,7 +22,6 @@ namespace merchantClone.States
         {
             ComponentRow.ResetList();
             _person = person;
-
             // Buttons
             Button backButton = new Button(_buttonTexture, _buttonFont)
             {
@@ -42,7 +41,7 @@ namespace merchantClone.States
             StaticLabel title = new StaticLabel(_buttonTexture, _buttonFont, person.Name + " the " + person.Role + person.Level.ToString())
             {
                 Position = new Vector2(0, 0),
-                Rectangle = new Rectangle(0, 0, graphics.Viewport.Width, _buttonTexture.Height)
+                Rectangle = new Rectangle(0, 0, _vW, _buttonTexture.Height)
             };
 
             _components = new List<Component>
@@ -55,7 +54,7 @@ namespace merchantClone.States
             _scrollPane = new ScrollPane(
                 game: game,
                 components: _scrollComponents,
-                rectangle: new Rectangle(0, _buttonTexture.Height, _vW, graphics.Viewport.Height - ((_buttonTexture.Height + _margin) * 2)),
+                rectangle: new Rectangle(0, _buttonTexture.Height, _vW, _heightAfterButtons),
                 texture: _buttonTexture);
 
             foreach (Recipe recipe in _person.GetJobs())
@@ -66,6 +65,7 @@ namespace merchantClone.States
 
                 }
             }
+
 
         }
 
@@ -119,6 +119,9 @@ namespace merchantClone.States
         }
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
+            spriteBatch.Begin();
+            spriteBatch.Draw(_background, new Rectangle(0, 143, _vW, _heightAfterButtons), Color.White);
+            spriteBatch.End();
 
             _scrollPane.Draw(gameTime, spriteBatch);
 

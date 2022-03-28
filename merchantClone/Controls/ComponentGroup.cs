@@ -107,6 +107,8 @@ namespace merchantClone.Controls
 
         public override void Draw(GameTime gametime, SpriteBatch spriteBatch)
         {
+            // TODO - implement _comp
+            //spriteBatch.Draw(_comp, componentGroup.Rectangle, Color.White);
             foreach (Component component in _components)
                 component.Draw(gametime, spriteBatch);
         }

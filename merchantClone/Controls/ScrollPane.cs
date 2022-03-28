@@ -23,7 +23,7 @@ namespace merchantClone.Controls
         private TouchLocation _previousTouch;
         private TouchLocation _currentTouch;
         private Matrix _transform;
-        private Texture2D _rect;
+        private Texture2D _background;
         private int _rowHeight;
         private Texture2D _comp;
         private Button _button;
@@ -33,40 +33,33 @@ namespace merchantClone.Controls
         #region Properties
         public List<ComponentRow> ComponentGroups;
         #endregion
-        public ScrollPane(Game game, List<ComponentRow> components, [Optional] Button button, Rectangle rectangle, Texture2D texture, bool transparent = false)
+        public ScrollPane(Game game, List<ComponentRow> components, [Optional] Button button, Rectangle rectangle, Texture2D texture, Texture2D background = null)
         {
             _graphics = game.GraphicsDevice;
             ComponentGroups = components;
             _rectangle = rectangle;
             _texture = texture;
             _button = button;
-            _transparent = transparent;
             _transform = Matrix.CreateTranslation(new Vector3(new Vector2(_rectangle.X, _rectangle.Y), 0));
             if (_button != null)
             {
                 _button.TouchRectangle= new Rectangle((int)_button.Position.X, (int)(_button.Position.Y + _transform.Translation.Y + _texture.Height), _texture.Width, _texture.Height);
             }
 
-            if (!transparent)
+            if (background != null)
             {
-                _rect = new Texture2D(_graphics, _rectangle.Width, _rectangle.Height);
-                Color[] data = new Color[_rectangle.Width * _rectangle.Height];
-                for (int i = 0; i < data.Length; ++i)
-                {
-                    data[i] = Color.Green;
-                }
-                _rect.SetData(data);
+                _background = background;
             }
 
             // TODO - Move this to ComponentGroup construfctor
             _rowHeight = 200;
-            _comp = new Texture2D(_graphics, _rectangle.Width, _rowHeight);
-            Color[] compData = new Color[_rectangle.Width * _rowHeight];
-            for (int i = 0; i < compData.Length; ++i)
-            {
-                compData[i] = Color.Red;
-            }
-            _comp.SetData(compData);
+            //_comp = new Texture2D(_graphics, _rectangle.Width, _rowHeight);
+            //Color[] compData = new Color[_rectangle.Width * _rowHeight];
+            //for (int i = 0; i < compData.Length; ++i)
+            //{
+            //    compData[i] = Color.Red;
+            //}
+            //_comp.SetData(compData);
 
         }
 
@@ -83,16 +76,16 @@ namespace merchantClone.Controls
             spriteBatch.Begin(SpriteSortMode.Immediate, rasterizerState: rasterState, transformMatrix: _transform);
 
             // Plain green fill rectangle background
-            if (!_transparent)
+            if (_background != null)
             {
-                spriteBatch.Draw(_rect, new Rectangle(0, 0, _rectangle.Width, _rectangle.Height), Color.White);
+                spriteBatch.Draw(_background, new Rectangle(0, (int)_position.Y, _rectangle.Width, _rectangle.Height), Color.White);
             }
             int margin = 50;
 
             foreach (ComponentRow componentGroup in ComponentGroups)
             {
                 // TODO - Move into compGroup#draw
-                spriteBatch.Draw(_comp, componentGroup.Rectangle, Color.White);
+                //spriteBatch.Draw(_comp, componentGroup.Rectangle, Color.White);
                 componentGroup.Draw(gameTime, spriteBatch);
             }
             if (_button != null)
@@ -167,7 +160,7 @@ namespace merchantClone.Controls
                 // Put this in yoffset
                 int yOffset = component.GetYOffset();
                 component.Rectangle = new Rectangle((int)_position.X, (int)_position.Y + yOffset, _rectangle.Width, _rowHeight);
-                int newPos = component.Rectangle.Y + (_comp.Height - _texture.Height) / 2;
+                int newPos = component.Rectangle.Y + (_rowHeight - _texture.Height) / 2;
                 component.UpdatePosition(gameTime, new Vector2(component.Rectangle.X, newPos));
                 component.Update(gameTime);
             }

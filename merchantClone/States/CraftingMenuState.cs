@@ -70,6 +70,10 @@ namespace merchantClone.States
         }
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
+
+            spriteBatch.Begin();
+            spriteBatch.Draw(_background, new Rectangle(0, 143, _vW, _heightAfterButtons), Color.White);
+            spriteBatch.End();
             _scrollPane.Draw(gameTime, spriteBatch);
 
             spriteBatch.Begin();
