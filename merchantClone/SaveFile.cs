@@ -77,8 +77,8 @@ namespace merchantClone
                 }
                     foreach (Crafter crafter in saveData.crafters)
                 {
-                    if (crafter.Task != null)
-                        crafter.Task.Recipe = ItemDetails.GetRecipe(crafter.Task.TaskId);
+                    if (crafter.Job != null)
+                        crafter.Job.Task = ItemDetails.GetRecipe(crafter.Job.TaskId);
                     crafter.StartJobsList();
                 }
             } catch
@@ -87,6 +87,7 @@ namespace merchantClone
                 saveData.playerName = "new player";
                 saveData.crafters = new List<Crafter>();
                 saveData.heroes = new List<Hero>();
+                saveData.items = new List<InventoryItem>();
             }
             GameInfo.InitializeInventory(saveData.items);
             GameInfo.InitializeGold(saveData.gold);

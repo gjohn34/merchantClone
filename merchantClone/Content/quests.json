@@ -2,6 +2,7 @@
 	{
 		"Id": 1,
 		"Name": "Mountains",
+		"Zone": "deep jungle",
 		"Cost": 1,
 		"RequiredLevel": 1,
 		"Time": 10,
@@ -10,10 +11,13 @@
 			"HP": 10,
 			"Attack": 1,
 			"Defence": 1
-		}
-	}, {
+		},
+		"RewardItems":  [{"Id": 1, "Quantity":  4}]
+	},
+	{
 		"Id": 2,
 		"Name": "Woods",
+		"Zone": "deep jungle",
 		"Cost": 1,
 		"RequiredLevel": 1,
 		"Time": 10,
@@ -22,6 +26,13 @@
 			"HP": 10,
 			"Attack": 1,
 			"Defence": 1
-		}
+		},
+		"RewardItems": [
+			{
+				"Id": 2,
+				"Quantity": 4
+			}
+		]
+
 	}
 ]

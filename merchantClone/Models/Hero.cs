@@ -32,7 +32,7 @@ namespace merchantClone.Models
         {
             Name = name;
             Role = role;
-            Task = job;
+            Job = job;
         }
         public override void FinishTask()
         {

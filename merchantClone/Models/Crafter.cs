@@ -23,7 +23,7 @@ namespace merchantClone.Models
         public Crafter(string name, CrafterRole role, [Optional] Job job) {
             Name = name;
             Role = role;
-            Task = job;
+            Job = job;
             _availableJobs = ItemDetails.GetRecipes().FindAll(recipe => recipe.BelongsTo == role);
             UpdateJobsList();
         }

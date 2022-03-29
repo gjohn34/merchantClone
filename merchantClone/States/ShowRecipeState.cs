@@ -34,7 +34,7 @@ namespace merchantClone.States
                 Text = "Create",
                 Disabled = false
             };
-            createButton.Disabled = !GameInfo.Instance.CanMake(recipe) || crafter.Task != null;
+            createButton.Disabled = !GameInfo.Instance.CanMake(recipe) || crafter.Job != null;
             createButton.Touch += CreateButton_Click;
 
             // Labels

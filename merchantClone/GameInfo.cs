@@ -37,29 +37,34 @@ namespace merchantClone
         }
         internal static void InitializeInventory(List<InventoryItem> items)
         {
+            _items = new List<InventoryItem>();
             //_items = items;
-            _items = new List<InventoryItem>{
-                new InventoryItem() { Id = 1, Quantity = 100},
+            foreach (InventoryItem item in items)
+                _items.Add(new InventoryItem(item.Id, item.Quantity));
+            //_items = new List<InventoryItem>{
+                //new InventoryItem() { Id = 1, Quantity = 100},
                 //new InventoryItem() { Id = 2, Quantity = 100},
                 //new InventoryItem() { Id = 3, Quantity = 100},
                 //new InventoryItem() { Id = 4, Quantity = 100},
                 //new InventoryItem() { Id = 5, Quantity = 100},
                 //new InventoryItem() { Id = 6, Quantity = 1},
-            };
         }
 
-        internal void IncreaseInventory(int recipeId, int count = 1)
+        internal void IncreaseInventory(List<RewardItem> rewardItems)
         {
-            Recipe recipe = ItemDetails.GetRecipe(recipeId);
-            foreach (InventoryItem inventoryItem in _items)
+            //Recipe recipe = ItemDetails.GetRecipe(recipeId);
+            foreach (RewardItem rewardItem in rewardItems)
             {
-                if (inventoryItem.Item.Id == recipe.ItemId)
+                foreach (InventoryItem inventoryItem in _items)
                 {
-                    inventoryItem.Quantity += count;
-                    return;
+                    if (inventoryItem.Item.Id == rewardItem.Id)
+                    {
+                        inventoryItem.Quantity += rewardItem.Quantity;
+                        break;
+                    }
                 }
+                _items.Add(new InventoryItem(rewardItem.Id, rewardItem.Quantity));
             }
-            _items.Add(new InventoryItem(recipe.ItemId, count));
         }
 
         internal void ReduceInventory(List<RecipeItem> recipeItems)
@@ -134,9 +139,9 @@ namespace merchantClone
             DateTime now = DateTime.Now;
             foreach (Crafter crafter in crafters)
             {
-                if (crafter.Task != null)
+                if (crafter.Job != null)
                 {
-                    crafter.Task.Seconds = (int)crafter.Task.FinishTime.Subtract(now).TotalSeconds;
+                    crafter.Job.Seconds = (int)crafter.Job.FinishTime.Subtract(now).TotalSeconds;
                 }
             }
         }

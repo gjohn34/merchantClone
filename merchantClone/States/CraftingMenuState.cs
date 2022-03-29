@@ -130,19 +130,19 @@ namespace merchantClone.States
         private void CrafterComponent(Crafter crafter)
         {
             Button recipes = new Button(_buttonTexture, _buttonFont) { Position = new Vector2(10, 10), Text = crafter.Role.ToString() + " " + crafter.Level };
-            ProgressBar bar = new ProgressBar(_graphicsDevice, _buttonFont, crafter.Task);
+            ProgressBar bar = new ProgressBar(_graphicsDevice, _buttonFont, crafter.Job);
 
             Button job = new Button(_buttonTexture, _buttonFont) { Position = new Vector2(_vW - _buttonTexture.Width, 100) };
             //Button job = new Button(_buttonTexture, _buttonFont) { Position = new Vector2(400, 200), Text = "+10 exp" };
-            if (crafter.Task != null)
+            if (crafter.Job != null)
             {
-                if (crafter.Task.IsDone())
+                if (crafter.Job.IsDone())
                 {
                     job.Text = "Done";
                     job.Position = new Vector2(400, 200);
                 } else
                 {
-                    job.Text = crafter.Task.SecondsLeft().ToString();
+                    job.Text = crafter.Job.SecondsLeft().ToString();
                 }
             } else
             {
@@ -175,9 +175,8 @@ namespace merchantClone.States
 
         private void Job_Touch(object sender, EventArgs e, Person crafter)
         {
-            if (crafter.Task != null && crafter.Task.IsDone())
+            if (crafter.Job != null && crafter.Job.IsDone())
             {
-                GameInfo.Instance.IncreaseInventory(crafter.Task.TaskId);
                 crafter.FinishTask();
                 _scrollComponents.Find(x => x.Components()[2] == sender).Refresh();
             } else

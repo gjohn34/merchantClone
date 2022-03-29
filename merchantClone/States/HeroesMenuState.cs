@@ -105,20 +105,20 @@ namespace merchantClone.States
         private void HeroComponent(Hero hero)
         {
             Button heroDetail = new Button(_buttonTexture, _buttonFont) { Position = new Vector2(10, 10), Text = hero.Role.ToString() + " " + hero.Level };
-            ProgressBar bar = new ProgressBar(_graphicsDevice, _buttonFont, hero.Task);
+            ProgressBar bar = new ProgressBar(_graphicsDevice, _buttonFont, hero.Job);
 
             Button job = new Button(_buttonTexture, _buttonFont);
             //Button job = new Button(_buttonTexture, _buttonFont) { Position = new Vector2(400, 200), Text = "+10 exp" };
-            if (hero.Task != null)
+            if (hero.Job != null)
             {
-                if (hero.Task.IsDone())
+                if (hero.Job.IsDone())
                 {
                     job.Text = "Done";
                     job.Position = new Vector2(400, 200);
                 }
                 else
                 {
-                    job.Text = hero.Task.SecondsLeft().ToString();
+                    job.Text = hero.Job.SecondsLeft().ToString();
                 }
             } else
             {
@@ -139,7 +139,15 @@ namespace merchantClone.States
 
         private void Job_Touch(object sender, EventArgs e, Hero hero)
         {
-            _game.ChangeState(new MapState(_game, _graphicsDevice, _content, hero));
+            if (hero.Job != null && hero.Job.IsDone())
+            {
+                hero.FinishTask();
+                _scrollComponents.Find(x => x.Components()[2] == sender).Refresh();
+            }
+            else
+            {
+                _game.ChangeState(new MapState(_game, _graphicsDevice, _content, hero));
+            }
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)

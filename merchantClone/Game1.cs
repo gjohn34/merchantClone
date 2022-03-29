@@ -49,6 +49,7 @@ namespace merchantClone
             List<Item> items = Content.Load<List<Item>>("items");
             List<Recipe> recipes = Content.Load<List<Recipe>>("recipes");
             ItemDetails.Instance.LoadContent(items, recipes);
+            Content.Load<List<Quest>>("quests");
             //ControlSettings.UpdateSave(SaveFile.Load());
             _currentState = new HeroesMenuState(this, GraphicsDevice, Content);
             //_currentState = new CraftingMenuState(this, GraphicsDevice, Content, recipes[0]);

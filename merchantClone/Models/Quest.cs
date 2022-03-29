@@ -18,8 +18,11 @@ namespace merchantClone.Models
         public int Cost { get; set; }
         public int RequiredLevel { get; set; }
         public int Time { get; set; }
-        public List<Item> Reward { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public Quest() { }
+        private static List<Quest> Quests { get; set; } = new List<Quest>();
+        public List<RewardItem> RewardItems { get; set; } = new List<RewardItem>();
+        public Quest() {
+            Quests.Add(this);
+        }
         public Quest(int id, string name, int cost, int reqLev, int time)
         {
             Id = id;
@@ -29,16 +32,14 @@ namespace merchantClone.Models
             Time = time;
         }
 
-        private static List<Quest> _quests = new List<Quest>
-        {
-            new Quest(1, "first q", 1, 1, 10),
-            new Quest(2, "2nd q", 1, 1, 10),
-            new Quest(3, "third q", 1, 1, 10),
-        };
-
+        
         public static Quest GetQuest(int id)
         {
-            return _quests.Find(x => x.Id == id);
+            return Quests.Find(x => x.Id == id);
+        }
+        public static List<Quest> GetQuests()
+        {
+            return Quests;
         }
     }
 }

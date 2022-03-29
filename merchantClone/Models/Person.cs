@@ -24,7 +24,7 @@ namespace merchantClone.Models
         #endregion
 
         #region Properties
-        public Job Task { get; set; }
+        public Job Job { get; set; }
         public int CurrentXp { get; set; } = 1;
         public int TotalXp { get; set; } = 100;
         public string Name { get; protected set; }
@@ -36,13 +36,13 @@ namespace merchantClone.Models
         public virtual void FinishTask()
         {
             Console.WriteLine("Finished Task");
-            CurrentXp += Task.ExperienceGain;
+            GameInfo.Instance.IncreaseInventory(Job.Task.RewardItems);
+            CurrentXp += Job.ExperienceGain;
             if (CurrentXp >= TotalXp)
             {
-
                 HandleLevelUp();
             }
-            Task = null;
+            Job = null;
             SaveFile.Save();
         }
 
@@ -62,7 +62,7 @@ namespace merchantClone.Models
             GameInfo.Instance.ReduceGold(task.Cost);
             DateTime now = DateTime.Now;
             DateTime finish = now.AddSeconds(task.Time);
-            Task = new Job(task.Name, finish, task);
+            Job = new Job(task.Name, finish, task);
             SaveFile.Save();
         }
         #endregion

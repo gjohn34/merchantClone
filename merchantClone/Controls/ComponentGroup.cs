@@ -114,14 +114,14 @@ namespace merchantClone.Controls
         }
         public override void Update(GameTime gameTime)
         {
-            if (_person.Task != null)
+            if (_person.Job != null)
             {
-                if (_person.Task.IsDone())
+                if (_person.Job.IsDone())
                 {
                     _label.Text = "Done";
                 } else
                 {
-                    _label.Text = _person.Task.SecondsLeft().ToString();
+                    _label.Text = _person.Job.SecondsLeft().ToString();
                 }
             }
             _label.Update(gameTime);

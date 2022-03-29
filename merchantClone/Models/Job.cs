@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml.Serialization;
 
 namespace merchantClone.Models
 {
@@ -21,13 +22,15 @@ namespace merchantClone.Models
         public int ExperienceGain { get; set; }
         public Person BelongsTo { get; }
         public int TaskId { get; set; }
-        public Recipe Recipe { get; set; }
+        [XmlIgnore]
+        public ITask Task { get; set; }
         public Job() { }
         public Job(string name, DateTime finishTime, ITask task) {
             Name = name;
             FinishTime = finishTime;
             TaskId = task.Id;
             Seconds = task.Time;
+            Task = task;
             //Seconds = (int)finishTime.Subtract(StartTime).TotalSeconds;
         }
 

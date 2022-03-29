@@ -14,8 +14,15 @@ using System.Xml.Serialization;
 
 namespace merchantClone.Models
 {
+    [Serializable]
+    public class RewardItem
+    {
+        public int Id { get; set; }
+        public int Quantity { get; set; }
+        public RewardItem() { }
+    }
 
-
+    [Serializable]
     public class InventoryItem
     {
         private Item _item;
@@ -74,8 +81,8 @@ namespace merchantClone.Models
         [JsonConverter(typeof(StringEnumConverter))] 
         public CrafterRole BelongsTo { get; set; }
         public List<RecipeItem> RecipeItems { get; set; } = new List<RecipeItem>();
+        public List<RewardItem> RewardItems { get; set; } = new List<RewardItem>();
         public int Time { get; set; }
-        public List<Item> Reward { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public Recipe() { }
         public Recipe(Item item, int level, CrafterRole belongsTo, List<RecipeItem> recipeItems)

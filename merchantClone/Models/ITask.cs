@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Xml.Serialization;
 
 namespace merchantClone.Models
 {
@@ -9,6 +10,6 @@ namespace merchantClone.Models
         string Name { get; set; }
         int RequiredLevel { get; set; }
         int Time { get; set; }
-        List<Item> Reward { get; set; }
+        List<RewardItem> RewardItems { get; set; }
     }
 }

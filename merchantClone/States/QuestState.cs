@@ -12,6 +12,7 @@ namespace merchantClone.States
     {
         private Quest _quest;
         private Hero _hero;
+        private string zone = "deep jungle";
 
         public QuestState(Game1 game, GraphicsDevice graphics, ContentManager content, Quest quest, Hero hero) : base(game, graphics, content)
         {
@@ -34,6 +35,7 @@ namespace merchantClone.States
                 Position = new Vector2(_vW - _buttonTexture.Width, _vH - _buttonTexture.Height),
                 Text = ""
             };
+            startQuest.Touch += StartQuest_Click;
 
             _components = new List<Component>
             {
@@ -43,8 +45,10 @@ namespace merchantClone.States
             };
         }
 
-        private void StartQuest_Click()
+        private void StartQuest_Click(object sender, EventArgs e)
         {
+            _hero.AssignTask(_quest);
+            _game.ChangeState(new HeroesMenuState(_game, _graphicsDevice, _content));
             //_hero.Ass
         }
 
