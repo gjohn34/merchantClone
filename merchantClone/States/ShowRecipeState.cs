@@ -97,6 +97,7 @@ namespace merchantClone.States
 
         private void CreateButton_Click(object sender, EventArgs e)
         {
+            GameInfo.Instance.ReduceInventory(_recipe.RecipeItems);
             _crafter.AssignTask(_recipe);
             _game.ChangeState(new CraftingMenuState(_game, _graphicsDevice, _content));
         }

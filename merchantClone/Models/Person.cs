@@ -57,6 +57,14 @@ namespace merchantClone.Models
         {
             return 100;
         }
+        internal void AssignTask(ITask task)
+        {
+            GameInfo.Instance.ReduceGold(task.Cost);
+            DateTime now = DateTime.Now;
+            DateTime finish = now.AddSeconds(task.Time);
+            Task = new Job(task.Name, finish, task);
+            SaveFile.Save();
+        }
         #endregion
     }
 }

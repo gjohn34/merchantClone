@@ -193,7 +193,6 @@ namespace merchantClone.Controls
         {
             int rowHeight = 200;
             int margin = 50;
-            Console.WriteLine(Rectangle);
             return _y - ParentList.IndexOf(this);
         }
 

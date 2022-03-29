@@ -177,7 +177,7 @@ namespace merchantClone.States
         {
             if (crafter.Task != null && crafter.Task.IsDone())
             {
-                GameInfo.Instance.IncreaseInventory(crafter.Task.RecipeId);
+                GameInfo.Instance.IncreaseInventory(crafter.Task.TaskId);
                 crafter.FinishTask();
                 _scrollComponents.Find(x => x.Components()[2] == sender).Refresh();
             } else

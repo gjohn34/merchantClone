@@ -64,12 +64,16 @@ namespace merchantClone.Controls
         #endregion
 
         #region Methods
-        public Button(Texture2D texture, SpriteFont font)
+        public Button(Texture2D texture, SpriteFont font, EventHandler e = null)
         {
             _texture = texture;
             _font = font;
             PenColour = Color.Black;
             Disabled = false;
+            if (e != null)
+            {
+                Touch = e;
+            }
         }
 
         public override void Draw(GameTime gametime, SpriteBatch spriteBatch)

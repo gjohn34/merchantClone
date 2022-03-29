@@ -139,7 +139,7 @@ namespace merchantClone.States
 
         private void Job_Touch(object sender, EventArgs e, Hero hero)
         {
-            _game.ChangeState(new MapState(_game, _graphicsDevice, _content));
+            _game.ChangeState(new MapState(_game, _graphicsDevice, _content, hero));
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)

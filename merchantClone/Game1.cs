@@ -50,7 +50,7 @@ namespace merchantClone
             List<Recipe> recipes = Content.Load<List<Recipe>>("recipes");
             ItemDetails.Instance.LoadContent(items, recipes);
             //ControlSettings.UpdateSave(SaveFile.Load());
-            _currentState = new MapState(this, GraphicsDevice, Content);
+            _currentState = new HeroesMenuState(this, GraphicsDevice, Content);
             //_currentState = new CraftingMenuState(this, GraphicsDevice, Content, recipes[0]);
             // TODO: use this.Content to load your game content here
         }

@@ -51,6 +51,12 @@
 /processorParam:ContentType=merchantClone.Data.ItemReader, merchantClone
 /build:items.json
 
+#begin quests.json
+/importer:JsonContentImporter
+/processor:JsonContentProcessor
+/processorParam:ContentType=merchantClone.Data.QuestReader, merchantClone
+/build:quests.json
+
 #begin recipes.json
 /importer:JsonContentImporter
 /processor:JsonContentProcessor

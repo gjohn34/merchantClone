@@ -1,0 +1,27 @@
+﻿[
+	{
+		"Id": 1,
+		"Name": "Mountains",
+		"Cost": 1,
+		"RequiredLevel": 1,
+		"Time": 10,
+		"Enemy": {
+			"Name": "Iron Golem",
+			"HP": 10,
+			"Attack": 1,
+			"Defence": 1
+		}
+	}, {
+		"Id": 2,
+		"Name": "Woods",
+		"Cost": 1,
+		"RequiredLevel": 1,
+		"Time": 10,
+		"Enemy": {
+			"Name": "Oak Treant",
+			"HP": 10,
+			"Attack": 1,
+			"Defence": 1
+		}
+	}
+]

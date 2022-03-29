@@ -20,14 +20,14 @@ namespace merchantClone.Models
         public int Seconds { get; set; }
         public int ExperienceGain { get; set; }
         public Person BelongsTo { get; }
-        public int RecipeId { get; set; }
+        public int TaskId { get; set; }
         public Recipe Recipe { get; set; }
         public Job() { }
-        public Job(string name, DateTime finishTime, Recipe recipe) {
+        public Job(string name, DateTime finishTime, ITask task) {
             Name = name;
             FinishTime = finishTime;
-            RecipeId = recipe.Id;
-            Seconds = recipe.Time;
+            TaskId = task.Id;
+            Seconds = task.Time;
             //Seconds = (int)finishTime.Subtract(StartTime).TotalSeconds;
         }
 

@@ -105,6 +105,7 @@ namespace merchantClone.States
 
         private void StartJob_Click(object sender, EventArgs e, Recipe recipe)
         {
+            GameInfo.Instance.ReduceInventory(recipe.RecipeItems);
             _person.AssignTask(recipe);
             _game.ChangeState(new CraftingMenuState(_game, _graphicsDevice, _content));
         }

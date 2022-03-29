@@ -20,4 +20,8 @@ namespace merchantClone.Data
     {
 
     }
+    public class QuestReader : JsonContentTypeReader<List<Quest>>
+    {
+
+    }
 }

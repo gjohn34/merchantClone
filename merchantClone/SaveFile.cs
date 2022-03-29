@@ -78,7 +78,7 @@ namespace merchantClone
                     foreach (Crafter crafter in saveData.crafters)
                 {
                     if (crafter.Task != null)
-                        crafter.Task.Recipe = ItemDetails.GetRecipe(crafter.Task.RecipeId);
+                        crafter.Task.Recipe = ItemDetails.GetRecipe(crafter.Task.TaskId);
                     crafter.StartJobsList();
                 }
             } catch

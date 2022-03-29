@@ -103,6 +103,7 @@
     <None Include="Content\Content.mgcb" />
     <None Include="Content\Fonts\font.spritefont" />
     <None Include="Content\items.json" />
+    <None Include="Content\quests.json" />
     <None Include="Content\recipes.json" />
     <None Include="Properties\AndroidManifest.xml" />
   </ItemGroup>
