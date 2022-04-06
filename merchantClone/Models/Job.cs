@@ -19,7 +19,7 @@ namespace merchantClone.Models
         public DateTime FinishTime { get; set; }
         public DateTime StartTime { get; set; } = DateTime.Now;
         public int Seconds { get; set; }
-        public int ExperienceGain { get; set; }
+        //public int ExperienceGain { get; set; }
         public Person BelongsTo { get; }
         public int TaskId { get; set; }
         [XmlIgnore]

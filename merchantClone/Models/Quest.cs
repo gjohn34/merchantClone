@@ -18,8 +18,12 @@ namespace merchantClone.Models
         public int Cost { get; set; }
         public int RequiredLevel { get; set; }
         public int Time { get; set; }
+        public int MapX { get; set; }
+        public int MapY { get; set; }
         private static List<Quest> Quests { get; set; } = new List<Quest>();
         public List<RewardItem> RewardItems { get; set; } = new List<RewardItem>();
+        public int ExperienceGain { get; set; }
+
         public Quest() {
             Quests.Add(this);
         }

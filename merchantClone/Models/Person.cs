@@ -37,7 +37,7 @@ namespace merchantClone.Models
         {
             Console.WriteLine("Finished Task");
             GameInfo.Instance.IncreaseInventory(Job.Task.RewardItems);
-            CurrentXp += Job.ExperienceGain;
+            CurrentXp += Job.Task.ExperienceGain;
             if (CurrentXp >= TotalXp)
             {
                 HandleLevelUp();

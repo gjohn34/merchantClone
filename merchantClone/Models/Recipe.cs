@@ -83,6 +83,7 @@ namespace merchantClone.Models
         public List<RecipeItem> RecipeItems { get; set; } = new List<RecipeItem>();
         public List<RewardItem> RewardItems { get; set; } = new List<RewardItem>();
         public int Time { get; set; }
+        public int ExperienceGain { get; set; }
 
         public Recipe() { }
         public Recipe(Item item, int level, CrafterRole belongsTo, List<RecipeItem> recipeItems)

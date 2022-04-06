@@ -10,6 +10,7 @@ namespace merchantClone.Models
         string Name { get; set; }
         int RequiredLevel { get; set; }
         int Time { get; set; }
+        int ExperienceGain { get; set; }
         List<RewardItem> RewardItems { get; set; }
     }
 }

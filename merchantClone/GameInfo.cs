@@ -42,12 +42,13 @@ namespace merchantClone
             foreach (InventoryItem item in items)
                 _items.Add(new InventoryItem(item.Id, item.Quantity));
             //_items = new List<InventoryItem>{
-                //new InventoryItem() { Id = 1, Quantity = 100},
-                //new InventoryItem() { Id = 2, Quantity = 100},
-                //new InventoryItem() { Id = 3, Quantity = 100},
-                //new InventoryItem() { Id = 4, Quantity = 100},
-                //new InventoryItem() { Id = 5, Quantity = 100},
-                //new InventoryItem() { Id = 6, Quantity = 1},
+            //    new InventoryItem() { Id = 1, Quantity = 100},
+            //    new InventoryItem() { Id = 2, Quantity = 100},
+            //    new InventoryItem() { Id = 3, Quantity = 100},
+            //    new InventoryItem() { Id = 4, Quantity = 100},
+            //    new InventoryItem() { Id = 5, Quantity = 100},
+            //    new InventoryItem() { Id = 6, Quantity = 1},
+            //};
         }
 
         internal void IncreaseInventory(List<RewardItem> rewardItems)
@@ -134,14 +135,14 @@ namespace merchantClone
             _saveFile = saveData;
         }
         // TODO - Add Person
-         internal static void InitializeTimers(List<Crafter> crafters)
+         internal static void InitializeTimers(List<Person> people)
         {
             DateTime now = DateTime.Now;
-            foreach (Crafter crafter in crafters)
+            foreach (Person person in people)
             {
-                if (crafter.Job != null)
+                if (person.Job != null)
                 {
-                    crafter.Job.Seconds = (int)crafter.Job.FinishTime.Subtract(now).TotalSeconds;
+                    person.Job.Seconds = (int)person.Job.FinishTime.Subtract(now).TotalSeconds;
                 }
             }
         }

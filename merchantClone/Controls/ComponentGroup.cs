@@ -164,7 +164,6 @@ namespace merchantClone.Controls
     }
     public class MapGroup : ComponentRow
     {
-
         private Texture2D _background;
         private Component[] _components;
         private Button _button;
@@ -207,8 +206,9 @@ namespace merchantClone.Controls
 
         public override void UpdatePosition(GameTime gametime, Vector2 position)
         {
-
+            
             int vHeight = 1269;
+
             _button.Rectangle = new Rectangle(_x, (int)position.Y, 143, 143);
             _button.UpdatePosition(gametime, new Vector2(_x, position.Y - vHeight - 143 - 143));
         }

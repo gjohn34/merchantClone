@@ -139,14 +139,17 @@ namespace merchantClone.States
 
         private void Job_Touch(object sender, EventArgs e, Hero hero)
         {
-            if (hero.Job != null && hero.Job.IsDone())
+            if (hero.Job == null)
             {
-                hero.FinishTask();
-                _scrollComponents.Find(x => x.Components()[2] == sender).Refresh();
+                _game.ChangeState(new MapState(_game, _graphicsDevice, _content, hero));
             }
             else
             {
-                _game.ChangeState(new MapState(_game, _graphicsDevice, _content, hero));
+                if (hero.Job.IsDone())
+                {
+                    hero.FinishTask();
+                    _scrollComponents.Find(x => x.Components()[2] == sender).Refresh();
+                }
             }
         }
 

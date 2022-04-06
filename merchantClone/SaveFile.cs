@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.IO.IsolatedStorage;
+using System.Linq;
 using System.Xml.Serialization;
 
 namespace merchantClone
@@ -59,6 +60,8 @@ namespace merchantClone
 
         public static SaveGame Load()
         {
+            List<Person> f = new List<Person>();
+
             _dataFile = IsolatedStorageFile.GetStore(IsolatedStorageScope.User, null, null);
             XmlSerializer serializer = new XmlSerializer(typeof(SaveGame));
             SaveGame saveData = new SaveGame();
@@ -75,11 +78,17 @@ namespace merchantClone
                     _dataFile.Close();
                     _isolatedFileStream.Close();
                 }
-                    foreach (Crafter crafter in saveData.crafters)
+                foreach (Crafter crafter in saveData.crafters)
                 {
                     if (crafter.Job != null)
                         crafter.Job.Task = ItemDetails.GetRecipe(crafter.Job.TaskId);
+                    
                     crafter.StartJobsList();
+                }
+                foreach (Hero hero in saveData.heroes)
+                {
+                    if (hero.Job != null)
+                        hero.Job.Task = Quest.GetQuest(hero.Job.TaskId);
                 }
             } catch
             {
@@ -91,7 +100,7 @@ namespace merchantClone
             }
             GameInfo.InitializeInventory(saveData.items);
             GameInfo.InitializeGold(saveData.gold);
-            GameInfo.InitializeTimers(saveData.crafters);
+            //GameInfo.InitializeTimers(f);
             return saveData;
         }
 

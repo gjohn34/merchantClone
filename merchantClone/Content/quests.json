@@ -1,10 +1,29 @@
 ﻿[
 	{
 		"Id": 1,
-		"Name": "Mountains",
+		"Name": "Clearing",
 		"Zone": "deep jungle",
 		"Cost": 1,
 		"RequiredLevel": 1,
+		"Time": 2,
+		"Enemy": {
+			"Name": "Bushes",
+			"HP": 1,
+			"Attack": 1,
+			"Defence": 1
+		},
+		"RewardItems": [
+		],
+		"ExperienceGain": 100,
+		"MapX": 400,
+		"MapY": 100
+	},
+	{
+		"Id": 2,
+		"Name": "Cliff face",
+		"Zone": "deep jungle",
+		"Cost": 2,
+		"RequiredLevel": 2,
 		"Time": 10,
 		"Enemy": {
 			"Name": "Iron Golem",
@@ -12,14 +31,22 @@
 			"Attack": 1,
 			"Defence": 1
 		},
-		"RewardItems":  [{"Id": 1, "Quantity":  4}]
+		"RewardItems": [
+			{
+				"Id": 1,
+				"Quantity": 4
+			}
+		],
+		"ExperienceGain": 50,
+		"MapX": 100,
+		"MapY": 400
 	},
 	{
-		"Id": 2,
-		"Name": "Woods",
+		"Id": 3,
+		"Name": "Stumps",
 		"Zone": "deep jungle",
 		"Cost": 1,
-		"RequiredLevel": 1,
+		"RequiredLevel": 2,
 		"Time": 10,
 		"Enemy": {
 			"Name": "Oak Treant",
@@ -32,7 +59,9 @@
 				"Id": 2,
 				"Quantity": 4
 			}
-		]
-
+		],
+		"ExperienceGain": 50,
+		"MapX": 250,
+		"MapY": 800
 	}
 ]

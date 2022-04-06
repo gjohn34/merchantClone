@@ -15,6 +15,7 @@ namespace merchantClone.States
         private ScrollPane _scrollPane;
         private List<ComponentRow> _scrollComponents = new List<ComponentRow>();
         private Hero _hero;
+        private Texture2D _bg;
 
         public MapState(Game1 game, GraphicsDevice graphics, ContentManager content, Hero hero) : base(game, graphics, content)
         {
@@ -41,43 +42,49 @@ namespace merchantClone.States
             };
             #endregion
             _mapBackground = content.Load<Texture2D>("sprites/maps/map1");
-            //_r = new Rectangle(0, 0, _vW, _vH -_buttonTexture.Height);
-            //_r = new Rectangle(0, 0 - _vH - _buttonTexture.Height, _vW, _vH * 2);
             _r = new Rectangle(0, 0 - (_mapBackground.Height - _vH)  - 143, _vW, _mapBackground.Height);
-            //_r = new Rectangle(0, 0 - (_mapBackground.Height - _vH) - 143, _vW, _mapBackground.Height);
 
-            Rectangle r2 = new Rectangle(0, 0 - _mapBackground.Height - 143, _vW, _mapBackground.Height);
-
-            int yOffset = _r.Height - _buttonTexture.Height;
             // Hardcoded values for now, check scroll pane for originals
             int _rectanglewidth = 200;
             int _rowHeight = 143;
-            Texture2D bg = new Texture2D(_graphicsDevice, _rectanglewidth, _rowHeight);
+            _bg = new Texture2D(_graphicsDevice, _rectanglewidth, _rowHeight);
             Color[] compData = new Color[_rectanglewidth * _rowHeight];
             for (int i = 0; i < compData.Length; ++i)
             {
                 compData[i] = Color.Red;
             }
-            bg.SetData(compData);
+            _bg.SetData(compData);
 
-            _scrollComponents.Add(new MapGroup(
-                new Button(_buttonTexture, _buttonFont, (a,b) => QuestButton_Click(a,b, 1)) { Text = "1" },
-                new Rectangle(400, yOffset - 100, _vW, _buttonTexture.Height),
-                bg
-                )
-            );
-            _scrollComponents.Add(new MapGroup(
-                new Button(_buttonTexture, _buttonFont, (a, b) => QuestButton_Click(a, b, 2)) { Text = "2" },
-                new Rectangle(100, yOffset - 400, _vW, _buttonTexture.Height),
-                bg
-                )
-            );
-            _scrollComponents.Add(new MapGroup(
-                new Button(_buttonTexture, _buttonFont, (a, b) => QuestButton_Click(a, b, 3)) { Text = "3" },
-                new Rectangle(250, yOffset - 800, _vW, _buttonTexture.Height),
-                bg
-                )
-            );
+            List<Quest> quests = Quest.GetQuests();
+            foreach (Quest quest in quests)
+            {
+                if (_hero.Level >= quest.RequiredLevel)
+                {
+                    GenerateQuestComponent(quest);
+                } else
+                {
+                    break;
+                }
+            }
+
+            //_scrollComponents.Add(new MapGroup(
+            //    new Button(_buttonTexture, _buttonFont, (a,b) => QuestButton_Click(a,b, 1)) { Text = "Mountains" },
+            //    new Rectangle(400, yOffset - 100, _vW, _buttonTexture.Height),
+            //    bg
+            //    )
+            //);
+            //_scrollComponents.Add(new MapGroup(
+            //    new Button(_buttonTexture, _buttonFont, (a, b) => QuestButton_Click(a, b, 2)) { Text = "Forest" },
+            //    new Rectangle(100, yOffset - 400, _vW, _buttonTexture.Height),
+            //    bg
+            //    )
+            //);
+            //_scrollComponents.Add(new MapGroup(
+            //    new Button(_buttonTexture, _buttonFont, (a, b) => QuestButton_Click(a, b, 3)) { Text = "Clearing" },
+            //    new Rectangle(250, yOffset - 800, _vW, _buttonTexture.Height),
+            //    bg
+            //    )
+            //);
 
 
 
@@ -88,6 +95,18 @@ namespace merchantClone.States
                 texture: _buttonTexture,
                 background: _mapBackground
                 );
+        }
+
+        private void GenerateQuestComponent(Quest quest)
+        {
+            int yOffset = _r.Height - _buttonTexture.Height;
+
+            _scrollComponents.Add(new MapGroup(
+                new Button(_buttonTexture, _buttonFont, (a, b) => QuestButton_Click(a, b, 1)) { Text = quest.Name },
+                new Rectangle(quest.MapX, yOffset - quest.MapY, _vW, _buttonTexture.Height),
+                _bg
+                )
+            );
         }
 
         private void QuestButton_Click(object sender, EventArgs e, int id)
