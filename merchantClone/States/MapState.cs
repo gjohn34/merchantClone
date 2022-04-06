@@ -102,7 +102,7 @@ namespace merchantClone.States
             int yOffset = _r.Height - _buttonTexture.Height;
 
             _scrollComponents.Add(new MapGroup(
-                new Button(_buttonTexture, _buttonFont, (a, b) => QuestButton_Click(a, b, 1)) { Text = quest.Name },
+                new Button(_buttonTexture, _buttonFont, (a, b) => QuestButton_Click(a, b, quest.Id)) { Text = quest.Name },
                 new Rectangle(quest.MapX, yOffset - quest.MapY, _vW, _buttonTexture.Height),
                 _bg
                 )

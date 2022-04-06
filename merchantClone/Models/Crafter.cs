@@ -27,6 +27,10 @@ namespace merchantClone.Models
             _availableJobs = ItemDetails.GetRecipes().FindAll(recipe => recipe.BelongsTo == role);
             UpdateJobsList();
         }
+        public override void FinishTask()
+        {
+            base.FinishTask();
+        }
 
         public List<Recipe> GetJobs()
         {

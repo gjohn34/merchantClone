@@ -76,7 +76,7 @@ namespace merchantClone.States
             ComponentRow.ResetList();
 
             foreach (Recipe recipe in _person.GetJobs())
-               LoadRecipeComponents(recipe, !_showAll ? true : false);
+               LoadRecipeComponents(recipe, !_showAll);
 
             _allRecipes.Text = "Some";
             //_components[1].Text = !_showAll ? "All" : "Some";

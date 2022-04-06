@@ -5,7 +5,7 @@
 		"Name": "Iron Bar",
 		"Cost": 1,
 		"RequiredLevel": 1,
-		"Time": 500,
+		"Time": 5,
 		"BelongsTo": "Blacksmith",
 		"RecipeItems": [
 			{

@@ -14,7 +14,8 @@ namespace merchantClone
         private static GameInfo instance = null;
         private static readonly object padlock = new object();
         private static SaveGame _saveFile;
-        private static List<InventoryItem> _items;
+        //private static List<InventoryItem> _items;
+        private static List<Hero> _heroes;
 
         GameInfo()
         {
@@ -37,10 +38,11 @@ namespace merchantClone
         }
         internal static void InitializeInventory(List<InventoryItem> items)
         {
-            _items = new List<InventoryItem>();
+            _saveFile.items = new List<InventoryItem>();
             //_items = items;
+
             foreach (InventoryItem item in items)
-                _items.Add(new InventoryItem(item.Id, item.Quantity));
+                _saveFile.items.Add(new InventoryItem(item.Id, item.Quantity));
             //_items = new List<InventoryItem>{
             //    new InventoryItem() { Id = 1, Quantity = 100},
             //    new InventoryItem() { Id = 2, Quantity = 100},
@@ -56,15 +58,16 @@ namespace merchantClone
             //Recipe recipe = ItemDetails.GetRecipe(recipeId);
             foreach (RewardItem rewardItem in rewardItems)
             {
-                foreach (InventoryItem inventoryItem in _items)
+                foreach (InventoryItem inventoryItem in _saveFile.items)
                 {
                     if (inventoryItem.Item.Id == rewardItem.Id)
                     {
                         inventoryItem.Quantity += rewardItem.Quantity;
-                        break;
+                        goto AlreadyAdded;
                     }
                 }
-                _items.Add(new InventoryItem(rewardItem.Id, rewardItem.Quantity));
+                _saveFile.items.Add(new InventoryItem(rewardItem.Id, rewardItem.Quantity));
+                AlreadyAdded: { }
             }
         }
 
@@ -72,11 +75,15 @@ namespace merchantClone
         {
             foreach (RecipeItem recipeItem in recipeItems)
             {
-                foreach (InventoryItem inventoryItem in _items)
+                foreach (InventoryItem inventoryItem in _saveFile.items)
                 {
                     if (inventoryItem.Item == recipeItem.Item)
                     {
                         inventoryItem.Quantity -= recipeItem.Quantity;
+                        if (inventoryItem.Quantity <= 0)
+                        {
+                            _saveFile.items.Remove(inventoryItem);
+                        }
                         break;
                     }
                 }
@@ -85,8 +92,9 @@ namespace merchantClone
 
         public static List<InventoryItem> GetInventory()
         {
-            return _items;
+            return _saveFile.items;
         }
+
 
         internal bool CanMake(Recipe recipe)
         {
@@ -94,7 +102,7 @@ namespace merchantClone
             foreach (RecipeItem recipeItem in recipe.RecipeItems)
             {
                 bool inInventory = false;
-                foreach (InventoryItem inventoryItem in _items)
+                foreach (InventoryItem inventoryItem in _saveFile.items)
                 {
                     if (inventoryItem.Item == recipeItem.Item && inventoryItem.Quantity >= recipeItem.Quantity)
                     {
