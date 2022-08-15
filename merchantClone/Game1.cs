@@ -34,6 +34,7 @@ namespace merchantClone
             IsMouseVisible = true;
             _graphics.PreferredBackBufferHeight = height;
             _graphics.PreferredBackBufferWidth = width;
+            _graphics.IsFullScreen = true;
         }
 
         protected override void Initialize()
@@ -51,7 +52,8 @@ namespace merchantClone
             ItemDetails.Instance.LoadContent(items, recipes);
             Content.Load<List<Quest>>("quests");
             //ControlSettings.UpdateSave(SaveFile.Load());
-            _currentState = new HeroesMenuState(this, GraphicsDevice, Content);
+            _currentState = new MainMenuState(this, GraphicsDevice, Content);
+            //_currentState = new HeroesMenuState(this, GraphicsDevice, Content);
             //_currentState = new CraftingMenuState(this, GraphicsDevice, Content, recipes[0]);
             // TODO: use this.Content to load your game content here
         }
