@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using MonoGame.Extended;
 using System;
 using System.Collections.Generic;
 
@@ -210,7 +211,7 @@ namespace merchantClone.Controls
             int vHeight = 1269;
 
             _button.Rectangle = new Rectangle(_x, (int)position.Y, 143, 143);
-            _button.UpdatePosition(gametime, new Vector2(_x, position.Y - vHeight - 143 - 143));
+            _button.UpdatePosition(gametime, new Vector2(_x, position.Y - vHeight + 143 + 143));
         }
     }
 

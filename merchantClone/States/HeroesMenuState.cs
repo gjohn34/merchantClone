@@ -3,6 +3,7 @@ using merchantClone.Models;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using MonoGame.Extended;
 using System;
 using System.Collections.Generic;
 
@@ -14,6 +15,7 @@ namespace merchantClone.States
         private List<ComponentRow> _scrollComponents = new List<ComponentRow>();
         private int _margin = 25;
         private Button _newPerson;
+        private Rectangle _backgroundRectangle;
 
         public HeroesMenuState(Game1 game, GraphicsDevice graphics, ContentManager content) : base(game, graphics, content)
         {
@@ -54,6 +56,8 @@ namespace merchantClone.States
 
             };
 
+            _background = content.Load<Texture2D>("barracks");
+            _backgroundRectangle = new Rectangle(0, _buttonTexture.Height, _vW, _vH - (2 * _buttonTexture.Height));
 
             foreach (Hero hero in _saveData.heroes)
                 HeroComponent(hero);
@@ -104,7 +108,7 @@ namespace merchantClone.States
 
         private void HeroComponent(Hero hero)
         {
-            Button heroDetail = new Button(_buttonTexture, _buttonFont) { Position = new Vector2(10, 10), Text = hero.Role.ToString() + " " + hero.Level };
+            Button heroDetail = new Button(_buttonTexture, _buttonFont) { Position = new Vector2(10, 10), Text = hero.Role.ToString() };
             ProgressBar bar = new ProgressBar(_graphicsDevice, _buttonFont, hero.Job);
 
             Button job = new Button(_buttonTexture, _buttonFont);
@@ -122,7 +126,7 @@ namespace merchantClone.States
                 }
             } else
             {
-                job.Text = "rdy";
+                job.Text = "Go";
             }
             job.Touch += (object sender, EventArgs e) => Job_Touch(sender, e, hero);
             int rowHeight = 200;
@@ -157,7 +161,11 @@ namespace merchantClone.States
         {
 
             spriteBatch.Begin();
-            spriteBatch.Draw(_background, new Rectangle(0, 143, _vW, _heightAfterButtons), Color.White);
+            //spriteBatch.Draw(_background, new Rectangle(0, 143, _vW, _heightAfterButtons), Color.White);
+            spriteBatch.Draw(_background, _backgroundRectangle, Color.White);
+
+            spriteBatch.FillRectangle(new RectangleF(0, _vH - _buttonTexture.Height, _vW, _buttonTexture.Height), Color.White);
+
             spriteBatch.End();
 
             _scrollPane.Draw(gameTime, spriteBatch);

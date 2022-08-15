@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using merchantClone.Models;
+using MonoGame.Extended;
 
 namespace merchantClone.States
 {
@@ -15,6 +16,7 @@ namespace merchantClone.States
         private Button _newPerson;
         private ScrollPane _scrollPane;
         private Texture2D _comp;
+        private Rectangle _backgroundRectangle;
 
         public CraftingMenuState(Game1 game, GraphicsDevice graphics, ContentManager content) : base(game, graphics, content)
         {
@@ -53,11 +55,23 @@ namespace merchantClone.States
                 title,
                 goldLabel
             };
+            _background = content.Load<Texture2D>("forge");
+
+            _backgroundRectangle = new Rectangle(0, _buttonTexture.Height, _vW, _vH - (2 * _buttonTexture.Height));
+
+            //Texture2D rastaBackground = new Texture2D(_graphicsDevice, _vW, _vH);
+            //Color[] data = new Color[_vW * _vH];
+            //for (int i = 0; i < data.Length; ++i)
+            //{
+            //    data[i] = Color.Green;
+            //}
+            //rastaBackground.SetData(data);
+
 
             foreach (Crafter crafter in _saveData.crafters)
                 CrafterComponent(crafter);
 
-            _scrollPane = new ScrollPane(game, _scrollComponents, _newPerson, new Rectangle(0, _buttonTexture.Height, _vW, _vH - ((_buttonTexture.Height + _margin) * 2)), _buttonTexture);
+            _scrollPane = new ScrollPane(game, _scrollComponents, _newPerson, new Rectangle(0, _buttonTexture.Height, _vW, _vH - (_buttonTexture.Height * 2)), _buttonTexture);
 
         }
         private void BackButton_Click(object sender, EventArgs e)
@@ -72,7 +86,9 @@ namespace merchantClone.States
         {
 
             spriteBatch.Begin();
-            spriteBatch.Draw(_background, new Rectangle(0, 143, _vW, _heightAfterButtons), Color.White);
+            spriteBatch.Draw(_background, _backgroundRectangle, Color.White);
+            spriteBatch.FillRectangle(new RectangleF(0, _vH - _buttonTexture.Height, _vW, _buttonTexture.Height), Color.White);
+
             spriteBatch.End();
             _scrollPane.Draw(gameTime, spriteBatch);
 
@@ -129,7 +145,7 @@ namespace merchantClone.States
 
         private void CrafterComponent(Crafter crafter)
         {
-            Button recipes = new Button(_buttonTexture, _buttonFont) { Position = new Vector2(10, 10), Text = crafter.Role.ToString() + " " + crafter.Level };
+            Button recipes = new Button(_buttonTexture, _buttonFont) { Position = new Vector2(10, 10), Text = crafter.Role.ToString()};
             ProgressBar bar = new ProgressBar(_graphicsDevice, _buttonFont, crafter.Job);
 
             Button job = new Button(_buttonTexture, _buttonFont) { Position = new Vector2(_vW - _buttonTexture.Width, 100) };
@@ -146,7 +162,7 @@ namespace merchantClone.States
                 }
             } else
             {
-                job.Text = "rdy";
+                job.Text = "Go";
             }
             job.Touch += (object sender, EventArgs e) => Job_Touch(sender, e, crafter);
 

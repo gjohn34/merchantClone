@@ -3,6 +3,7 @@ using merchantClone.Models;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using MonoGame.Extended;
 using System;
 using System.Collections.Generic;
 
@@ -10,6 +11,8 @@ namespace merchantClone.States
 {
     public class HeroDetailsState : State
     {
+        private Rectangle _backgroundRectangle;
+
         public HeroDetailsState(Game1 game, GraphicsDevice graphicsDevice, ContentManager content, Hero hero) : base(game, graphicsDevice, content)
         {
             #region Buttons
@@ -22,7 +25,7 @@ namespace merchantClone.States
             backButton.Touch += BackButton_Click;
             #endregion
             #region Labels
-            StaticLabel title = new StaticLabel(_buttonTexture, _buttonFont, hero.Name + " the " + hero.Role + hero.Level.ToString())
+            StaticLabel title = new StaticLabel(_buttonTexture, _buttonFont, $"{hero.Name} the {hero.Role}\nLevel: {hero.Level}")
             {
                 Position = new Vector2(0, 0),
                 Rectangle = new Rectangle(0, 0, _vW, _buttonTexture.Height)
@@ -79,6 +82,8 @@ namespace merchantClone.States
             //dexterity
 
             #endregion
+            _background = content.Load<Texture2D>("barracks");
+            _backgroundRectangle = new Rectangle(0, _buttonTexture.Height, _vW, _vH - (2 * _buttonTexture.Height));
         }
 
         private void BackButton_Click(object sender, EventArgs e)
@@ -89,8 +94,11 @@ namespace merchantClone.States
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             spriteBatch.Begin();
+            spriteBatch.Draw(_background, _backgroundRectangle, Color.White);
+            spriteBatch.FillRectangle(new RectangleF(0, _vH - _buttonTexture.Height, _vW, _buttonTexture.Height), Color.White);
+
             // Top
-            spriteBatch.Draw(_buttonTexture, new Rectangle(0, 0, _vW, _vH - 100 - _buttonTexture.Height), Color.White);
+            //spriteBatch.Draw(_buttonTexture, new Rectangle(0, 0, _vW, _vH - 100 - _buttonTexture.Height), Color.White);
             // Bottom
             spriteBatch.Draw(_buttonTexture, new Rectangle(0, (int)(0.5 * _vH), _vW, (int)(0.5 * _vH) - _buttonTexture.Height), Color.White);
             foreach (Component component in _components)

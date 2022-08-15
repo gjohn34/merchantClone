@@ -137,20 +137,20 @@ namespace merchantClone.Controls
                                 y = 0;
                             }
                         }
-                    } else if (_background != null)
-                    {
-                        if ((int)_position.Y < 0)
-                        {
-                            y = 0;
-                        }
-                        else if ((int)_position.Y > -_rectangle.Y)
-                        {
-                            y = -_rectangle.Y;
-                        }
-                        else
-                        {
-                            y = (int)_position.Y;
-                        }
+                    //} else if (_background != null)
+                    //{
+                    //    if ((int)_position.Y < 0)
+                    //    {
+                    //        y = 0;
+                    //    }
+                    //    else if ((int)_position.Y > -_rectangle.Y)
+                    //    {
+                    //        y = -_rectangle.Y;
+                    //    }
+                    //    else
+                    //    {
+                    //        y = (int)_position.Y;
+                    //    }
                     }
                     //else
 

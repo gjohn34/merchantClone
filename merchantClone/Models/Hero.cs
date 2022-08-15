@@ -22,11 +22,11 @@ namespace merchantClone.Models
     public class Hero : Person
     {
         public HeroRole Role { get; set; }
-        public int MaxHp { get; set; }
-        public int CurrentHp { get; set; }
-        public int Strength { get; set; }
-        public int Intelligence { get; set; }
-        public int Dexterity { get; set; }
+        public int MaxHp { get; set; } = 10;
+        public int CurrentHp { get; set; } = 10;
+        public int Strength { get; set; } = 1;
+        public int Intelligence { get; set; } = 1;
+        public int Dexterity { get; set; } = 1;
         public Hero() { }
         public Hero(string name, HeroRole role, [Optional] Job job)
         {

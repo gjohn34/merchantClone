@@ -11,6 +11,7 @@ using System.IO;
 using static merchantClone.SaveFile;
 using merchantClone.Models;
 using merchantClone.Data;
+using MonoGame.Extended;
 
 namespace merchantClone.States
 {
@@ -49,11 +50,11 @@ namespace merchantClone.States
             //    Position = new Vector2(_vW - (buttonTexture.Width * 3), _vH - buttonTexture.Height),
             //    Text = "Add Gold"
             //};
-            //Button resetButton = new Button(buttonTexture, buttonFont)
-            //{
-            //    Position = new Vector2(_vW - (buttonTexture.Width * 2), _vH - buttonTexture.Height),
-            //    Text = "reset"
-            //};
+            Button resetButton = new Button(buttonTexture, buttonFont)
+            {
+                Position = new Vector2(_vW - (buttonTexture.Width * 2), _vH - buttonTexture.Height),
+                Text = "reset"
+            };
             //StaticLabel goldLabel = new StaticLabel(buttonTexture, buttonFont, _saveData.gold.ToString())
             //{
             //    Position = new Vector2(0.5f * _vW - 0.5f * buttonTexture.Width),
@@ -70,7 +71,7 @@ namespace merchantClone.States
             heroesButton.Touch += HeroesButton_Click;
             //saveButton.Touch += SaveButton_Click;
             //goldButton.Touch += GoldButton_Click;
-            //resetButton.Touch += ResetButton_Click;
+            resetButton.Touch += ResetButton_Click;
             inventoryButton.Touch += InventoryButton_Click;
 
             StaticLabel title = new StaticLabel(buttonTexture, buttonFont, "Main")
@@ -84,7 +85,7 @@ namespace merchantClone.States
                 heroesButton,
                 //saveButton,
                 //goldButton,
-                //resetButton,
+                resetButton,
                 inventoryButton,
                 title,
                 //goldLabel
@@ -134,6 +135,8 @@ namespace merchantClone.States
 
             spriteBatch.Begin();
             spriteBatch.Draw(_background, _backgroundRectangle, Color.White);
+            spriteBatch.FillRectangle(new RectangleF(0,_vH - _buttonTexture.Height,_vW,_buttonTexture.Height), Color.White);
+
             foreach (Component component in _components)
                 component.Draw(gameTime, spriteBatch);
             spriteBatch.End();

@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input.Touch;
+using MonoGame.Extended;
 using System;
 using System.Collections.Generic;
 
@@ -26,7 +27,6 @@ namespace merchantClone.States
 
         #endregion
         #region Properties
-        public string Text { get; set; }
         public Color PenColour { get; set; }
         public Rectangle TouchRectangle
         {
@@ -56,53 +56,58 @@ namespace merchantClone.States
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            var colour = Color.White;
-            if (_borderTexture == null)
-            {
-                _borderTexture = new Texture2D(spriteBatch.GraphicsDevice, 1, 1);
-                _borderTexture.SetData<Color>(new Color[] { Color.White });
-            }
-            int width = (int)Math.Ceiling(_font.MeasureString("qty").Length());
-            int height = 100;
-            _fontBackground = new Texture2D(spriteBatch.GraphicsDevice, width, height);
-            Color[] data = new Color[width * height];
-            for (int i = 0; i < data.Length; ++i)
-            {
-                data[i] = Color.White;
-            }
-            _fontBackground.SetData(data);
-            spriteBatch.Draw(_sprite, Rectangle, colour);
+            spriteBatch.FillRectangle(new RectangleF(Rectangle.X, Rectangle.Y, Rectangle.Width, Rectangle.Height),Color.White * 0.3f);
+
+            //var colour = Color.White;
+            //if (_borderTexture == null)
+            //{
+            //    _borderTexture = new Texture2D(spriteBatch.GraphicsDevice, 1, 1);
+            //    _borderTexture.SetData<Color>(new Color[] { Color.White });
+            //}
+            //int width = (int)Math.Ceiling(_font.MeasureString("qty").Length());
+            //int height = 100;
+            //_fontBackground = new Texture2D(spriteBatch.GraphicsDevice, width, height);
+            //Color[] data = new Color[width * height];
+            //for (int i = 0; i < data.Length; ++i)
+            //{
+            //    data[i] = Color.White;
+            //}
+            //_fontBackground.SetData(data);
+            spriteBatch.Draw(_sprite, Rectangle, Color.White);
 
 
             // top left to left bottom
-            spriteBatch.Draw(_borderTexture, new Rectangle(Rectangle.X, Rectangle.Y, 1, Rectangle.Height + (int)(0.5 * _vPadding)), Color.Black);
-            
-            // top left to top right
-            spriteBatch.Draw(_borderTexture, new Rectangle(Rectangle.X, Rectangle.Y, Rectangle.Width + 1, 1), Color.Black);
-            
-            // top right to bottom right
-            spriteBatch.Draw(_borderTexture, new Rectangle(Rectangle.X + Rectangle.Width, Rectangle.Y, 1, Rectangle.Height + (int)(0.5 * _vPadding)), Color.Black);
-            
-            //bottom left to bottom right
-            spriteBatch.Draw(_borderTexture, new Rectangle(Rectangle.X, Rectangle.Y + Rectangle.Height + (int)(0.5 * _vPadding), Rectangle.Width + 1, 1), Color.Black);
+            //spriteBatch.Draw(_borderTexture, new Rectangle(Rectangle.X, Rectangle.Y, 1, Rectangle.Height + (int)(0.5 * _vPadding)), Color.Black);
 
-            if (!string.IsNullOrEmpty(Text))
-            {
-                var x = (Rectangle.X + Rectangle.Width / 2) - (_font.MeasureString(Text).X / 2);
-                var y = (Rectangle.Y + Rectangle.Height + 25) - (_font.MeasureString(Text).Y / 2);
+            //// top left to top right
+            //spriteBatch.Draw(_borderTexture, new Rectangle(Rectangle.X, Rectangle.Y, Rectangle.Width + 1, 1), Color.Black);
 
-                spriteBatch.DrawString(_font, Text, new Vector2(x, y), PenColour);
-            }
+            //// top right to bottom right
+            //spriteBatch.Draw(_borderTexture, new Rectangle(Rectangle.X + Rectangle.Width, Rectangle.Y, 1, Rectangle.Height + (int)(0.5 * _vPadding)), Color.Black);
+
+            ////bottom left to bottom right
+            //spriteBatch.Draw(_borderTexture, new Rectangle(Rectangle.X, Rectangle.Y + Rectangle.Height + (int)(0.5 * _vPadding), Rectangle.Width + 1, 1), Color.Black);
+
+
+            //if (!string.IsNullOrEmpty(Text))
+            //{
+            //    var x = (Rectangle.X + Rectangle.Width / 2) - (_font.MeasureString(Text).X / 2);
+            //    var y = (Rectangle.Y + Rectangle.Height + 25) - (_font.MeasureString(Text).Y / 2);
+
+            //    spriteBatch.DrawString(_font, Text, new Vector2(x, y), PenColour);
+            //}
             if (_isPressed)
             {
                 // TODO hardcoding 5, replace this with a qty var
                 //var x = (Rectangle.X + Rectangle.Width / 2) - (_font.MeasureString("5").X / 2);
                 //var y = (Rectangle.Y + Rectangle.Height + 25) - (_font.MeasureString("5").Y / 2);
                 //spriteBatch.DrawString()
-                var x = (Rectangle.X + Rectangle.Width / 2) - (_font.MeasureString("grade").X / 2);
-                var y = (Rectangle.Y + Rectangle.Height / 2);
-                spriteBatch.Draw(_fontBackground, new Rectangle((int)Rectangle.X,(int)y,200, 100), Color.White);
-                spriteBatch.DrawString(_font, "grade", new Vector2(x, y), PenColour);
+                int width = (int)_font.MeasureString(Text).X + 20;
+                int height = (int)_font.LineSpacing;
+                int y = (Rectangle.Y + Rectangle.Height / 2);
+                spriteBatch.FillRectangle(new RectangleF(Rectangle.X, y, width, height), new Color(255, 255, 255, 0.5f * 255));
+                //spriteBatch.Draw(_fontBackground, new Rectangle((int)Rectangle.X,y, width, height), Color.White);
+                spriteBatch.DrawString(_font, Text, new Vector2(Rectangle.X, y), PenColour);
             }
         }
 
@@ -127,9 +132,12 @@ namespace merchantClone.States
     public  class InventoryState : State
     {
         private List<ItemBox> _inventoryComponents = new List<ItemBox>();
+        private Rectangle _backgroundRectangle;
+
         public InventoryState(Game1 game, GraphicsDevice graphicsDevice, ContentManager content) : base(game, graphicsDevice, content)
         {
-
+            _background = content.Load<Texture2D>("storeroom");
+            _backgroundRectangle = new Rectangle(0, _buttonTexture.Height, _vW, _vH - 2 * _buttonTexture.Height);
             int x = 20;
             int y = _buttonTexture.Height + 50;
             int objWidth = (int)Math.Ceiling((decimal)_vW / 5);
@@ -146,7 +154,9 @@ namespace merchantClone.States
                 Texture2D sprite = content.Load<Texture2D>(path);
 
                 _inventoryComponents.Add(
-                    new ItemBox(sprite, _buttonFont, vPadding) { Rectangle = new Rectangle(x, y, objWidth, objHeight), Text = item.Quantity.ToString() }
+                    new ItemBox(sprite, _buttonFont, vPadding) { 
+                        Rectangle = new Rectangle(x, y, objWidth, objHeight), 
+                        Text = item.Item.Name}
                 );
                 if (x < _vW - (objWidth + hPadding))
                 {
@@ -186,6 +196,9 @@ namespace merchantClone.States
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             spriteBatch.Begin();
+            spriteBatch.Draw(_background, _backgroundRectangle, Color.White);
+            spriteBatch.FillRectangle(new RectangleF(0, _vH - _buttonTexture.Height, _vW, _buttonTexture.Height), Color.White);
+
             //spriteBatch.DrawString(_buttonFont, "hello", Vector2.Zero, Color.White);
             foreach (Component component in _components)
                 component.Draw(gameTime, spriteBatch);

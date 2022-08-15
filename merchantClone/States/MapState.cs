@@ -3,6 +3,7 @@ using merchantClone.Models;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using MonoGame.Extended;
 using System;
 using System.Collections.Generic;
 
@@ -122,6 +123,8 @@ namespace merchantClone.States
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             spriteBatch.Begin();
+            spriteBatch.FillRectangle(new RectangleF(0, _vH - _buttonTexture.Height, _vW, _buttonTexture.Height), Color.White);
+
             //spriteBatch.Draw(_mapBackground, _r, Color.White);
             foreach (Component component in _components)
                 component.Draw(gameTime, spriteBatch);

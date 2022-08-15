@@ -2,7 +2,7 @@
 	{
 		"Id": 1,
 		"ItemId": 3,
-		"Name": "Iron Bar",
+		"Name": "Iron\nBar",
 		"Cost": 1,
 		"RequiredLevel": 1,
 		"Time": 5,
@@ -23,7 +23,7 @@
 	{
 		"Id": 1,
 		"ItemId": 4,
-		"Name": "Iron Sheet",
+		"Name": "Iron\nSheet",
 		"Cost": 1,
 		"RequiredLevel": 1,
 		"Time": 5,
@@ -44,7 +44,7 @@
 	{
 		"Id": 3,
 		"ItemId": 5,
-		"Name": "Oak Lumber",
+		"Name": "Oak\nLumber",
 		"Time": 5,
 		"Cost": 1,
 		"RequiredLevel": 1,
@@ -65,7 +65,7 @@
 	{
 		"Id": 4,
 		"ItemId": 6,
-		"Name": "Iron Dagger",
+		"Name": "Iron\nDagger",
 		"Cost": 2,
 		"RequiredLevel": 1,
 		"Time": 10,
@@ -86,7 +86,7 @@
 	{
 		"Id": 5,
 		"ItemId": 7,
-		"Name": "Iron Short Sword",
+		"Name": "Iron\nShort\nSword",
 		"RequiredLevel": 1,
 		"Time": 10,
 		"Cost": 2,
@@ -107,7 +107,7 @@
 	{
 		"Id": 6,
 		"ItemId": 8,
-		"Name": "Iron Long Sword",
+		"Name": "Iron\nLong\nSword",
 		"RequiredLevel": 2,
 		"Cost": 3,
 		"Time": 20,
@@ -128,7 +128,7 @@
 	{
 		"Id": 7,
 		"ItemId": 9,
-		"Name": "Iron Boots",
+		"Name": "Iron\nBoots",
 		"RequiredLevel": 1,
 		"Time": 10,
 		"Cost": 2,
@@ -149,7 +149,7 @@
 	{
 		"Id": 8,
 		"ItemId": 10,
-		"Name": "Iron Gloves",
+		"Name": "Iron\nGloves",
 		"Time": 10,
 		"RequiredLevel": 1,
 		"Cost": 2,
@@ -170,7 +170,7 @@
 	{
 		"Id": 9,
 		"ItemId": 11,
-		"Name": "Iron Helmet",
+		"Name": "Iron\nHelmet",
 		"RequiredLevel": 2,
 		"Time": 20,
 		"Cost": 3,
@@ -191,7 +191,7 @@
 	{
 		"Id": 10,
 		"ItemId": 12,
-		"Name": "Oak Wand",
+		"Name": "Oak\nWand",
 		"RequiredLevel": 1,
 		"Cost": 2,
 		"Time": 10,
@@ -212,7 +212,7 @@
 	{
 		"Id": 11,
 		"ItemId": 13,
-		"Name": "Oak Staff",
+		"Name": "Oak\nStaff",
 		"RequiredLevel": 1,
 		"Time": 10,
 		"Cost": 2,
@@ -233,7 +233,7 @@
 	{
 		"Id": 10,
 		"ItemId": 14,
-		"Name": "Oak Club",
+		"Name": "Oak\nClub",
 		"RequiredLevel": 2,
 		"Time": 20,
 		"Cost": 3,
