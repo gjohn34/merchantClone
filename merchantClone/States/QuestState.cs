@@ -1,4 +1,5 @@
 ﻿using merchantClone.Controls;
+using merchantClone.Helpers;
 using merchantClone.Models;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -56,7 +57,7 @@ namespace merchantClone.States
                 _rewards.Add(new Item() { Name = "Nothing" });
             }
             _backgroundRectangle = new Rectangle(0, _buttonTexture.Height, _vW, _vH - 2 * _buttonTexture.Height);
-            _text = WrapText(quest.Description, 0.4f * _vW);
+            _text = TextWrapper.WrapText(quest.Description, 0.4f * _vW, _buttonFont);
             _textHeight = (int)_buttonFont.MeasureString(_text).Y;
             int modalStart = _vH - (2 * _buttonTexture.Height) - ((_rewards.Count + 4) * _buttonFont.LineSpacing) - _textHeight;
             _modalBackground = new RectangleF(
@@ -66,36 +67,6 @@ namespace merchantClone.States
                     _vH - modalStart - _buttonTexture.Height
             );
 
-        }
-
-        private string WrapText(string text, float width)
-        {
-            if (_buttonFont.MeasureString(text).X < width)
-            {
-                return text;
-            }
-
-            string[] words = text.Split(' ');
-            StringBuilder wrappedText = new StringBuilder();
-            float linewidth = 0f;
-            float spaceWidth = _buttonFont.MeasureString(" ").X;
-            for (int i = 0; i < words.Length; ++i)
-            {
-                Vector2 size = _buttonFont.MeasureString(words[i]);
-                if (linewidth + size.X < width)
-                {
-                    linewidth += size.X + spaceWidth;
-                }
-                else
-                {
-                    wrappedText.Append("\n");
-                    linewidth = size.X + spaceWidth;
-                }
-                wrappedText.Append(words[i]);
-                wrappedText.Append(" ");
-            }
-
-            return wrappedText.ToString();
         }
 
         private void StartQuest_Click(object sender, EventArgs e)

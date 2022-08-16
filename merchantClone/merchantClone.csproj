@@ -54,6 +54,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="Mono.Android" />
   </ItemGroup>
@@ -62,6 +63,7 @@
     <Compile Include="Component.cs" />
     <Compile Include="Controls\ScrollPane.cs" />
     <Compile Include="GameInfo.cs" />
+    <Compile Include="Helpers\TextWrapper.cs" />
     <Compile Include="ItemDetails.cs" />
     <Compile Include="ControlSettings.cs" />
     <Compile Include="Controls\Button.cs" />

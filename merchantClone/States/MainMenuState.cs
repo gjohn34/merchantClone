@@ -12,6 +12,7 @@ using static merchantClone.SaveFile;
 using merchantClone.Models;
 using merchantClone.Data;
 using MonoGame.Extended;
+using merchantClone.Helpers;
 
 namespace merchantClone.States
 {
@@ -19,6 +20,11 @@ namespace merchantClone.States
     {
         private List<DynamicLabel> _labels;
         private Rectangle _backgroundRectangle;
+        private string _text;
+        private int _textHeight;
+        private RectangleF _modalBackground;
+        private bool _help = false;
+
 
         // TODO - Move load into game1, pass gold around
 
@@ -39,6 +45,7 @@ namespace merchantClone.States
                 Position = new Vector2(_vW - buttonTexture.Width, _vH - buttonTexture.Height),
                 Text = "Quest"
             };
+            #region DEBUG
             // Debug
             //Button saveButton = new Button(buttonTexture, buttonFont)
             //{
@@ -50,16 +57,17 @@ namespace merchantClone.States
             //    Position = new Vector2(_vW - (buttonTexture.Width * 3), _vH - buttonTexture.Height),
             //    Text = "Add Gold"
             //};
-            Button resetButton = new Button(buttonTexture, buttonFont)
-            {
-                Position = new Vector2(_vW - (buttonTexture.Width * 2), _vH - buttonTexture.Height),
-                Text = "reset"
-            };
             //StaticLabel goldLabel = new StaticLabel(buttonTexture, buttonFont, _saveData.gold.ToString())
             //{
             //    Position = new Vector2(0.5f * _vW - 0.5f * buttonTexture.Width),
             //    Text = _saveData.gold.ToString()
             //};
+            #endregion
+            Button resetButton = new Button(buttonTexture, buttonFont)
+            {
+                Position = new Vector2(_vW - (buttonTexture.Width * 2), _vH - buttonTexture.Height),
+                Text = "reset"
+            };
 
             Button inventoryButton = new Button(buttonTexture, buttonFont)
             {
@@ -67,12 +75,19 @@ namespace merchantClone.States
                 Text = "Items"
             };
 
-            craftingButton.Touch += CraftingButton_Click;
-            heroesButton.Touch += HeroesButton_Click;
-            //saveButton.Touch += SaveButton_Click;
+            Button helpButton = new Button(buttonTexture, buttonFont)
+            {
+                Position = new Vector2(buttonTexture.Width, _vH - buttonTexture.Height),
+                Text = "Help"
+            };
+
+            craftingButton.Touch += (a,b) => _game.ChangeState(new CraftingMenuState(_game, _graphicsDevice, _content));
+            heroesButton.Touch += (a,b) => _game.ChangeState(new HeroesMenuState(_game, _graphicsDevice, _content));
+            //saveButton.Touch += (a,b) => SaveFile.Save();
             //goldButton.Touch += GoldButton_Click;
             resetButton.Touch += ResetButton_Click;
-            inventoryButton.Touch += InventoryButton_Click;
+            inventoryButton.Touch += (a,b) => _game.ChangeState(new InventoryState(_game, _graphicsDevice, _content));
+            helpButton.Touch += (a,b) => _help = !_help;
 
             StaticLabel title = new StaticLabel(buttonTexture, buttonFont, "Main")
             {
@@ -88,44 +103,38 @@ namespace merchantClone.States
                 resetButton,
                 inventoryButton,
                 title,
+                helpButton
                 //goldLabel
             };
-
-            //_labels = new List<S>
-            //{
-            //    goldLabel
-            //};
-
-
+            _backgroundRectangle = new Rectangle(0, _buttonTexture.Height, _vW, _vH - 2 * _buttonTexture.Height);
+            _text = TextWrapper.WrapText("Yo!\nRight now, you have no items, no crafters and no heroes. But you do have gold.\nStart by touching 'Quest' and hiring a hero. Send that hero out on a quest. They'll bring back items which can be seen by touching the 'Items' button.\nThose items are used to craft equipment which can be equipped to your heroes (NOT IMPLEMENTED) to send them out on stronger quests (NOT IMPLEMENTED)\nFor now, its super basic and timers are static but will gradually increase the further you go (NOT IMPLEMENTED)", 0.5f * _vW, _buttonFont);
+            _textHeight = (int)_buttonFont.MeasureString(_text).Y;
+            _modalBackground = new RectangleF(
+                    0.2f * _vW,
+                    0.2f * _vH,
+                    0.6f * _vW,
+                    0.5f * _vH
+            );
         }
 
-        private void SaveButton_Click(object sender, EventArgs e)
-        {
-            SaveFile.Save();
-        }
         private void ResetButton_Click(object sender, EventArgs e)
         {
             SaveFile.Reset();
             GameInfo.Instance.ResetData(SaveFile.Load());
 
         }
-        private void InventoryButton_Click(object sender, EventArgs e)
-        {
-            _game.ChangeState(new InventoryState(_game, _graphicsDevice, _content));
-        }
-        private void CraftingButton_Click(object sender, EventArgs e)
-        {
-            _game.ChangeState(new CraftingMenuState(_game, _graphicsDevice, _content));
-        }
-        private void HeroesButton_Click(object sender, EventArgs e)
-        {
-            _game.ChangeState(new HeroesMenuState(_game, _graphicsDevice, _content));
-        }
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
 
             spriteBatch.Begin();
             spriteBatch.Draw(_background, _backgroundRectangle, Color.White);
+            if (_help)
+            {
+            spriteBatch.FillRectangle(_modalBackground, Color.Black * 0.5f);
+            spriteBatch.DrawString(_buttonFont, _text, new Vector2(_modalBackground.X + 0.1f * _modalBackground.Width, _modalBackground.Y + 0.1f * _modalBackground.Height), Color.White);
+
+            }
+
             spriteBatch.FillRectangle(new RectangleF(0,_vH - _buttonTexture.Height,_vW,_buttonTexture.Height), Color.White);
 
             foreach (Component component in _components)
