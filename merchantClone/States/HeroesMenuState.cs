@@ -134,6 +134,7 @@ namespace merchantClone.States
             heroDetail.Touch += (object sender, EventArgs e) =>
                 _game.ChangeState(new HeroDetailsState(_game, _graphicsDevice, _content, hero));
 
+
             _scrollComponents.Add(new PersonGroup(
                 new Component[3] { heroDetail, bar, job },
                 new Rectangle(0, 0, _vH - ((_buttonTexture.Height + _margin) * 2), rowHeight),

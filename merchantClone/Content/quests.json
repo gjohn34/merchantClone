@@ -2,6 +2,7 @@
 	{
 		"Id": 1,
 		"Name": "Clearing",
+		"Description": "Nothing here but some small critters.",
 		"Zone": "deep jungle",
 		"Cost": 1,
 		"RequiredLevel": 1,
@@ -20,7 +21,8 @@
 	},
 	{
 		"Id": 2,
-		"Name": "Cliff face",
+		"Name": "Cliffs",
+		"Description":  "Rock golems populate this area. Broken chunks can be used for crafting weapons and armour.",
 		"Zone": "deep jungle",
 		"Cost": 2,
 		"RequiredLevel": 2,
@@ -44,6 +46,7 @@
 	{
 		"Id": 3,
 		"Name": "Stumps",
+		"Description":  "After lumberjacks from the neighboring village started work, treants have sprung up to defend what remains.",
 		"Zone": "deep jungle",
 		"Cost": 1,
 		"RequiredLevel": 2,
@@ -63,5 +66,37 @@
 		"ExperienceGain": 50,
 		"MapX": 250,
 		"MapY": 800
+	},
+	{
+		"Id": 4,
+		"Name": "Test",
+		"Description": "Iste odio nisi rerum facilis qui doloribus. Magni id qui delectus sed. Non et et perferendis dolore consectetur. Quam recusandae sapiente alias nihil deleniti quas repellendus. Ducimus veritatis necessitatibus ipsam eum perspiciatis ipsa.",
+		"Zone": "deep jungle",
+		"Cost": 1,
+		"RequiredLevel": 3,
+		"Time": 10,
+		"Enemy": {
+			"Name": "Foo",
+			"HP": 10,
+			"Attack": 1,
+			"Defence": 1
+		},
+		"RewardItems": [
+			{
+				"Id": 2,
+				"Quantity": 4
+			},
+			{
+				"Id": 3,
+				"Quantity": 1
+			},
+			{
+				"Id": 1,
+				"Quantity": 2
+			}
+		],
+		"ExperienceGain": 50,
+		"MapX": 150,
+		"MapY": 1000
 	}
 ]

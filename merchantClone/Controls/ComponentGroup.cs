@@ -150,7 +150,7 @@ namespace merchantClone.Controls
 
         public override void Refresh()
         {
-            _label.Text = "";
+            _label.Text = "Go";
             _bar.ResetTask();
         }
 
