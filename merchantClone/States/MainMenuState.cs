@@ -99,15 +99,6 @@ namespace merchantClone.States
 
         }
 
-        //private void GoldButton_Click(object sender, EventArgs e)
-        //{
-        //    _saveData.gold += 1;
-        //    foreach (DynamicLabel label in _labels)
-        //    {
-        //        label.Changed = true;
-        //    }
-        //    SaveFile.UpdateSaveData(_saveData);
-        //}
         private void SaveButton_Click(object sender, EventArgs e)
         {
             SaveFile.Save();

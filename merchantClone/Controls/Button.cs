@@ -40,7 +40,6 @@ namespace merchantClone.Controls
             set
             {
                 _touchRectangle = value;
-                //_touchRectangle = new Rectangle(value.X, value.Y + _texture.Height, value.Width, value.Height);
             }
 
         }
@@ -87,8 +86,6 @@ namespace merchantClone.Controls
             {
                 colour = Color.Black;
             }
-            //#1 1471 w/ vheight
-            //#1 3204 wo/ vheight
             spriteBatch.Draw(_texture, Rectangle, colour);
 
             if (!string.IsNullOrEmpty(Text))
@@ -107,8 +104,6 @@ namespace merchantClone.Controls
             _isPressed = false;
             _currentTouch = ControlSettings.GetTouchLocation();
             Rectangle rect = ControlSettings.GetTouchRectangle();
-            //#1 1616 w/ vheight
-            //#1 3347 wo/ vheight
             if (rect.Intersects(TouchRectangle))
             {
                 _isPressed = true;

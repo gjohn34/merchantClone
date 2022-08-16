@@ -15,12 +15,6 @@ using static merchantClone.SaveFile;
 
 namespace merchantClone.States
 {
-    //public class StateManager
-    //{
-    //    public State _previous;
-    //    public State _current;
-    //    public State _next;
-    //}
     public abstract class State
     {
         #region Fields

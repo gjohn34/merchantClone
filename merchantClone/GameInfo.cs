@@ -39,18 +39,9 @@ namespace merchantClone
         internal static void InitializeInventory(List<InventoryItem> items)
         {
             _saveFile.items = new List<InventoryItem>();
-            //_items = items;
 
             foreach (InventoryItem item in items)
                 _saveFile.items.Add(new InventoryItem(item.Id, item.Quantity));
-            //_items = new List<InventoryItem>{
-            //    new InventoryItem() { Id = 1, Quantity = 100},
-            //    new InventoryItem() { Id = 2, Quantity = 100},
-            //    new InventoryItem() { Id = 3, Quantity = 100},
-            //    new InventoryItem() { Id = 4, Quantity = 100},
-            //    new InventoryItem() { Id = 5, Quantity = 100},
-            //    new InventoryItem() { Id = 6, Quantity = 1},
-            //};
         }
 
         internal void IncreaseInventory(List<RewardItem> rewardItems)

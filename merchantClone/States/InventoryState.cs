@@ -41,7 +41,6 @@ namespace merchantClone.States
             set
             {
                 _touchRectangle = value;
-                //_touchRectangle = new Rectangle(value.X, value.Y + _texture.Height, value.Width, value.Height);
             }
 
         }
@@ -58,55 +57,14 @@ namespace merchantClone.States
         {
             spriteBatch.FillRectangle(new RectangleF(Rectangle.X, Rectangle.Y, Rectangle.Width, Rectangle.Height),Color.White * 0.3f);
 
-            //var colour = Color.White;
-            //if (_borderTexture == null)
-            //{
-            //    _borderTexture = new Texture2D(spriteBatch.GraphicsDevice, 1, 1);
-            //    _borderTexture.SetData<Color>(new Color[] { Color.White });
-            //}
-            //int width = (int)Math.Ceiling(_font.MeasureString("qty").Length());
-            //int height = 100;
-            //_fontBackground = new Texture2D(spriteBatch.GraphicsDevice, width, height);
-            //Color[] data = new Color[width * height];
-            //for (int i = 0; i < data.Length; ++i)
-            //{
-            //    data[i] = Color.White;
-            //}
-            //_fontBackground.SetData(data);
             spriteBatch.Draw(_sprite, Rectangle, Color.White);
 
-
-            // top left to left bottom
-            //spriteBatch.Draw(_borderTexture, new Rectangle(Rectangle.X, Rectangle.Y, 1, Rectangle.Height + (int)(0.5 * _vPadding)), Color.Black);
-
-            //// top left to top right
-            //spriteBatch.Draw(_borderTexture, new Rectangle(Rectangle.X, Rectangle.Y, Rectangle.Width + 1, 1), Color.Black);
-
-            //// top right to bottom right
-            //spriteBatch.Draw(_borderTexture, new Rectangle(Rectangle.X + Rectangle.Width, Rectangle.Y, 1, Rectangle.Height + (int)(0.5 * _vPadding)), Color.Black);
-
-            ////bottom left to bottom right
-            //spriteBatch.Draw(_borderTexture, new Rectangle(Rectangle.X, Rectangle.Y + Rectangle.Height + (int)(0.5 * _vPadding), Rectangle.Width + 1, 1), Color.Black);
-
-
-            //if (!string.IsNullOrEmpty(Text))
-            //{
-            //    var x = (Rectangle.X + Rectangle.Width / 2) - (_font.MeasureString(Text).X / 2);
-            //    var y = (Rectangle.Y + Rectangle.Height + 25) - (_font.MeasureString(Text).Y / 2);
-
-            //    spriteBatch.DrawString(_font, Text, new Vector2(x, y), PenColour);
-            //}
             if (_isPressed)
             {
-                // TODO hardcoding 5, replace this with a qty var
-                //var x = (Rectangle.X + Rectangle.Width / 2) - (_font.MeasureString("5").X / 2);
-                //var y = (Rectangle.Y + Rectangle.Height + 25) - (_font.MeasureString("5").Y / 2);
-                //spriteBatch.DrawString()
                 int width = (int)_font.MeasureString(Text).X + 20;
                 int height = (int)_font.LineSpacing;
                 int y = (Rectangle.Y + Rectangle.Height / 2);
                 spriteBatch.FillRectangle(new RectangleF(Rectangle.X, y, width, height), new Color(255, 255, 255, 0.5f * 255));
-                //spriteBatch.Draw(_fontBackground, new Rectangle((int)Rectangle.X,y, width, height), Color.White);
                 spriteBatch.DrawString(_font, Text, new Vector2(Rectangle.X, y), PenColour);
             }
         }

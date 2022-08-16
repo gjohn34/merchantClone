@@ -44,7 +44,6 @@ namespace merchantClone
         {
             ParentList = new List<ComponentRow>();
         }
-        //public abstract void SwapWith(SwapWith swapWith, Component component);
     }
 
 }

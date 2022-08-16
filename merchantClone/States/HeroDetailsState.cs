@@ -39,7 +39,6 @@ namespace merchantClone.States
             };
 
             #region Other
-            //spriteBatch.Draw(_buttonTexture, new Rectangle(0, (int)(0.5 * _vH), _vW, (int)(0.5 * _vH) - _buttonTexture.Height), Color.White);
             int index = 0;
             string[] text = new string[]
             {
@@ -75,11 +74,6 @@ namespace merchantClone.States
             };
             #endregion
 
-            //health,
-            //experience,
-            //strength,
-            //intelligence,
-            //dexterity
 
             #endregion
             _background = content.Load<Texture2D>("barracks");

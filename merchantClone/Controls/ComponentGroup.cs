@@ -98,7 +98,6 @@ namespace merchantClone.Controls
                 throw new System.Exception();
             }
             _left = (Button)components[0];
-            //_left = components[0] == null ? (Button)components[0] : null;
             _bar = (ProgressBar)components[1];
             _label = components[2] == null ? null : (Button)components[2];
             _components = components;

@@ -51,11 +51,7 @@ namespace merchantClone
             List<Recipe> recipes = Content.Load<List<Recipe>>("recipes");
             ItemDetails.Instance.LoadContent(items, recipes);
             Content.Load<List<Quest>>("quests");
-            //ControlSettings.UpdateSave(SaveFile.Load());
             _currentState = new MainMenuState(this, GraphicsDevice, Content);
-            //_currentState = new HeroesMenuState(this, GraphicsDevice, Content);
-            //_currentState = new CraftingMenuState(this, GraphicsDevice, Content, recipes[0]);
-            // TODO: use this.Content to load your game content here
         }
 
         protected override void Update(GameTime gameTime)
@@ -78,8 +74,6 @@ namespace merchantClone
                 _nextState = null;
             }
             _currentState.Update(gameTime);
-            //_currentState.PostUpdate(gameTime);
-            // TODO: Add your update logic here
             base.Update(gameTime);
         }
 
@@ -90,7 +84,6 @@ namespace merchantClone
             // TODO: Add your drawing code here
 
             _currentState.Draw(gameTime, _spriteBatch);
-            //_currentState.Draw(gameTime, _spriteBatch);
 
             base.Draw(gameTime);
 

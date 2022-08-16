@@ -53,13 +53,6 @@ namespace merchantClone.Controls
 
             // TODO - Move this to ComponentGroup construfctor
             _rowHeight = 200;
-            //_comp = new Texture2D(_graphics, _rectangle.Width, _rowHeight);
-            //Color[] compData = new Color[_rectangle.Width * _rowHeight];
-            //for (int i = 0; i < compData.Length; ++i)
-            //{
-            //    compData[i] = Color.Red;
-            //}
-            //_comp.SetData(compData);
 
         }
 
