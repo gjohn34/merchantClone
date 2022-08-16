@@ -109,7 +109,6 @@ namespace merchantClone
                 _dataFile.DeleteFile("file.sav");
             }
             _dataFile.Close();
-            _isolatedFileStream.Dispose();
         }
 
         public static void Save()
