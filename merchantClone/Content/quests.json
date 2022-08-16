@@ -4,9 +4,9 @@
 		"Name": "Clearing",
 		"Description": "Nothing here but some small critters.",
 		"Zone": "deep jungle",
-		"Cost": 1,
+		"Cost": 0,
 		"RequiredLevel": 1,
-		"Time": 2,
+		"Time": 5,
 		"Enemy": {
 			"Name": "Bushes",
 			"HP": 1,
@@ -48,7 +48,7 @@
 		"Name": "Stumps",
 		"Description":  "After lumberjacks from the neighboring village started work, treants have sprung up to defend what remains.",
 		"Zone": "deep jungle",
-		"Cost": 1,
+		"Cost": 2,
 		"RequiredLevel": 2,
 		"Time": 10,
 		"Enemy": {
