@@ -164,18 +164,21 @@ namespace merchantClone.Controls
     }
     public class MapGroup : ComponentRow
     {
-        private Texture2D _background;
         private Component[] _components;
         private Button _button;
+        private int _vHeight;
         private int _y;
         private int _x;
+        private int _backgroundHeight;
 
-        public MapGroup(Button button, Rectangle rectangle, Texture2D background)
+        public MapGroup(Button button, Rectangle rectangle, int vHeight, int backgroundHeight)
         {
             _button = button;
+            _vHeight = vHeight;
             _y = rectangle.Y;
             _x = rectangle.X;
             ParentList.Add(this);
+            _backgroundHeight = backgroundHeight;
 
         }
         public override Component[] Components()
@@ -192,7 +195,7 @@ namespace merchantClone.Controls
         {
             int rowHeight = 200;
             int margin = 50;
-            return _y - ParentList.IndexOf(this);
+            return _backgroundHeight - _y;
         }
 
         public override void Refresh()
@@ -207,10 +210,10 @@ namespace merchantClone.Controls
         public override void UpdatePosition(GameTime gametime, Vector2 position)
         {
             
-            int vHeight = 1269;
+            int vHeight = 1122;
 
             _button.Rectangle = new Rectangle(_x, (int)position.Y, 143, 143);
-            _button.UpdatePosition(gametime, new Vector2(_x, position.Y - vHeight + 143 + 143));
+            _button.UpdatePosition(gametime, new Vector2(_x, _vHeight - _y - 143 - 143));
         }
     }
 

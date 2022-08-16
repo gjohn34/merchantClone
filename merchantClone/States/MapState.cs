@@ -46,15 +46,15 @@ namespace merchantClone.States
             _r = new Rectangle(0, 0 - (_mapBackground.Height - _vH)  - 143, _vW, _mapBackground.Height);
 
             // Hardcoded values for now, check scroll pane for originals
-            int _rectanglewidth = 200;
-            int _rowHeight = 143;
-            _bg = new Texture2D(_graphicsDevice, _rectanglewidth, _rowHeight);
-            Color[] compData = new Color[_rectanglewidth * _rowHeight];
-            for (int i = 0; i < compData.Length; ++i)
-            {
-                compData[i] = Color.Red;
-            }
-            _bg.SetData(compData);
+            //int _rectanglewidth = 200;
+            //int _rowHeight = 143;
+            //_bg = new Texture2D(_graphicsDevice, _rectanglewidth, _rowHeight);
+            //Color[] compData = new Color[_rectanglewidth * _rowHeight];
+            //for (int i = 0; i < compData.Length; ++i)
+            //{
+            //    compData[i] = Color.Red;
+            //}
+            //_bg.SetData(compData);
 
             List<Quest> quests = Quest.GetQuests();
             foreach (Quest quest in quests)
@@ -104,8 +104,9 @@ namespace merchantClone.States
 
             _scrollComponents.Add(new MapGroup(
                 new Button(_buttonTexture, _buttonFont, (a, b) => QuestButton_Click(a, b, quest.Id)) { Text = quest.Name },
-                new Rectangle(quest.MapX, yOffset - quest.MapY, _vW, _buttonTexture.Height),
-                _bg
+                new Rectangle(quest.MapX, quest.MapY + 143, _vW, _buttonTexture.Height),
+                _vH,
+                _r.Height
                 )
             );
         }
